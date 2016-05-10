@@ -1,54 +1,18 @@
 # B2SHARE-Training
-Training material for the EUDAT B2SHARE service.
+This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://b2share.eudat.eu). It covers API usage and implementation and provides step-by-step implementation examples using Python.
 
-# Example script 'example.py'
-The examples below explain the basic usage of the B2SHARE service REST API. More information can be found on the REST API page. You can freely use the [training instance](https://trng-b2share.eudat.eu) of the B2SHARE service to test your applications. You need to register a new account using your institutional B2ACCESS credentials.
+All submodules have been set up to use the [B2SHARE training instance](https://b2share-trng.eudat.eu), which you can freely try and experiment with.
 
-## Deposition
+Please note that in order to use the services you need to register and log in.
 
-### STEP 0: Prepare your API application
-In order to use the REST API of the B2SHARE service you need to create a new API key to access the service. You can do this by generating one on your personal account. Log in to the service, navigate to your account page, click on the socket wrench next to 'Account', click on 'Applications', followed by 'New token' next to 'Personal access tokens'. See for a step-by-step guide the link above.
+This module is work in progress and subject to change. Since B2SHARE is currently in development, the API might change slightly as well. As soon as there are updates, this training module will be updated as well.
 
-The generated key needs to be stored in a file called `token` which is read every time one of the example functions is called.
+### Prerequisites
+This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers.
 
-### STEP 1: Create a new deposition
-To create a new deposition use the
-```python
-create_deposition()
-```
-function. It will register a test deposition in the service, but will not any files yet. A temporary file is created on your local file system.
+### Submodules
 
-### STEP 2: Upload a new file into a deposition object
-```python
-add_file('filename')
-```
-
-### STEP 3: List the files uploaded into a deposition object
-```python
-list_files()
-```
-
-### STEP 4: Commit deposition
-```python
-commit_deposition()
-```
-
-## Other uses
-Please note that these functional examples need an API key. See Step 0 in the section above.
-
-### List a specific record
-List a specific record registered in the service.
-```python
-list_specific_record('154')
-```
-
-### List all the records
-List all registered records in the service instance:
-```python
-list_records()
-```
-
-List registered records in the service instance paginated:
-```python
-list_records_pagination(3, 10)
-```
+Submodule | Contents
+------|-------------
+00_Getting_your_API_token.md | Information on registration and creating your API tokens for usage with the Python scripts
+10_Example_script.md | Example script with ready-made functions handling B2SHARE deposits

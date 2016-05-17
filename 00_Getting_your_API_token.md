@@ -10,9 +10,9 @@ Please make sure your machine has been properly setup to use Python and required
 This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials through B2ACCESS.
 
 ## The account page
-To create new tokens for personal use, you need to register them on the account tokens page of the [B2SHARE website](https://b2share.eudat.eu). After logging in, navigate to your [account page](https://b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.
+To create new tokens for personal use, you need to register them on the account tokens page of the [B2SHARE website](https://trng-b2share.eudat.eu). After logging in, navigate to your [account page](https://trng-b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.
 
-Click on the wrench next to 'Account' to go to your [profile settings page](https://b2share.eudat.eu/account/settings/profile). Select the bottom option in the left menu to go to the application and token [settings page](https://b2share.eudat.eu/account/settings/applications). Here you can register new application and tokens to use within your own applications and scripts.
+Click on the wrench next to 'Account' to go to your [profile settings page](https://trng-b2share.eudat.eu/account/settings/profile). Select the bottom option in the left menu to go to the application and token [settings page](https://trng-b2share.eudat.eu/account/settings/applications). Here you can register new application and tokens to use within your own applications and scripts.
 
 <img src="img/B2SHARE-applications.png" alt="B2SHARE account applications and tokens" text="B2SHARE account applications and tokens" style="width: 80%">
 
@@ -24,10 +24,10 @@ Click on the 'New token' button to generate a new personal access token. Enter a
 Click 'Save' to store the token on the server as well in order to make it usable in your applications.
 
 ## Programmatic implementation
-It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://b2share.eudat.eu).
+It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).
 
 ### Testing your token
-Launch a Python session and follow the steps below.
+Once you have generated your token it can be used and tested in your own applications. Launch a Python session and follow the steps below to check whether the token works.
 
 #### Read the token from file
 Assuming you have stored the token in a file named `token` and it is accessible from the current working directory, you can read it using the following commands:

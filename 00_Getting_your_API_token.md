@@ -57,7 +57,7 @@ To check whether the request succeeded, the `r` variable contains the HTTP respo
 The request was successfull.
 
 #### Display a record
-The response variable also contains the actual result of the request in JSON format. To display the first record, do the following:
+The response variable also contains the actual result of the request in JSON format. In this case, the result is all the records from the repository. To extract the first record, do the following:
 ```python
 >>> import json
 >>> result = json.loads(r.text)
@@ -65,7 +65,7 @@ The response variable also contains the actual result of the request in JSON for
 ```
 
 Using the JSON package the first record can be properly displayed:
-```
+```python
 >>> print json.dumps(records[0], indent=4)
 {
     "files": [

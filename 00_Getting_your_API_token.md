@@ -1,5 +1,7 @@
 # Getting you API token
-This guide will make sure you have an API token which is required to access the B2SHARE service programmatically. Every time you access the service using a script or application, you need to identify yourself using a generated personal access token. This token can be retrieved using the B2SHARE service website.
+This guide will enable you to have API tokens which are required to access the B2SHARE service programmatically. Every time you access the service using a script or application, you need to identify yourself using a generated personal access token. This token can be retrieved using the B2SHARE service website.
+
+Please note that tokens are for private use only and not to be shared with other persons or institutions. Sharing them enables other people to alter your deposits on your behalf.
 
 ## Setup your machine and connection
 Please make sure your machine has been properly setup to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -8,7 +10,7 @@ Please make sure your machine has been properly setup to use Python and required
 This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials through B2ACCESS.
 
 ## The account page
-Go to the [B2SHARE website](https://b2share.eudat.eu). After logging in, navigate to your [account page](https://b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.
+To create new tokens for personal use, you need to register them on the account tokens page of the [B2SHARE website](https://b2share.eudat.eu). After logging in, navigate to your [account page](https://b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.
 
 Click on the wrench next to 'Account' to go to your [profile settings page](https://b2share.eudat.eu/account/settings/profile). Select the bottom option in the left menu to go to the application and token [settings page](https://b2share.eudat.eu/account/settings/applications). Here you can register new application and tokens to use within your own applications and scripts.
 
@@ -20,3 +22,6 @@ Click on the 'New token' button to generate a new personal access token. Enter a
 <img src="img/B2SHARE-generate-token.png" alt="B2SHARE generate token" text="B2SHARE generate token">
 
 Click 'Save' to store the token on the server as well in order to make it usable in your applications.
+
+## Programmatic implementation
+It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://b2share.eudat.eu).

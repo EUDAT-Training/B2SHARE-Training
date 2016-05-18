@@ -29,7 +29,7 @@ It is not possible to programmatically register new or administer existing token
 Once you have generated your token it can be used and tested in your own applications. Launch a Python session and follow the steps below to check whether the token works.
 
 #### Read the token from file
-Assuming you have stored the token in a file named `token` and it is accessible from the current working directory, you can read it using the following commands:
+Assuming you have stored the token in a file named `token` and it is accessible from the current working directory, you can read it using the following commands in a Python session:
 ```python
 >>> f = open(r'token', 'r')
 >>> token = f.read()
@@ -47,6 +47,7 @@ We can use the token to display some deposits from the B2SHARE repository. Witho
 >>> import requests
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
 ```
+Most likely you will get a warning about insecure connections through HTTPS. You can ignore that for now.
 
 To check whether the request succeeded, the `r` variable contains the HTTP response code:
 ```python

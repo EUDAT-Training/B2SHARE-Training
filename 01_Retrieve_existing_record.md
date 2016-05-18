@@ -1,13 +1,13 @@
-# Retrieving an existing deposit
-In this guide module the retrieving of specific deposits will be explained. Using the information of a deposit or record, the corresponding files, metadata and other information can be used to automate data processing and transfer complete deposits to other services. For the B2SHARE service a record is the equivalent of a deposit and therefore these two terms are used interchangeably.
+# Retrieving an existing record
+In this guide module the retrieving of specific records will be explained. Using the information of a record, the corresponding files, metadata and other information can be used to automate data processing and transfer complete deposits to other services.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
 
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS.
 
-### Request the deposit
-To retrieve a specific record, the record ID of that deposit is required and needs to be sent through the API as well. In Python, the URL where the request is sent to, needs to be extended with the record ID.
+### Request the record
+To retrieve a specific record, the ID of that record is required and needs to be sent through the API as well. In Python, the URL where the request is sent to, needs to be extended with this record ID.
 
 First, the token is read from file in a Python session:
 ```python
@@ -30,7 +30,7 @@ To verify whether the request succeeded and see the result, print the variable `
 {"files": [{"url": "https://trng-b2share.eudat.eu/record/1/files/c33a933c-8202-11e3-92a1-005056943408.zip?version=1", "name": "c33a933c-8202-11e3-92a1-005056943408.zip", "size": 549252}], "domain": "linguistics", "description": "This is a small sample dataset from PDT 2.0. As such it can be released under a very permissive CC-BY license.", "contributors": [], "creator": ["Haji\u010d, Jan"], "checksum": "c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043", "title": "Prague Dependency Treebank 2.0 Sample Data", "alternate_identifier": "", "open_access": true, "keywords": ["treebank", "sample"], "version": "", "contact_email": "", "licence": "CC-BY 4.0", "uploaded_by": "stranak@ufal.mff.cuni.cz", "record_id": 1, "publication_date": "20-01-2014", "domain_metadata": {"quality": "release", "region": "Czechia", "project_name": "", "ling_resource_type": ["treebank"], "language_code": "ces Czech"}, "resource_type": [], "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9"}
 ```
 
-### Display your deposit
+### Display your record
 To improve the readability, use the JSON package. This package turns the reponse text in a easily processable data structure called a map:
 ```python
 >>> import json
@@ -77,7 +77,7 @@ To improve the readability, use the JSON package. This package turns the reponse
     "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9"
 }
 ```
-Our request was successfull and we now have all the information to process the deposit and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
+Our request was successfull and we now have all the information to process the record and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
 
 #### Getting specific metadata values
 To display specific information from the metadata, simply add the field name as an index to the `result` variable. For example, to solely display the checksum, do the following:
@@ -92,7 +92,7 @@ Similarly, the file name of the first file can be displayed using an additional 
 c33a933c-8202-11e3-92a1-005056943408.zip
 ```
 
-### Downloading a deposit file
+### Downloading files from a record
 In many cases, the corresponding files are needed to allow further processing of the data contained. A simple loop allows to get all files and store them at a specific location. Since all files are publically accessible, no authentication is required by token used earlier.
 
 To avoid overwriting any existing files, a specific download folder is created in the current working directory using the Python package `os`:

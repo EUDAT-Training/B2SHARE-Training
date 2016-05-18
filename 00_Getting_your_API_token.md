@@ -41,7 +41,7 @@ Test your reading by displaying the token:
 d4N8Ni7VOTfpQDIlUqTIcmYAjg...
 ```
 
-#### Get deposits
+#### Retrieve existing deposits
 We can use the token to display some deposits from the B2SHARE repository. Without explaining the detailed workings, the following command issues a request to get all records from the repository without doing verification of the source:
 ```python
 >>> import requests
@@ -57,7 +57,7 @@ To check whether the request succeeded, the `r` variable contains the HTTP respo
 The request was successfull.
 
 #### Display a record
-The response variable also contains the actual result of the request in JSON format. In this case, the result is all the records from the repository. To extract the first record, do the following:
+The response variable also contains the actual result text of the request in JSON format. In this case, the result is all the records from the repository. To extract the first record, do the following:
 ```python
 >>> import json
 >>> result = json.loads(r.text)

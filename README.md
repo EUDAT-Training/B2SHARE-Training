@@ -1,5 +1,5 @@
 # B2SHARE Training Module
-<img src="https://trng-b2share.eudat.eu/img/logo.png" style="float:right">) This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using programmatic interfaces. It covers API usage and implementation and provides step-by-step implementation examples using Python.
+<img src="img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo" style="float:right"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using programmatic interfaces. It covers API usage and implementation and provides step-by-step implementation examples using Python.
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 

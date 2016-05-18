@@ -21,4 +21,5 @@ Submodule | Contents
 ------|-------------
 [Getting your API token](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
 [Retrieve an existing record](01_Retrieve_existing_record.md) | Learn how to get deposit information of specific existing records
+[List existing records](02_List_existing_records.md) | Retrieve listings of records and paginate them
 [Example script](10_Example_script.md) | Example script with ready-made functions handling B2SHARE deposits

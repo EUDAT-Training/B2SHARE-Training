@@ -10,10 +10,13 @@ This module is work in progress and subject to change. Since B2SHARE is currentl
 ### Prerequisites
 This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers. In addition, all scripts are written in the [Python scripting](http://python.org) language. If you have no experience in programming or want to learn more about Python, it is highly recommended to follow [some](https://www.stavros.io/tutorials/python) [tuturials](http://pythonprogramminglanguage.com) or start [reading](https://en.wikibooks.org/wiki/Python_Programming) about it.
 
+### Important aspects
+
+
 ### Submodules
 
 Submodule | Contents
 ------|-------------
-[00_Getting_your_API_token.md](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
-[01_Retrieve_existing_deposit.md](01_Retrieve_existing_deposit.md) | Learn how to get deposit information of specific existing records
-[10_Example_script.md](10_Example_script.md) | Example script with ready-made functions handling B2SHARE deposits
+[Getting your API token](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
+[Retrieve an existing record](01_Retrieve_existing_deposit.md) | Learn how to get deposit information of specific existing records
+[Example script](10_Example_script.md) | Example script with ready-made functions handling B2SHARE deposits

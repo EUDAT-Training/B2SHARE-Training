@@ -8,11 +8,12 @@ Please note that in order to use the services you need to register your account 
 This module is work in progress and subject to change. Since B2SHARE is currently in development, the API might change as well. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://trng-b2share.eudat.eu/docs/b2share-rest-api) on the B2SHARE website.
 
 ### Prerequisites
-This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers.
+This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers. In addition, all scripts are written in the [Python scripting](http://python.org) language. If you have no experience in programming or want to learn more about Python, it is highly recommended to follow [some](https://www.stavros.io/tutorials/python) [tuturials](http://pythonprogramminglanguage.com) or start [reading](https://en.wikibooks.org/wiki/Python_Programming) about it.
 
 ### Submodules
 
 Submodule | Contents
 ------|-------------
 00_Getting_your_API_token.md | Information on registration and creating your API tokens for usage with the Python scripts
+01_Retrieve_existing_deposit.md | Learn how to get deposit information of specific existing records
 10_Example_script.md | Example script with ready-made functions handling B2SHARE deposits

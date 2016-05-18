@@ -4,9 +4,8 @@ This guide will enable you to have API tokens which are required to access the B
 Please note that tokens are for private use only and not to be shared with other persons or institutions. Sharing them enables other people to alter your deposits on your behalf.
 
 ## Setup your machine and connection
-Please make sure your machine has been properly setup to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
+Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
 
-## Account registration
 This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials or social ID through B2ACCESS.
 
 ## The account page

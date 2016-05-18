@@ -107,3 +107,4 @@ Using the JSON package the first record can be properly displayed:
     "resource_type": []
 }
 ```
+In this case, we have no influence on which records are retrieved. To retrieve a specific record in a similar manner, please follow the [next](00_Retrieve_existing_deposit.md) guide.

@@ -7,7 +7,7 @@ Please note that tokens are for private use only and not to be shared with other
 Please make sure your machine has been properly setup to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
 
 ## Account registration
-This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials through B2ACCESS.
+This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials or social ID through B2ACCESS.
 
 ## The account page
 To create new tokens for personal use, you need to register them on the account tokens page of the [B2SHARE website](https://trng-b2share.eudat.eu). After logging in, navigate to your [account page](https://trng-b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.

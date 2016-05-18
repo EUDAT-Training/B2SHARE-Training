@@ -22,7 +22,7 @@ Then, the request is set up:
 ```
 Most likely you will get a warning about insecure connections through HTTPS. You can ignore that for now.
 
-To verify whether the request succeeded and see the result, print the variable `r`:
+To verify whether the request succeeded and see the result, print the variable `r` and the response text:
 ```python
 >>> print r
 <Response [200]>
@@ -31,7 +31,7 @@ To verify whether the request succeeded and see the result, print the variable `
 ```
 
 ### Display your deposit
-To improve the readability, use the JSON package:
+To improve the readability, use the JSON package. This package turns the reponse text in a easily processable data structure called a map:
 ```python
 >>> import json
 >>> result = json.loads(r.text)
@@ -77,7 +77,7 @@ To improve the readability, use the JSON package:
     "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9"
 }
 ```
-Our request was successfull and we now have all the information to process the deposit and its metadata and files.
+Our request was successfull and we now have all the information to process the deposit and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
 
 #### Getting specific metadata values
 To display specific information from the metadata, simply add the field name as an index to the `result` variable. For example, to solely display the checksum, do the following:
@@ -89,7 +89,7 @@ c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043
 Similarly, the file name of the first file can be displayed using an additional numerical index on the `files` key followed by the `name` index:
 ```python
 >>> print result["files"][0]["name"]
-c33a933c-8202-11e3-92a1-005056943408.zip
+c33a933c\-8202\-11e3\-92a1\-005056943408.zip
 ```
 
 ### Downloading a deposit file
@@ -109,3 +109,4 @@ Using the `urllib` package, files can be directly downloaded by URL:
 ... 
 (u'download/c33a933c-8202-11e3-92a1-005056943408.zip', <httplib.HTTPMessage instance at 0x10ca86098>)
 ```
+Since no errors are returned or exception raised, the download has been successfull and the files are available on the system.

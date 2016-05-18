@@ -14,6 +14,6 @@ This training modules assumes you have knowledge about data management basics su
 
 Submodule | Contents
 ------|-------------
-00_Getting_your_API_token.md | Information on registration and creating your API tokens for usage with the Python scripts
-01_Retrieve_existing_deposit.md | Learn how to get deposit information of specific existing records
-10_Example_script.md | Example script with ready-made functions handling B2SHARE deposits
+[00_Getting_your_API_token.md](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
+[01_Retrieve_existing_deposit.md](01_Retrieve_existing_deposit.md) | Learn how to get deposit information of specific existing records
+[10_Example_script.md](10_Example_script.md) | Example script with ready-made functions handling B2SHARE deposits

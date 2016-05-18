@@ -86,10 +86,10 @@ To display specific information from the metadata, simply add the field name as 
 c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043
 ```
 
-Similarly, the file name of the first file can be displayed using an additional numerical index on the `files` key followed by the `name` index:
+Similarly, the file name of the first file can be displayed using an additional numerical zero-based index on the `files` key followed by the `name` index:
 ```python
 >>> print result["files"][0]["name"]
-c33a933c\-8202\-11e3\-92a1\-005056943408.zip
+c33a933c-8202-11e3-92a1-005056943408.zip
 ```
 
 ### Downloading a deposit file

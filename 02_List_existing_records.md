@@ -1,5 +1,5 @@
 # List existing records
-
+This guide will elaborate on the possiblities regarding listing of existing records in paginated form and records of specific communities.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -35,7 +35,33 @@ To check whether we actually retrieved these records, the JSON package can be us
 
 Please note that the actual response text is very long and therefore not very usable yet since it cannot be interpreted as a data structure:
 ```python
->>> print len(result)
-38520
+>>> print type(r.text), len(r.text)
+<type 'unicode'> 38520
 ```
 
+### Community-specific records
+If you solely want the records of a given community, say linguistics, this name of the community can be added to the request URL in order to get them.
+
+```python
+>>> payload = {'page_size': 20,
+               'page_offset': 1,
+               'access_token': token
+               }
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/linguistics', params=payload, verify=False)
+```
+
+By repeating the processing with JSON, the number of results can be displayed:
+```python
+>>> result = json.loads(r.text)
+>>> print len(result["records"])
+1
+```
+
+Each record is identical in structure as in the other requests. If an empty community collection is requested, the response will be positive, but the results structure will be empty:
+```python
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/bbmri', params=payload, verify=False)
+>>> print r
+<Response [200]>
+>>> result = json.loads(r.text)
+>>> print result["records"]
+```

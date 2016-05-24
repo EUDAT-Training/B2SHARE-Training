@@ -91,7 +91,8 @@ The final step will complete the deposition by adding metadata and committing it
 
 First, an object containing the minimum required metadata fields plus the author field is constructed:
 ```python
->>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author", "description": "My first dataset ingested using the API", "open_access": "true"}
+>>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author", 
+...     "description": "My first dataset ingested using the API", "open_access": "true"}
 ```
 
 In addition to the metadata, a header object is sent to set the return data type:
@@ -153,4 +154,6 @@ In short, without explanation:
     "PID": "http://hdl.handle.net/11304/f5ef95b2-5443-4dc5-b85b-f8396f1d6b5e"
 }
 ```
-As can be seen, a persistent identifier (`PID` field) has been automatically generated and added to the metadata. Furthermore, a checksum has been calculated and the uploader's email address added in the `uploaded_by` field.
+As can be seen, a persistent identifier (`PID` field) has been automatically generated and added to the metadata. Furthermore, a `checksum` has been calculated and the uploader's email address added in the `uploaded_by` field.
+
+Unfortunately, some of the fields are empty. During the commit step, these fields were not added and therefore missing. It is highly recommended to complete all fields during this step in order to increase the discoverability, authenticity and reusability of the dataset.

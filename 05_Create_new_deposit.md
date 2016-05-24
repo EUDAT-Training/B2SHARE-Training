@@ -25,7 +25,9 @@ On success, the response code and text will be different this time:
 Response code 201 indicates the deposition has been successfully created. The deposition ID in the response text is used to identify the deposition during the additional steps of adding files and metadata:
 ```python
 >>> result = json.loads(r.text)
->>> print result["deposit_id"]
+>>> depositid = result["deposit_id"]
+>>> print depositid
+4da53e5a210211e685780050569435ca
 ```
 
 ### Add files to your new deposit
@@ -39,7 +41,7 @@ In this statement, the action of opening the file is not actually performed. Onl
 
 Define the request URL by adding the deposition ID and `files` end point:
 ```python
->>> url = 'https://trng-b2share.eudat.eu/api/deposition/' + result["deposit_id"] + '/files'
+>>> url = 'https://trng-b2share.eudat.eu/api/deposition/' + depositid + '/files'
 >>> payload = {'access_token': token}
 ```
 
@@ -73,7 +75,81 @@ When the upload file is not accessible:
 
 Repeat the above steps to add other files.
 
+#### Check your uploaded files
+When all your files have been uploaded, you can check the deposition's current status regarding these files:
+```python
+>>> r = requests.get(url, params=payload, verify=False)
+>>> result = json.loads(r.text)
+>>> print result["files"]
+[{u'name': u'sequence.txt', u'size': 292}, {u'name': u'sequence2.txt', u'size': 3893}]
+```
+
+A list of two files are returned, including the files' sizes. You can do this with every deposition, as long as you have the deposition ID and it has not been committed.
+
 ### Commit the changes
-The final step will complete the deposition by adding metadata and committing it.
+The final step will complete the deposition by adding metadata and committing it. The metadata is included in the request as a list of key-value pairs. Some of the fields are required, other are optional. Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) to get the required and optional list of fields used for metadata.
+
+First, an object containing the minimum required metadata fields plus the author field is constructed:
+```python
+>>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author", "description": "My first dataset ingested using the API", "open_access": "true"}
+```
+
+In addition to the metadata, a header object is sent to set the return data type:
+```python
+>>> headers = {'content-type': 'application/json'}
+```
+
+The call is made using a post request containing the metadata and headers. Please note that the metadata is first serialized into a single string:
+```python
+>>> r = requests.post(url, data=json.dumps(metadata), params=payload, verify=False, headers=headers)
+>>> print r
+<Response [201]>
+```
+
+The new record is created (HTTP response code 201). The response text contains a success message and the newly created record's ID and location URI:
+```python
+>>> print r.text
+{"record_id": 267, "message": "New record submitted for processing", "location": "/api/record/267"}
+```
+
+The record ID in the response message can directly be used to see the landing page of the newly created deposit: [267](https://trng-b2share.eudat.eu/record/267)
 
 ### Check and display your results
+Once the deposition process is completed, the results can be checked by requesting the record data using the new record ID. Follow [record retrieval guide](01_Retrieve_existing_records.md) for an extensive description on how to do this.
+
+In short, without explanation:
+```python
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/record/267', params=payload, verify=False)
+>>> print json.dumps(json.loads(r.text), indent=4)
+{
+    "files": [
+        {
+            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence2.txt?version=1", 
+            "name": "sequence2.txt", 
+            "size": 3893
+        }, 
+        {
+            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence.txt?version=1", 
+            "name": "sequence.txt", 
+            "size": 292
+        }
+    ], 
+    "domain": "generic", 
+    "description": "My first dataset ingested using the API", 
+    "contributors": [], 
+    "creator": [], 
+    "checksum": "91c0c0b3a55902f9b301d8291abe52260bd83458295f3fc43ca0259b65b78ea9", 
+    "title": "My first dataset", 
+    "publication_date": "", 
+    "open_access": true, 
+    "record_id": 267, 
+    "version": "", 
+    "alternate_identifier": "", 
+    "licence": "", 
+    "uploaded_by": "hans.vanpiggelen@surfsara.nl", 
+    "keywords": [], 
+    "contact_email": "", 
+    "resource_type": [], 
+    "PID": "http://hdl.handle.net/11304/f5ef95b2-5443-4dc5-b85b-f8396f1d6b5e"
+}
+```

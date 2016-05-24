@@ -112,10 +112,10 @@ The new record is created (HTTP response code 201). The response text contains a
 {"record_id": 267, "message": "New record submitted for processing", "location": "/api/record/267"}
 ```
 
-The record ID in the response message can directly be used to see the landing page of the newly created deposit: [267](https://trng-b2share.eudat.eu/record/267)
+The record ID in the response message can directly be used to see the landing page of the newly created deposit: [267](https://trng-b2share.eudat.eu/record/267). If the page displays a restriction message, this is due the processing of the ingestion. As soon as this is finished, the message will disappear.
 
 ### Check and display your results
-Once the deposition process is completed, the results can be checked by requesting the record data using the new record ID. Follow [record retrieval guide](01_Retrieve_existing_records.md) for an extensive description on how to do this.
+Once the deposition process is completed, the results can be checked by requesting the record data using the new record ID. Follow [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
 
 In short, without explanation:
 ```python

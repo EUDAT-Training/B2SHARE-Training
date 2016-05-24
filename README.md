@@ -24,5 +24,5 @@ Submodule | Contents
 [List existing records](02_List_existing_records.md) | Retrieve listings of records and paginate them
 [Create new deposit](05_Create_new_deposit.md) | Learn how to create new deposits and add files and metadata
 [Example script](10_Example_script.md) | Example script with ready-made functions handling B2SHARE deposits
-[Appendix A](A_Setup_and_install.md) | Setup and install guide of Python
+[Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata

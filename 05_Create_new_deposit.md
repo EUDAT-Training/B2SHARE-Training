@@ -59,7 +59,7 @@ When the request is successfull, the result can be checked:
 ```
 
 When not successfull, check the error by displaying the response text, for example when the deposition is not found:
-```
+```python
 >>> print r
 <Response [404]>
 ```
@@ -112,10 +112,10 @@ The new record is created (HTTP response code 201). The response text contains a
 {"record_id": 267, "message": "New record submitted for processing", "location": "/api/record/267"}
 ```
 
-The record ID in the response message can directly be used to see the landing page of the newly created deposit: [267](https://trng-b2share.eudat.eu/record/267). If the page displays a restriction message, this is due the processing of the ingestion. As soon as this is finished, the message will disappear.
+The record ID in the response message can directly be used to see the landing page of the newly created deposit: [267](https://trng-b2share.eudat.eu/record/267). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
 
 ### Check and display your results
-Once the deposition process is completed, the results can be checked by requesting the record data using the new record ID. Follow [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
+Once the deposition process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
 
 In short, without explanation:
 ```python
@@ -153,3 +153,4 @@ In short, without explanation:
     "PID": "http://hdl.handle.net/11304/f5ef95b2-5443-4dc5-b85b-f8396f1d6b5e"
 }
 ```
+As can be seen, a persistent identifier (`PID` field) has been automatically generated and added to the metadata. Furthermore, a checksum has been calculated and the uploader's email address added in the `uploaded_by` field.

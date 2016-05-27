@@ -27,7 +27,6 @@ For a deposition, the most important fields that are returned are:
 
 Field name | JSON data type | Description | Default value
 ---------- | -------------- | ----------- | -------------
-
 authors | String | Creator's full name (comma separated if more available)
 checksum | String | Checksum of all data | Hexidecimal string
 creator | String array | Creator(s) of data set | Empty array

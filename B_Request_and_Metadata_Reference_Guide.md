@@ -25,7 +25,7 @@ A response text contains one or more fields in a serialized [JSON](http://www.js
 
 For a deposition, the following fields will be returned:
 Field name | JSON data type | Description
-===========|================|============
+---------- | -------------- | -----------
 record_id | Number | Deposition unique ID number
 authors | String | Creator's full name (comma separated if more available)
 title | String | Name
@@ -40,7 +40,7 @@ files | Object array | Deposited files (see below)
 
 The `files` field is a JSON structure on itself:
 Field name | JSON data type | Description
-===========|================|============
+---------- | -------------- | -----------
 full_name | String | 
 url | String | 
 size | Number | 

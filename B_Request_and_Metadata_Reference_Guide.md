@@ -9,6 +9,8 @@ Before it can be used in your scripts and commands, it needs to be loaded:
 >>> import requests
 ```
 
+A request can be a `GET` or `POST`. No other HTTP request methods are currently supported.
+
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.
 
@@ -21,23 +23,40 @@ The returned object contains a lot of information which can be extracted using t
 The latter command displays the first file contained in the record.
 
 #### Available parameters
-Several parameters can be added to any request.
+Several parameters can be added to any request. Please note that the parameters only function for relevant HTTP request methods. The most important are:
 
 Parameter | Data type | Description
 --------- | --------- | -----------
 params | Dictionary | Additional necessary information like the authentication token
-data | String | Additional request data, like upload file information
+files | Dictionary | Files to be transfered
+data | String | Additional request data, like metadata
 headers | Dictionary | HTTP request header information, like response text formatting
 verify | Boolean | Indication whether verification needs to be performed
 
 Note that the `data` parameter needs a string as data, and therefore any dictionary needs to be flattened before it can be send as a data parameter.
 
+#### Parameters
+The `params` parameter for a request can contain several variables with their corresponding values. All values are of the string data type.
+
+Variable | Description
+-------- | -----------
+access_token | Access token used for authentication
+community_name | Name of the user community in B2SHARE
+page_offset | Page offset for paginated output data
+page_size | Size of a page in case pagination is used
+record_id | Identifier for a specific record
+deposition_id | Identifier for a specific deposition
+
+The only mandatory variable is `access_token`, in case authentication is required. The rest of the variables are optional.
+
 ### Response fields
 All requests made to B2SHARE will return a response code and text. The response code equals one of the standardized HTTP response codes, indicating the success or failure of the request. An overview of these codes can be found on [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
 
-A response text contains one or more fields in a serialized [JSON](http://www.json.org/) structure string, of which each field has a specific [JSON data type](https://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example). The text does not define a JSON schema to which the text can be validated to.
+A response text contains one or more fields as a [JSON](http://www.json.org/) object serialized into a string (UTF-8 encoded). Each field has a specific [JSON data type](https://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example). The response body does not define a JSON schema to which the text can be validated to.
 
-For a deposition, the most important fields that are returned are:
+All timestamps are in UTC and formatted according to [ISO 8601](http://www.iso.org/iso/home/standards/iso8601.htm): `YYYY-MM-DDTHH:MM:SS+00:00`
+
+For an existing deposit (or record), the most important fields that are returned are:
 
 Field name | JSON data type | Description | Default value
 ---------- | -------------- | ----------- | -------------
@@ -55,7 +74,7 @@ publication_date | String | Date of publication of data set |
 record_id | Number | Deposition unique ID number | Automatic
 title | String | Deposit title | 
 
-The following fields are also included
+The following fields can also be included:
 
 Field name | JSON data type | Description | Default value
 ---------- | -------------- | ----------- | -------------
@@ -75,5 +94,8 @@ full_name | String | File name with extension
 url | String | Full URL for file retrieval
 size | Number | File size in bytes
 
+A collection of deposits is represented as a JSON array of objects.
+
 ### API interaction using curl
-Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well. A commonly-used tool is curl.
+Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well. A commonly-used tool is [curl](https://curl.haxx.se/).
+

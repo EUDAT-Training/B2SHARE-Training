@@ -24,6 +24,7 @@ All requests made to B2SHARE will return a response code and text. The response 
 A response text contains one or more fields in a serialized [JSON](http://www.json.org/) structure string. Each field has a specific [JSON data type](https://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example). The text does not define a JSON schema to which the text can be validated to.
 
 For a deposition, the following fields will be returned:
+
 Field name | JSON data type | Description
 ---------- | -------------- | -----------
 record_id | Number | Deposition unique ID number
@@ -39,6 +40,7 @@ license | String | License
 files | Object array | Deposited files (see below)
 
 The `files` field is a JSON structure on itself:
+
 Field name | JSON data type | Description
 ---------- | -------------- | -----------
 full_name | String | 

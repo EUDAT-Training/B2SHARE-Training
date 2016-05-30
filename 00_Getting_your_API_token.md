@@ -54,7 +54,7 @@ To check whether the request succeeded, the `r` variable contains the HTTP respo
 >>> print r
 <Response [200]>
 ```
-The request was successfull.
+The request was successful.
 
 #### Display a record
 The response variable also contains the actual result text of the request in JSON format. In this case, the result is all the records from the repository. To extract the first record, do the following:

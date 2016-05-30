@@ -77,7 +77,7 @@ To improve the readability, use the JSON package. This package turns the reponse
     "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9"
 }
 ```
-Our request was successfull and we now have all the information to process the record and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
+Our request was successful and we now have all the information to process the record and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
 
 #### Getting specific metadata values
 To display specific information from the metadata, simply add the field name as an index to the `result` variable. For example, to solely display the checksum, do the following:
@@ -109,4 +109,4 @@ Using the `urllib` package, files can be directly downloaded by URL:
 ... 
 (u'download/c33a933c-8202-11e3-92a1-005056943408.zip', <httplib.HTTPMessage instance at 0x10ca86098>)
 ```
-Since no errors are returned or exception raised, the download has been successfull and the files are available on the system.
+Since no errors are returned or exception raised, the download has been successful and the files are available on the system.

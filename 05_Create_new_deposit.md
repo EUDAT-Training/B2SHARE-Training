@@ -50,7 +50,7 @@ The complete request looks as follows:
 >>> r = requests.post(url, files=files, params=payload, verify=False)
 ```
 
-When the request is successfull, the result can be checked:
+When the request is successful, the result can be checked:
 ```python
 >>> print r
 <Response [200]>
@@ -58,7 +58,7 @@ When the request is successfull, the result can be checked:
 {"files": [{"name": "sequence.txt"}], "message": "File(s) saved"}
 ```
 
-When not successfull, check the error by displaying the response text, for example when the deposition is not found:
+When the request failed, check the error by displaying the response text, for example when the deposition is not found:
 ```python
 >>> print r
 <Response [404]>

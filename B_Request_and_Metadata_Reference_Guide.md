@@ -9,7 +9,7 @@ Before it can be used in your scripts and commands, it needs to be loaded:
 >>> import requests
 ```
 
-The base URL for all API calls is `https://trng-b2share.eudat.eu/api/'.
+The base URL for all API calls is `https://trng-b2share.eudat.eu/api/' with an additional URI appended (see below).
 
 ### Quick reference table
 A request can be made using a HTTP request method, such as `GET` or `POST`. No other HTTP request methods are currently supported by the B2SHARE service.
@@ -18,13 +18,13 @@ For all requests there are required and optional parameters which need to be add
 
 Request | HTTP method | URI | Optional | Additional | Return value
 ------- | ----------- | --- | -------- | ---- | ------------
-List all records | GET | `records` | page_size, page_offset | | List of records (in JSON format)
-List records per community | GET | `records/<community_name>` | page_size, page_offset | | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
-List specific record | GET | `record/<record_id>` | | | A JSON-formatted string containing the record's metadata and files
-Create deposition | POST | `depositions` | | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
-Add file to deposition | POST | `deposition/<deposition_id>/files` | | file (as multipart/form-data) | Name and size of the newly uploaded file
-List deposition files | GET | `deposition/<deposition_id>/files` | | | Name and size of all the files in the deposition object
-Commit deposition | POST | `deposition/<deposition_id>/commit` | | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
+List all records | GET | `records` | page_size, page_offset | List of records (in JSON format)
+List records per community | GET | `records/<community_name>` | page_size, page_offset | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
+List specific record | GET | `record/<record_id>` | | A JSON-formatted string containing the record's metadata and files
+Create deposition | POST | `depositions` | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
+Add file to deposition | POST | `deposition/<deposition_id>/files` | file (as multipart/form-data) | Name and size of the newly uploaded file
+List deposition files | GET | `deposition/<deposition_id>/files` | | Name and size of all the files in the deposition object
+Commit deposition | POST | `deposition/<deposition_id>/commit` | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.

@@ -11,7 +11,7 @@ This guide assumes you have successfully registered your account on the [B2SHARE
 ### Deposit workflow
 In the diagram the deposit workflow is schematically shown. All blue boxes require a request interaction with the B2SHARE service.
 
-<img src="img/B2SHARE_deposition.svg" alt="B2SHARE deposition workflow" text="B2SHARE deposition workflow">
+![B2SHARE deposition workflow](img/B2SHARE_deposition.svg "B2SHARE deposition workflow")
 
 ### Create a new deposit
 After loading your token a simple post request will create a new deposition:

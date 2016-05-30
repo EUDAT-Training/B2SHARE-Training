@@ -15,7 +15,7 @@ The B2SHARE service makes a distinction between the two terms `record` and `depo
 
 In practice, a record is equivalent to a deposition when solely trying to read a record through the service API. When creating new records, this has to be done using a deposition since it is created before any metadata or files are added.
 
-There is no difference between a `record` and a `deposit`, these words can be used interchangeably.
+There is no difference between a `record` and a `deposit`, these terms can be used interchangeably.
 
 ### Submodules
 

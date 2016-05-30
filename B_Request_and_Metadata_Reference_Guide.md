@@ -50,7 +50,7 @@ verify | Boolean | Indication whether verification needs to be performed
 
 Note that the `data` parameter needs a string as data, and therefore any dictionary needs to be flattened before it can be send as a data parameter.
 
-#### Parameters
+#### Parameter variables
 The `params` parameter for a request can contain several variables with their corresponding values. All values are of the string data type.
 
 Variable | Description

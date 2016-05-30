@@ -50,7 +50,7 @@ data | String | Additional request data, like metadata
 headers | Dictionary | HTTP request header information, like response text formatting
 verify | Boolean | Indication whether verification needs to be performed
 
-All parameters need a dictionary as value with the exception of the `data` parameter which requires a string as data. For the latter therefore any dictionary needs to be serialized to a string before it can be send as the value for the data parameter. This can be done using the JSON Python package.
+All parameters need a dictionary as value with the exception of the `data` parameter which requires a string. For the latter therefore any dictionary needs to be serialized to a string before it can be send as the value for the data parameter. This can be done using the JSON Python package.
 
 #### Parameter variables
 The `params` parameter for a request can contain several variables with their corresponding values. All values are of the string data type.
@@ -114,7 +114,7 @@ size | Number | File size in bytes
 A collection of deposits is represented as a JSON array of objects.
 
 ### API interaction using curl
-Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well using similar requests. A commonly-used tool is [curl](https://curl.haxx.se/). In the table in the Quick reference guide section the various requests are listed together with their options and return value. Optional parameters are added to the URL, while non-parameter options are added as options in the command.
+Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well using similar requests. A commonly-used tool is [curl](https://curl.haxx.se/). Refer to the Quick reference table section for a complete list of the various requests together with their options and return value. For curl commands, optional parameters are added to the URL, while non-parameter options are added as options in the command.
 
 In general, a curl command to send a request to a service is constructed as follows:
 ```sh

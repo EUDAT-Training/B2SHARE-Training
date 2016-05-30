@@ -83,7 +83,7 @@ When the upload file is not accessible:
 Repeat the above steps to add other files.
 
 #### Check your uploaded files
-When all your files have been uploaded, you can check the deposition's current status regarding these files:
+When all your files have been uploaded, you can check the deposition's current status regarding these files using the same URL with a get request:
 ```python
 >>> r = requests.get(url, params=payload, verify=False)
 >>> result = json.loads(r.text)

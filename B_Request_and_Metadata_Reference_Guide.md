@@ -9,7 +9,20 @@ Before it can be used in your scripts and commands, it needs to be loaded:
 >>> import requests
 ```
 
-A request can be a `GET` or `POST`. No other HTTP request methods are currently supported.
+### Quick reference table
+A request can be made using a HTTP request method, such as `GET` or `POST`. No other HTTP request methods are currently supported by the B2SHARE service.
+
+For all requests there are required and optional parameters which need to be added in order to take effect. For post method requests, additional data can be sent along with the request.
+
+Request | HTTP method | URI | Required | Optional | Additional | Return value
+------- | ----------- | --- | -------- | -------- | ---- | ------------
+List all records | GET | `/api/records` | access_token | page_size, page_offset | | List of records (in JSON format)
+List records per community | GET | `/api/records/<community_name>` | access_token | page_size, page_offset | | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
+List specific record | GET | `/api/record/<record_id>` | access_token | | | A JSON-formatted string containing the record's metadata and files
+Create deposition | POST | `/api/depositions` | access_token | | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
+Add file to deposition | POST | `/api/deposition/<deposition_id>/files` | access_token | | file (as multipart/form-data) | Name and size of the newly uploaded file
+List deposition files | GET | `/api/deposition/<deposition_id>/files` | access_token | | | Name and size of all the files in the deposition object
+Commit deposition | POST | `/api/deposition/<deposition_id>/commit` | access_token | | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.
@@ -97,5 +110,14 @@ size | Number | File size in bytes
 A collection of deposits is represented as a JSON array of objects.
 
 ### API interaction using curl
-Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well. A commonly-used tool is [curl](https://curl.haxx.se/).
+Using command-line interfaces any of the information stored in the B2SHARE service can be retrieved as well using similar requests. A commonly-used tool is [curl](https://curl.haxx.se/). In the table in the Quick reference guide section the various requests are listed together with their options and return value. Required and optional parameters are added to the URL, while additional parameters are added as options in the command.
 
+In general, a curl command to send a request to a service is constructed as follows:
+```sh
+curl [options...] <url>
+```
+For the B2SHARE training instance, the becomes:
+```sh
+curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-F file=@<filename>] [-d '{"key":"value"}'] 'https://trng-b2share.eudat.eu<URI>'
+```
+where all text between brackets is optional. For `method` either `GET` (default) or `POST` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information, `-F` to send form data (i.e. files), `-d` to send additional data (i.e. metadata) and/or `-H` to set the return string format. These might be required when using some specific post requests during deposition.

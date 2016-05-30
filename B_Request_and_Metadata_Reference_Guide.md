@@ -14,7 +14,7 @@ A request can be made using a HTTP request method, such as `GET` or `POST`. No o
 
 For all requests there are required and optional parameters which need to be added in order to take effect. For post method requests, additional data can be sent along with the request.
 
-Request | HTTP method | URI | Required | Optional | Additional | Return value
+<sub>Request | HTTP method | URI | Required | Optional | Additional | Return value</sub>
 ------- | ----------- | --- | -------- | -------- | ---- | ------------
 List all records | GET | `/api/records` | access_token | page_size, page_offset | | List of records (in JSON format)
 List records per community | GET | `/api/records/<community_name>` | access_token | page_size, page_offset | | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid

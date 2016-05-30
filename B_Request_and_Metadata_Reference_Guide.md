@@ -18,8 +18,8 @@ For all requests there are required and optional parameters which need to be add
 
 Request | HTTP method | URI | Optional | Return value
 ------- | ----------- | --- | -------- | ------------
-List all records | GET | `records` | page_size, page_offset | List of records (in JSON format)
-List records per community | GET | `records/<community_name>` | page_size, page_offset | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
+List all records | GET | `records` | `page_size`, `page_offset` | List of records (in JSON format)
+List records per community | GET | `records/<community_name>` | `page_size`, `page_offset` | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
 List specific record | GET | `record/<record_id>` | | A JSON-formatted string containing the record's metadata and files
 Create deposition | POST | `depositions` | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
 Add file to deposition | POST | `deposition/<deposition_id>/files` | file (as multipart/form-data) | Name and size of the newly uploaded file
@@ -123,4 +123,4 @@ For the B2SHARE training instance, this becomes:
 curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-F file=@<filename>]
     [-d '{"key":"value"}'] 'https://trng-b2share.eudat.eu/api/<URI>?<parameters>'
 ```
-where all text between brackets is optional. For `method` either `GET` (default) or `POST` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information, `-F` to send form data (i.e. files), `-d` to send additional data (i.e. metadata) and/or `-H` to set the return string format. These might be required when using some specific post requests during deposition. The parameters is an ampersand-separated list of key-value pairs, e.g. `access_token=123123&page_offset=2`.
+where all text between brackets is optional. For `method` either `GET` (default) or `POST` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information, `-F` to send form data (i.e. files), `-d` to send additional data (i.e. metadata) and/or `-H` to set the return string format. These might be required when using some specific post requests during deposition. The parameters field is an ampersand-separated list of key-value pairs, e.g. `access_token=123123&page_offset=2`.

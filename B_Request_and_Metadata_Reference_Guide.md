@@ -16,15 +16,15 @@ A request can be made using a HTTP request method, such as `GET` or `POST`. No o
 
 For all requests there are required and optional parameters which need to be added in order to take effect. For post method requests, additional data can be sent along with the request.
 
-Request | HTTP method | URI | Required | Optional | Additional | Return value
-------- | ----------- | --- | -------- | -------- | ---- | ------------
-List all records | GET | `records` | access_token | page_size, page_offset | | List of records (in JSON format)
-List records per community | GET | `records/<community_name>` | access_token | page_size, page_offset | | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
-List specific record | GET | `record/<record_id>` | access_token | | | A JSON-formatted string containing the record's metadata and files
-Create deposition | POST | `depositions` | access_token | | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
-Add file to deposition | POST | `deposition/<deposition_id>/files` | access_token | | file (as multipart/form-data) | Name and size of the newly uploaded file
-List deposition files | GET | `deposition/<deposition_id>/files` | access_token | | | Name and size of all the files in the deposition object
-Commit deposition | POST | `deposition/<deposition_id>/commit` | access_token | | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
+Request | HTTP method | URI | Optional | Additional | Return value
+------- | ----------- | --- | -------- | ---- | ------------
+List all records | GET | `records` | page_size, page_offset | | List of records (in JSON format)
+List records per community | GET | `records/<community_name>` | page_size, page_offset | | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
+List specific record | GET | `record/<record_id>` | | | A JSON-formatted string containing the record's metadata and files
+Create deposition | POST | `depositions` | | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
+Add file to deposition | POST | `deposition/<deposition_id>/files` | | file (as multipart/form-data) | Name and size of the newly uploaded file
+List deposition files | GET | `deposition/<deposition_id>/files` | | | Name and size of all the files in the deposition object
+Commit deposition | POST | `deposition/<deposition_id>/commit` | | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.
@@ -120,6 +120,7 @@ curl [options...] <url>
 ```
 For the B2SHARE training instance, this becomes:
 ```sh
-curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-F file=@<filename>] [-d '{"key":"value"}'] 'https://trng-b2share.eudat.eu/api/<URI>?<parameters>'
+curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-F file=@<filename>]
+    [-d '{"key":"value"}'] 'https://trng-b2share.eudat.eu/api/<URI>?<parameters>'
 ```
 where all text between brackets is optional. For `method` either `GET` (default) or `POST` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information, `-F` to send form data (i.e. files), `-d` to send additional data (i.e. metadata) and/or `-H` to set the return string format. These might be required when using some specific post requests during deposition. The parameters is an ampersand-separated list of key-value pairs, e.g. `access_token=123123&page_offset=2`.

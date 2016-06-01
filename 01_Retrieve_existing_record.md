@@ -1,26 +1,52 @@
-# Retrieving an existing record
-In this guide module the retrieving of specific records will be explained. Using the information of a record, the corresponding files, metadata and other information can be used to automate data processing and transfer complete deposits to other services.
+# Retrieve specific record details 
+In this guide we will learn how to retrieve the details of a specific record via the GET HTTP request. Apart from the record details, some other examples are:
+
+ - Display record details 
+ - Getting specific metadata values (checksum, files)
+ - Downloading files from a record    
+
+Using the information of a record, the corresponding files, metadata and other information can be used to automate data processing and transfer complete deposits to other services.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
 
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS.
 
-### Request the record
-To retrieve a specific record, the ID of that record is required and needs to be sent through the API as well. In Python, the URL where the request is sent to, needs to be extended with this record ID.
 
-First, the token is read from file in a Python session:
+### Get details of a specific record
+
+To retrieve a specific record, the `RECORD_ID` of that record is required and needs to be sent through the API as well. The data used in this GET request are:
+
+ - URL path: `/api/record/RECORD_ID` . The basic url extended with the `RECORD_ID` value 
+ - Required parameters: `access_token`
+
+When invoking Python in command line, as in this guide examples, you must first type:
+
 ```python
->>> f = open(r'token', 'r')
->>> token = f.read()
-```
+ $ python
+ ```
 
-Then, the request is set up:
+As already described, the value of the access token is read from the `token.txt` file in  Python as follows:
+
+```python
+
+>>> f = open(r'token.txt', 'r')
+>>> token = f.read()
+
+```
+No that you have the token value, prepare your HTTP GET request with the requests library:
+
 ```python
 >>> import requests
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/record/1', params={'access_token': token}, verify=False)
 ```
-Most likely you will get a warning about insecure connections through HTTPS. You can ignore that for now.
+
+Most likely you will get a warning, of the following type, about insecure connections through HTTPS. You can ignore that for now.
+
+```python
+/usr/lib/python2.7/dist-packages/urllib3/connectionpool.py:732: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.org/en/latest/security.html (This warning will only appear once by default.)
+  InsecureRequestWarning)
+```
 
 To verify whether the request succeeded and see the result, print the variable `r` and the response text:
 ```python
@@ -31,7 +57,9 @@ To verify whether the request succeeded and see the result, print the variable `
 ```
 
 ### Display your record
+
 To improve the readability, use the JSON package. This package turns the reponse text in a easily processable data structure called a map:
+
 ```python
 >>> import json
 >>> result = json.loads(r.text)
@@ -77,23 +105,28 @@ To improve the readability, use the JSON package. This package turns the reponse
     "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9"
 }
 ```
-Our request was successful and we now have all the information to process the record and its metadata and files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
+Our request was successful and we now have all the information to process the record, its metadata and its files. The data is exactly the same as the data displayed on the [landing page](https://trng-b2share.eudat.eu/record/1) of the record.
 
 #### Getting specific metadata values
+
 To display specific information from the metadata, simply add the field name as an index to the `result` variable. For example, to solely display the checksum, do the following:
+
 ```python
 >>> print result["checksum"]
 c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043
 ```
 
 Similarly, the file name of the first file can be displayed using an additional numerical zero-based index on the `files` key followed by the `name` index:
+
 ```python
 >>> print result["files"][0]["name"]
 c33a933c-8202-11e3-92a1-005056943408.zip
 ```
 
 ### Downloading files from a record
-In many cases, the corresponding files are needed to allow further processing of the data contained. A simple loop allows to get all files and store them at a specific location. Since all files are publically accessible, no authentication is required by token used earlier.
+
+In many cases, the corresponding files are needed to allow further processing of the data contained. A simple loop allows to get all files and store them at a specific location.
+Since all files are publically accessible, no authentication is required by token used earlier.
 
 To avoid overwriting any existing files, a specific download folder is created in the current working directory using the Python package `os`:
 ```python
@@ -102,11 +135,14 @@ To avoid overwriting any existing files, a specific download folder is created i
 ```
 
 Using the `urllib` package, files can be directly downloaded by URL:
+
 ```python
+
 >>> import urllib
 >>> for f in result["files"]:
 ...     urllib.urlretrieve(f["url"], "download/" + f["name"])
 ... 
 (u'download/c33a933c-8202-11e3-92a1-005056943408.zip', <httplib.HTTPMessage instance at 0x10ca86098>)
 ```
+
 Since no errors are returned or exception raised, the download has been successful and the files are available on the system.

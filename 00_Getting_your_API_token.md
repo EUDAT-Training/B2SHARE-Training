@@ -28,6 +28,7 @@ Click on the `New token` button to generate a new personal access token. Enter a
 Click 'Save' to store the access token on the server and make it usable in your applications.
 
 **Note 1:** Please note that this is the only time the access token is visible, so copy it to a safe place.
+
 **Note 2:** *It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).*
 
 ### Testing your token
@@ -121,4 +122,4 @@ Using the JSON package the first record can be properly displayed:
 }
 ```
 
-In this example, we just retrieve a list of records. To retrieve a specific record in a similar manner, please follow the [next](00_Retrieve_existing_deposit.md) guide.
+In this example, we just retrieve a list of records. To retrieve a specific record in a similar manner, please follow the [next](01_Retrieve_existing_deposit.md) guide.

@@ -57,7 +57,7 @@ pip install --upgrade pip
 ```
 
 ## Packages
-Once Python and pip are installed on your machine, a package need to be installed additionally in order to get access to the B2SHARE service.
+Once Python and pip are installed on your machine, a package needs to be installed in order to get access to the B2SHARE service.
 
 The following packages are required:
 ```sh

@@ -1,4 +1,4 @@
-# Get list of existing records
+# Get the list of existing records
 
 In this guide we will learn how to retrieve the list of existing records in paginated form and records of specific communities.
 
@@ -21,7 +21,8 @@ As shown in the guide '[Getting your API token](00_Getting_your_API_token.md)' a
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
 ```
 
-To avoid retrieving all records, which potentially may take a long time, the request can be improved by adding pagination parameters. For example, to retrieve records 21 to 40, this can be indicated by adding the page size and offset:
+To avoid retrieving all records, which potentially may take a long time, the request can be improved by adding pagination parameters. 
+For example, to retrieve records 21 to 40, add the page size and offset:
 
 ```python
 >>> payload = {'page_size': 20,
@@ -31,7 +32,7 @@ To avoid retrieving all records, which potentially may take a long time, the req
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)
 ```
 
-To check whether we actually retrieved these records, the JSON package can be used again. Indeed, 20 records were retrieved and the first and last one have index 21 and 40:
+To check whether we actually retrieved these records, the JSON package can be used. Indeed, 20 records were retrieved and the first and last one have index 21 and 40:
 
 ```python
 >>> result = json.loads(r.text)

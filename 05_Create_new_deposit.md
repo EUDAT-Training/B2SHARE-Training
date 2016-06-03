@@ -15,7 +15,7 @@ Please make sure your machine has been properly set up to use Python and require
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS. In addition, the loading of the token, importing Python packages and checking request responses will not be covered here.
 
 ### Deposit workflow
-In the following  diagram the deposit workflow is schematically shown. All blue boxes require a request interaction with the B2SHARE service.
+In the following  diagram you may see the deposit workflow. All blue boxes require a request interaction with the B2SHARE service.
 
 ![B2SHARE deposition workflow](img/B2SHARE-deposition.png "B2SHARE deposition workflow")
 
@@ -56,7 +56,7 @@ First, define a dictionary which contains Python open calls to the files. Files 
 >>> files = {'file': open('sequence.txt', 'rb')}
 ```
 
-In this statement, the action of opening the file is not actually performed. Only when the request call is performed, files will be read.
+In this statement, the action of opening the file is not actually performed. The file will be read only when the request call is performed.
 
 Define the request URL by adding the deposition ID and `files` end point:
 
@@ -180,6 +180,6 @@ In short, without explanation:
     "PID": "http://hdl.handle.net/11304/f5ef95b2-5443-4dc5-b85b-f8396f1d6b5e"
 }
 ```
-As can be seen, a persistent identifier (`PID` field) has been automatically generated and added to the metadata. Furthermore, a `checksum` has been calculated and the uploader's email address added in the `uploaded_by` field.
+A persistent identifier (`PID` field) has been automatically generated and added to the metadata. Furthermore, a `checksum` has been calculated and the uploader's email address added in the `uploaded_by` field.
 
 Unfortunately, some of the fields are empty. During the commit step, these fields were not added and therefore missing. It is highly recommended to complete all fields during this step in order to increase the discoverability, authenticity and reusability of the dataset.

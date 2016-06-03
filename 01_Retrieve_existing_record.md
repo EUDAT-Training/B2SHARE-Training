@@ -1,7 +1,6 @@
 # Retrieve specific record details 
 In this guide we will learn how to retrieve the details of a specific record via the GET HTTP request. Apart from the record details, some other examples are:
 
- - Display record details 
  - Getting specific metadata values (checksum, files)
  - Downloading files from a record    
 
@@ -15,7 +14,7 @@ This guide assumes you have successfully registered your account on the [B2SHARE
 
 ### Get details of a specific record
 
-To retrieve a specific record, the `RECORD_ID` of that record is required and needs to be sent through the API as well. The data used in this GET request are:
+To retrieve a specific record, the `RECORD_ID` of that record is required and needs to be sent through the API. The data used in this GET request are:
 
  - URL path: `/api/record/RECORD_ID` . The basic url extended with the `RECORD_ID` value 
  - Required parameters: `access_token`
@@ -34,7 +33,7 @@ As already described, the value of the access token is read from the `token.txt`
 >>> token = f.read()
 
 ```
-No that you have the token value, prepare your HTTP GET request with the requests library:
+Now that you have the token value, prepare your HTTP GET request with the `requests` library:
 
 ```python
 >>> import requests

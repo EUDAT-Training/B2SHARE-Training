@@ -1,5 +1,5 @@
-# Retrieve specific record details 
-In this guide the retrieval of the details of a specific record in the B2SHARE via the GET HTTP request is shown. In addition, retrieval specific metadata values (checksum, files) and downloading files from a record is explained.
+# Retrieve record details
+In this guide the retrieval of details of a specific record in the B2SHARE service via the GET HTTP request is shown. In addition, retrieval of specific metadata values (checksum, files) and downloading files from a record is explained.
 
 Using the information of a record, the corresponding files, metadata and other information can be used to automate data processing and transfer complete deposits to other services.
 

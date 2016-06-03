@@ -10,7 +10,7 @@ This module is work in progress and subject to change. Since B2SHARE is currentl
 ### Prerequisites
 This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers. In addition, all scripts are written in the [Python scripting](http://python.org) language. If you have no experience in programming or want to learn more about Python, it is highly recommended to follow [some](https://www.stavros.io/tutorials/python) [tuturials](http://pythonprogramminglanguage.com) or start [reading](https://en.wikibooks.org/wiki/Python_Programming) about it.
 
-### Important aspects
+### Important remarks
 The B2SHARE service makes a distinction between the two terms `record` and `deposition`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a deposition, which is modifiable until finally committed. Files and metadata can be placed into a deposition, but not into a record. 
 
 In practice, a record is equivalent to a deposition when solely trying to read a record through the service API. When creating new records, this has to be done using a deposition since it is created before any metadata or files are added.

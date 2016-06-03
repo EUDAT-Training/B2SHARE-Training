@@ -1,4 +1,5 @@
 # Install and setup the required software your on machine
+
 This document describes the necessary steps to make your machine ready for using Python and connecting to the B2SHARE service.
 
 ## Prerequisites
@@ -56,7 +57,7 @@ pip install --upgrade pip
 ```
 
 ## Packages
-Once Python and pip are installed on your machine, a package need to be installed additionally in order to get access to the B2SHARE service.
+Once Python and pip are installed on your machine, a package needs to be installed in order to get access to the B2SHARE service.
 
 The following packages are required:
 ```sh

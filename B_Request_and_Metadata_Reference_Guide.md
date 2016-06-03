@@ -1,8 +1,8 @@
 # Request and Metadata Reference Guide
-This guide will list the possibilities regarding API requests and metadata options.
+This guide lists the possibilities regarding API requests and metadata options.
 
 ### General information
-API requests in Python can be done using the Python [requests](http://docs.python-requests.org/en/master/) package. The package is non part of the standard Python download and therefore needs to be [installed](A_Setup_and_install.md#Packages). 
+API requests in Python can be done using the Python [requests](http://docs.python-requests.org/en/master/) package. The package is not part of the standard Python download and therefore needs to be [installed](A_Setup_and_install.md#Packages). 
 
 Before it can be used in your scripts and commands, it needs to be loaded:
 ```python

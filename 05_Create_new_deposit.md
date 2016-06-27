@@ -124,7 +124,12 @@ In addition to the metadata, a header object is sent to set the return data type
 >>> headers = {'content-type': 'application/json'}
 ```
 
-The call is made using a post request containing the metadata and headers. Please note that the metadata is first serialized into a single string:
+The URL now needs to be postfixed by the `commit` end point:
+```python
+>>> url = 'https://trng-b2share.eudat.eu/api/deposition/' + depositid + '/commit'
+```
+
+The call is made using a POST request containing the metadata and headers. Please note that the metadata is serialized into a single string using the JSON package:
 ```python
 >>> r = requests.post(url, data=json.dumps(metadata), params=payload, verify=False, headers=headers)
 >>> print r

@@ -17,7 +17,7 @@ In the following  diagram you may see the deposit workflow. All blue boxes requi
 
 ![B2SHARE deposition workflow](img/B2SHARE-deposition.png "B2SHARE deposition workflow")
 
-The red boxes indicate an object state, where in this workflow only depositions and records exist. Metadata (yellow) has to be manually added in the commit request. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes).
+The red boxes indicate an object state, where in this workflow only depositions and records can exist. Metadata (yellow) has to be manually added in the commit request. Persistent identifiers (PIDs) and checksums are automatically generated and added by the B2SHARE service (green boxes).
 
 ### Create a new deposit
 After loading your token a simple post request will create a new deposition:

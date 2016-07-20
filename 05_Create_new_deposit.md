@@ -115,7 +115,7 @@ The final step will complete the deposition by adding metadata and committing it
 
 First, an object containing the minimum required metadata fields plus the author field is constructed:
 ```python
->>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author", 
+>>> metadata = {"domain": "generic", "title": "My first dataset", "creator": ["B2SHARE-Training author"], 
 ...     "description": "My first dataset ingested using the API", "open_access": "true"}
 ```
 

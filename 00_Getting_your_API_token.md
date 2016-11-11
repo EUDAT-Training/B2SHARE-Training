@@ -1,6 +1,6 @@
 # Getting you API token
 
-This guide will take you through the steps to obtain access tokens which are required to access the B2SHARE service programmatically through the REST API. 
+This guide will take you through the steps to obtain access tokens which are required to access the B2SHARE service programmatically through the REST API.
 
 The B2HARE HTTP REST API can be used for interacting with B2SHARE via external services or applications. Only authenticated users can use the API. Authentication is done by passing an `access token` in the request. This `access token` can be retrieved by generating one on the B2SHARE service website.
 
@@ -12,10 +12,10 @@ Please make sure your machine has been properly set up to use Python and require
 This guide assumes you have successfully registered your account on B2SHARE using your institutional credentials or social ID through B2ACCESS.
 
 ## The account page
-To create new access tokens for personal use, you need to register them on the account `Personal access token / requests` page of the [B2SHARE website](https://trng-b2share.eudat.eu). 
+To create new access tokens for personal use, you need to register them on the account `Personal access token / requests` page of the [B2SHARE website](https://trng-b2share.eudat.eu).
 
  - After logging in, navigate to your [account page](https://trng-b2share.eudat.eu/youraccount/display) by clicking on your name on the home page of B2SHARE.
- - Click on the wrench next to 'Account' to go to your [profile settings page](https://trng-b2share.eudat.eu/account/settings/profile). 
+ - Click on the wrench next to 'Account' to go to your [profile settings page](https://trng-b2share.eudat.eu/account/settings/profile).
  - Select the bottom 'Applications' option in the left menu to go to the application and token [settings page](https://trng-b2share.eudat.eu/account/settings/applications). Here you can register new application and tokens to use within your own applications and scripts.
 
 <img src="img/B2SHARE-applications.png" alt="B2SHARE account applications and tokens" text="B2SHARE account applications and tokens" style="width: 80%">
@@ -31,7 +31,7 @@ Click 'Save' to store the access token on the server and make it usable in your 
 
 **Note 2:** It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).
 
-### Testing your token
+## Testing your token
 Once you have generated your access token, it can be used and tested in your own applications. Launch a Python session and follow the steps below to check whether the token works.
 
 #### Read the token from file
@@ -87,41 +87,41 @@ Using the JSON package the first record can be properly displayed:
 {
     "files": [
         {
-            "url": "https://trng-b2share.eudat.eu/record/1/files/c33a933c-8202-11e3-92a1-005056943408.zip?version=1", 
-            "name": "c33a933c-8202-11e3-92a1-005056943408.zip", 
+            "url": "https://trng-b2share.eudat.eu/record/1/files/c33a933c-8202-11e3-92a1-005056943408.zip?version=1",
+            "name": "c33a933c-8202-11e3-92a1-005056943408.zip",
             "size": 549252
         }
-    ], 
-    "domain": "linguistics", 
-    "uploaded_by": "stranak@ufal.mff.cuni.cz", 
-    "description": "This is a small sample dataset from PDT 2.0. As such it can be released under a very permissive CC-BY license.", 
-    "contributors": [], 
+    ],
+    "domain": "linguistics",
+    "uploaded_by": "stranak@ufal.mff.cuni.cz",
+    "description": "This is a small sample dataset from PDT 2.0. As such it can be released under a very permissive CC-BY license.",
+    "contributors": [],
     "creator": [
         "Haji\u010d, Jan"
-    ], 
-    "checksum": "c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043", 
-    "title": "Prague Dependency Treebank 2.0 Sample Data", 
-    "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9", 
-    "open_access": true, 
-    "record_id": 1, 
-    "version": "", 
-    "contact_email": "", 
-    "licence": "CC-BY 4.0", 
-    "publication_date": "20-01-2014", 
+    ],
+    "checksum": "c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043",
+    "title": "Prague Dependency Treebank 2.0 Sample Data",
+    "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9",
+    "open_access": true,
+    "record_id": 1,
+    "version": "",
+    "contact_email": "",
+    "licence": "CC-BY 4.0",
+    "publication_date": "20-01-2014",
     "keywords": [
-        "treebank", 
+        "treebank",
         "sample"
-    ], 
-    "alternate_identifier": "", 
+    ],
+    "alternate_identifier": "",
     "domain_metadata": {
-        "quality": "release", 
-        "region": "Czechia", 
-        "project_name": "", 
+        "quality": "release",
+        "region": "Czechia",
+        "project_name": "",
         "ling_resource_type": [
             "treebank"
-        ], 
+        ],
         "language_code": "ces Czech"
-    }, 
+    },
     "resource_type": []
 }
 ```

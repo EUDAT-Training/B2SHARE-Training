@@ -1,8 +1,8 @@
 # Create a new deposit
-When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a deposition and adding files and metadata. This page will guide you through the creation process of a new deposition. It covers: 
- 
- - the actual creation of a new record, 
- - the addition of files and metadata and 
+When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a deposition and adding files and metadata. This page will guide you through the creation process of a new deposition. It covers:
+
+ - the actual creation of a new record,
+ - the addition of files and metadata and
  - the final completion.
 
 Please note that the B2SHARE service makes a distinction between the two terms `record` and `deposition`. A **record** is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by **first creating a deposition**, which is modifiable. Files and metadata can be placed into a deposition, but not into a record.
@@ -115,7 +115,7 @@ The final step will complete the deposition by adding metadata and committing it
 
 First, an object containing the minimum required metadata fields plus the author field is constructed:
 ```python
->>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author", 
+>>> metadata = {"domain": "generic", "title": "My first dataset", "authors": "B2SHARE-Training author",
 ...     "description": "My first dataset ingested using the API", "open_access": "true"}
 ```
 
@@ -149,32 +149,32 @@ In short, without explanation:
 {
     "files": [
         {
-            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence2.txt?version=1", 
-            "name": "sequence2.txt", 
+            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence2.txt?version=1",
+            "name": "sequence2.txt",
             "size": 3893
-        }, 
+        },
         {
-            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence.txt?version=1", 
-            "name": "sequence.txt", 
+            "url": "https://trng-b2share.eudat.eu/record/267/files/sequence.txt?version=1",
+            "name": "sequence.txt",
             "size": 292
         }
-    ], 
-    "domain": "generic", 
-    "description": "My first dataset ingested using the API", 
-    "contributors": [], 
-    "creator": [], 
-    "checksum": "91c0c0b3a55902f9b301d8291abe52260bd83458295f3fc43ca0259b65b78ea9", 
-    "title": "My first dataset", 
-    "publication_date": "", 
-    "open_access": true, 
-    "record_id": 267, 
-    "version": "", 
-    "alternate_identifier": "", 
-    "licence": "", 
-    "uploaded_by": "someone@somewhere.org", 
-    "keywords": [], 
-    "contact_email": "", 
-    "resource_type": [], 
+    ],
+    "domain": "generic",
+    "description": "My first dataset ingested using the API",
+    "contributors": [],
+    "creator": [],
+    "checksum": "91c0c0b3a55902f9b301d8291abe52260bd83458295f3fc43ca0259b65b78ea9",
+    "title": "My first dataset",
+    "publication_date": "",
+    "open_access": true,
+    "record_id": 267,
+    "version": "",
+    "alternate_identifier": "",
+    "licence": "",
+    "uploaded_by": "someone@somewhere.org",
+    "keywords": [],
+    "contact_email": "",
+    "resource_type": [],
     "PID": "http://hdl.handle.net/11304/f5ef95b2-5443-4dc5-b85b-f8396f1d6b5e"
 }
 ```

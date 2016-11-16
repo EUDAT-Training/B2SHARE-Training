@@ -46,6 +46,13 @@ Variable | Description
 `RECORD_ID` | identifier for a specific record, which can be in draft or published state
 `FILE_BUCKET_ID` | identifier for a set of files. Each record has its own file set, usually found in the links -> files section
 
+### Request responses
+In general, the following holds for HTTP request responses:
+- All response bodies are JSON encoded (UTF-8 encoded).
+- A record is represented as a JSON object: `{ "field1": value, … }`
+- A collection of records is represented as a JSON array of objects: `[{ "field1": value, ... }, … ]}`
+- Timestamps are in UTC and formatted according to ISO 8601: `YYYY-MM-DDTHH:MM:SS+00:00`
+
 ## A publication workflow
 
 The HTTP API does not impose a specific workflow for creating a record. The following example workflow only defines the most basic steps:

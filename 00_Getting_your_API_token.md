@@ -1,8 +1,8 @@
 # Getting you API token
 
-This guide will take you through the steps to obtain access tokens which are required to access the B2SHARE service programmatically through the REST API.
+This guide will take you through the steps to obtain access tokens on the B2SHARE website. API or access tokens are required to access the B2SHARE service programmatically through the REST API.
 
-The B2HARE HTTP REST API can be used for interacting with B2SHARE via external services or applications. Only authenticated users can use the API. Authentication is done by passing an `access token` in the request. This `access token` can be retrieved by generating one on the B2SHARE service website.
+The B2HARE HTTP REST API can be used for interaction with B2SHARE via external services or applications. Only authenticated users can do API requests. User authentication is done by passing an `access_token` parameter along with the request. This `access_oken` can be retrieved by generating one on the B2SHARE service website.
 
 Please note that access tokens are for private use only and not to be shared with other persons or institutions. Sharing them enables other people to alter your data on your behalf.
 
@@ -32,7 +32,7 @@ Click 'Save' to store the access token on the server and make it usable in your 
 **Note 2:** It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).
 
 ## Testing your token
-Once you have generated your access token, it can be used and tested in your own applications. Launch a Python session and follow the steps below to check whether the token works.
+Once you have generated your access token, it can be used and tested with your own applications. Launch a Python session and follow the steps below to verify whether the token works.
 
 #### Read the token from file
 Assuming you have stored the access token in a file named `token.txt` and it is accessible from the current working directory, you can read it using the following commands in a Python session:

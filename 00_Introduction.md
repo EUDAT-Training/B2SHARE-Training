@@ -33,18 +33,18 @@ Each allowed request is described below as follows:
 
 Parameter | Description
 --------- | -----------
-Description | A description of the function of the request
-URL path | grammar for the allowed paths used together with one of the base URLs above
-HTTP method | whether the HTTP protocols GET or POST method is used
-Example | an example of usage using the program curl from the command line
+Description | Description of the function of the request
+URL path | Grammar for the allowed paths used together with one of the base URLs above
+HTTP method | Either HTTP protocols GET or POST methods
+Example | Example of usage
 
 Variables in the descriptions:
 
 Variable | Description
 -------- | -----------
-`COMMUNITY_ID` | identifier of a user community in B2SHARE
-`RECORD_ID` | identifier for a specific record, which can be in draft or published state
-`FILE_BUCKET_ID` | identifier for a set of files. Each record has its own file set, usually found in the links -> files section
+`community_id` | Identifier of a community defined in B2SHARE
+`record_id` | Identifier for a specific record, which can be in draft or published state
+`file_bucket_id` | Identifier for a set of files. Each record has its own file set
 
 ### Request responses
 In general, the following holds for HTTP request responses:

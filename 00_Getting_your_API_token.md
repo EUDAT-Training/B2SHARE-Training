@@ -53,7 +53,7 @@ We can use the token to display some deposits from the B2SHARE repository. Witho
 
 ```python
 >>> import requests
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
+>>> r = requests.get('https://vm0045.kaj.pouta.csc.fi/api/records', params={'access_token': token}, verify=False)
 ```
 
 Most likely you will get a warning about insecure connections through HTTPS. You can ignore that for now.
@@ -75,54 +75,88 @@ The response variable also contains the actual result text of the request in JSO
 ```python
 >>> import json
 >>> result = json.loads(r.text)
->>> records = result["records"]
->>> print records[0]
-{u'files': [{u'url': u'https://trng-b2share.eudat.eu/record/1/files/c33a933c-8202-11e3-92a1-005056943408.zip?version=1', u'name': u'c33a933c-8202-11e3-92a1-005056943408.zip', u'size': 549252}], u'domain': u'linguistics', u'uploaded_by': u'stranak@ufal.mff.cuni.cz', u'description': u'This is a small sample dataset from PDT 2.0. As such it can be released under a very permissive CC-BY license.', u'contributors': [], u'creator': [u'Haji\u010d, Jan'], u'checksum': u'c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043', u'title': u'Prague Dependency Treebank 2.0 Sample Data', u'PID': u'http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9', u'open_access': True, u'record_id': 1, u'version': u'', u'contact_email': u'', u'licence': u'CC-BY 4.0', u'publication_date': u'20-01-2014', u'keywords': [u'treebank', u'sample'], u'alternate_identifier': u'', u'domain_metadata': {u'quality': u'release', u'region': u'Czechia', u'project_name': u'', u'ling_resource_type': [u'treebank'], u'language_code': u'ces Czech'}, u'resource_type': []}
 ```
 
-Using the JSON package the first record can be properly displayed:
+Although no maximum number of results is specified, B2SHARE will only return the first 10 results even though the total number of results is known:
+
+```python
+>>> print result["hits"]["total"]
+341
+>>> print len(result["hits"]["hits"])
+10
+```
+
+To display a single record:
+
+```python
+>>> records = result["hits"]["hits"]
+>>> print records[0]
+{u'files': [{u'checksum': u'md5:c8afdb36c52cf4727836669019e69222', u'bucket': u'f7128c66-9b38-4ab9-a45d-14bffe55a496', u'version_id': u'f37fc7c7-c578-40f2-9024-bcbb05bfe347', u'key': u'myfile', u'size': 9}], u'updated': u'2016-11-16T10:23:23.426598+00:00', u'links': {u'files': u'https://vm0045.kaj.pouta.csc.fi/api/files/f7128c66-9b38-4ab9-a45d-14bffe55a496', u'self': u'https://vm0045.kaj.pouta.csc.fi/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4'}, u'created': u'2016-11-16T10:23:23.426590+00:00', u'id': u'a1c2ef96a1e446fa9bd7a2a46d2242d4', u'metadata': {u'community_specific': {u'362e6f81-68fb-4d71-9496-34ca00e59769': {u'material_type': [u'Other'], u'study_design': [u'Other'], u'principal_investigator': u'Amilcar Flores', u'study_description': u'REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer', u'categories_of_data_collected': [u'Biological samples'], u'disease': u'C61', u'sex': [u'Male'], u'study_id': u'REST', u'study_name': u'REST'}}, u'publication_state': u'published', u'open_access': True, u'description': u'REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer', u'title': u'REST paper 2014', u'owners': [1], u'community': u'99916f6f-9a2c-4feb-a342-6552ac7f1529', u'contact_email': u'x@example.com', u'keywords': [u'prostate cancer', u'REST', u'TFBS', u'ChiP-seq'], u'$schema': u'https://vm0045.kaj.pouta.csc.fi/api/communities/99916f6f-9a2c-4feb-a342-6552ac7f1529/schemas/0#/json_schema', u'resource_type': [u'Text']}}
+```
+
+Using the JSON package this record can be displayed properly:
 
 ```python
 >>> print json.dumps(records[0], indent=4)
 {
     "files": [
         {
-            "url": "https://trng-b2share.eudat.eu/record/1/files/c33a933c-8202-11e3-92a1-005056943408.zip?version=1",
-            "name": "c33a933c-8202-11e3-92a1-005056943408.zip",
-            "size": 549252
+            "checksum": "md5:c8afdb36c52cf4727836669019e69222",
+            "bucket": "f7128c66-9b38-4ab9-a45d-14bffe55a496",
+            "version_id": "f37fc7c7-c578-40f2-9024-bcbb05bfe347",
+            "key": "myfile",
+            "size": 9
         }
     ],
-    "domain": "linguistics",
-    "uploaded_by": "stranak@ufal.mff.cuni.cz",
-    "description": "This is a small sample dataset from PDT 2.0. As such it can be released under a very permissive CC-BY license.",
-    "contributors": [],
-    "creator": [
-        "Haji\u010d, Jan"
-    ],
-    "checksum": "c5450f4822ee3ff6a6c8c0a400c8ca5294770fb115e55b7aa70c5b9d116a0043",
-    "title": "Prague Dependency Treebank 2.0 Sample Data",
-    "PID": "http://hdl.handle.net/11113/1986e7ae-8203-11e3-8cd7-14feb57d12b9",
-    "open_access": true,
-    "record_id": 1,
-    "version": "",
-    "contact_email": "",
-    "licence": "CC-BY 4.0",
-    "publication_date": "20-01-2014",
-    "keywords": [
-        "treebank",
-        "sample"
-    ],
-    "alternate_identifier": "",
-    "domain_metadata": {
-        "quality": "release",
-        "region": "Czechia",
-        "project_name": "",
-        "ling_resource_type": [
-            "treebank"
-        ],
-        "language_code": "ces Czech"
+    "updated": "2016-11-16T10:23:23.426598+00:00",
+    "links": {
+        "files": "https://vm0045.kaj.pouta.csc.fi/api/files/f7128c66-9b38-4ab9-a45d-14bffe55a496",
+        "self": "https://vm0045.kaj.pouta.csc.fi/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4"
     },
-    "resource_type": []
+    "created": "2016-11-16T10:23:23.426590+00:00",
+    "id": "a1c2ef96a1e446fa9bd7a2a46d2242d4",
+    "metadata": {
+        "community_specific": {
+            "362e6f81-68fb-4d71-9496-34ca00e59769": {
+                "material_type": [
+                    "Other"
+                ],
+                "study_design": [
+                    "Other"
+                ],
+                "principal_investigator": "Amilcar Flores",
+                "study_description": "REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer",
+                "categories_of_data_collected": [
+                    "Biological samples"
+                ],
+                "disease": "C61",
+                "sex": [
+                    "Male"
+                ],
+                "study_id": "REST",
+                "study_name": "REST"
+            }
+        },
+        "publication_state": "published",
+        "open_access": true,
+        "description": "REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer",
+        "title": "REST paper 2014",
+        "owners": [
+            1
+        ],
+        "community": "99916f6f-9a2c-4feb-a342-6552ac7f1529",
+        "contact_email": "x@example.com",
+        "keywords": [
+            "prostate cancer",
+            "REST",
+            "TFBS",
+            "ChiP-seq"
+        ],
+        "$schema": "https://vm0045.kaj.pouta.csc.fi/api/communities/99916f6f-9a2c-4feb-a342-6552ac7f1529/schemas/0#/json_schema",
+        "resource_type": [
+            "Text"
+        ]
+    }
 }
 ```
 

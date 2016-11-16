@@ -1,4 +1,4 @@
-# B2SHARE Training Module
+# B2SHARE API Python Training Module
 <img align="right" src="img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using programmatic interfaces (APIs). It covers complete usage and implementation and provides step-by-step examples using Python.
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
@@ -13,11 +13,9 @@ This training modules assumes you have knowledge about data management basics su
 For trainees who do not have the possibility to install Python and the required Python packages, EUDAT provides pre-installed virtual machines in a training environment. To get access to this training environment, please use the [EUDAT contact pages](https://eudat.eu/support-request?service=DOCUMENTATION). Please provide some details on which community you are from and in which context you would like to follow the tutorial.
 
 ### Important remarks
-The B2SHARE service makes a distinction between the two terms `record` and `deposition`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a deposition, which is modifiable until finally committed. Files and metadata can be placed into a deposition, but not into a record.
+The B2SHARE service makes a distinction between the two terms `record` and `draft`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a draft record, which is modifiable until finally committed. Files and metadata can be placed into a draft record, but not into an existing (final) record.
 
-In practice, a record is equivalent to a deposition when solely trying to read a record through the service API. When creating new records, this has to be done using a deposition since it is created before any metadata or files are added.
-
-There is no difference between a `record` and a `deposit`, these terms can be used interchangeably.
+In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. When creating new records, this has to be done using a draft record since it is created before any metadata or files are added.
 
 ### Submodules
 
@@ -25,11 +23,11 @@ Note: it it highly recommended to follow the guides in the given order. Later mo
 
 Submodule | Contents
 ------|-------------
-[Introduction](00_Introduction) | General introduction to publishing data in B2SHARE
+[Introduction](00_Introduction.md) | General introduction to publishing data in B2SHARE
 [Getting your API token](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
 [Retrieve record details](01_Retrieve_existing_record.md) | Learn how to get deposit information of specific existing records
 [List existing records](02_List_existing_records.md) | Retrieve listings of records and paginate them
-[Communities](03_Communities) | Community-specific functionality is explained
+[Communities](03_Communities.md) | Community-specific functionality is explained
 [Create new deposit](05_Create_new_deposit.md) | Learn how to create new deposits and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
 [Example script](10_Example_script.md) | Example script with functions handling B2SHARE deposits

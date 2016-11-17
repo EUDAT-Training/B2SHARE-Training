@@ -1,11 +1,11 @@
-# Create a new deposit
-When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a deposition and adding files and metadata. This page will guide you through the creation process of a new deposition. It covers:
+# Create a new record
+When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a draft record and adding files and metadata. This page will guide you through the creation process of a new draft record and publishing it as a record. It covers:
 
- - the actual creation of a new record,
+ - the creation of a new draft record,
  - the addition of files and metadata and
  - the final completion.
 
-Please note that the B2SHARE service makes a distinction between the two terms `record` and `deposition`. A **record** is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by **first creating a deposition**, which is modifiable. Files and metadata can be placed into a deposition, but not into a record.
+Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record`. A **record** is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into a record.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.

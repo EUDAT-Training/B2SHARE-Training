@@ -13,9 +13,9 @@ This training modules assumes you have knowledge about data management basics su
 For trainees who do not have the possibility to install Python and the required Python packages, EUDAT provides pre-installed virtual machines in a training environment. To get access to this training environment, please use the [EUDAT contact pages](https://eudat.eu/support-request?service=DOCUMENTATION). Please provide some details on which community you are from and in which context you would like to follow the tutorial.
 
 ### Important remarks
-The B2SHARE service makes a distinction between the two terms `record` and `draft`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a draft record, which is modifiable until finally committed. Files and metadata can be placed into a draft record, but not into an existing (final) record.
+The B2SHARE service makes a distinction between the two terms `record` and `draft record`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a draft record, which is modifiable until finally committed. Files can be placed into a draft record, but not into an existing (final) record.
 
-In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. When creating new records, this has to be done using a draft record since it is created before any metadata or files are added.
+In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. Metadata of an existing published record can be updated by modifying the corresponding draft record and committing it as a new version of the original record.
 
 ### Submodules
 
@@ -25,11 +25,11 @@ Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to publishing data in B2SHARE
 [Getting your API token](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
-[Retrieve record details](01_Retrieve_existing_record.md) | Learn how to get deposit information of specific existing records
+[Retrieve record details](01_Retrieve_existing_record.md) | Learn how to get record information of specific existing records
 [List existing records](02_List_existing_records.md) | Retrieve listings of records and paginate them
 [Communities](03_Communities.md) | Community-specific functionality is explained
-[Create new deposit](05_Create_new_deposit.md) | Learn how to create new deposits and add files and metadata
+[Create new record](05_Create_new_record.md) | Learn how to create new records and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
-[Example script](10_Example_script.md) | Example script with functions handling B2SHARE deposits
+[Example script](10_Example_script.md) | Example script with functions handling B2SHARE records
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata

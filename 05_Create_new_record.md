@@ -385,6 +385,7 @@ The final commit request will return the updated object metadata in case the req
     },
     "created": "2016-11-17T13:14:42.155419+00:00"
 }
+```
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
 

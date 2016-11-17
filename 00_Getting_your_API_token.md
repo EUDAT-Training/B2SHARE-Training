@@ -48,15 +48,15 @@ Test your reading by displaying the value of your access token:
 d4N8Ni7VOTfpQDIlUqTIcmYAjg...
 ```
 
-#### Retrieve existing deposits
-We can use the token to display some deposits from the B2SHARE repository. Without explaining the detailed workings, the following command issues a request to get all records from the repository without doing verification of the source:
+#### Retrieve existing records
+We can use the token to display some records from the B2SHARE repository. Without explaining the detailed workings, the following command issues a request to get all records from the repository without doing verification of the source:
 
 ```python
 >>> import requests
 >>> r = requests.get('https://vm0045.kaj.pouta.csc.fi/api/records', params={'access_token': token}, verify=False)
 ```
 
-Most likely you will get a warning about insecure connections through HTTPS. You can ignore that for now.
+Most likely you will get a warning about insecure connections through HTTPS. You can ignore this.
 
 To check whether the request succeeded, the `r` variable contains the HTTP response code:
 
@@ -160,4 +160,4 @@ Using the JSON package this record can be displayed properly:
 }
 ```
 
-In this example, we just retrieve a list of records. To retrieve a specific record in a similar manner, please follow the [next](01_Retrieve_existing_deposit.md) guide.
+In this example, we just retrieve a list of records. To retrieve a specific record in a similar manner, please follow the [next](01_Retrieve_existing_record.md) guide.

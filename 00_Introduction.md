@@ -46,6 +46,8 @@ Variable | Description
 `record_id` | Identifier for a specific record, which can be in draft or published state
 `file_bucket_id` | Identifier for a set of files. Each record has its own file set
 
+Refer to the [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) appendix to see which requests are available and what metadata schemas and fields are supported.
+
 ### Request responses
 In general, the following holds for HTTP request responses:
 - All response bodies are JSON encoded (UTF-8 encoded).

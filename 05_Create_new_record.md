@@ -392,6 +392,6 @@ An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been au
 ### Check and display your results
 Once the deposit process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
 
-The record ID `id` in the response message can directly be used to see the landing page of the newly created deposit: [fe5937afaad34d5e929053c9f66a7aca](https://vm0045.kaj.pouta.csc.fi/record/fe5937afaad34d5e929053c9f66a7aca). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
+The record ID `id` in the response message can directly be used to see the landing page of the newly created deposit: [fe5937afaad34d5e929053c9f66a7aca](https://vm0045.kaj.pouta.csc.fi/records/fe5937afaad34d5e929053c9f66a7aca). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
 
 Unfortunately, some of the metadata schema fields are missing since during the metadata update step, these fields were not added to the patch. It is highly recommended to complete all fields during this step in order to increase the discoverability, authenticity and reusability of the dataset.

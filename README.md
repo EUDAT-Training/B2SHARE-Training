@@ -13,7 +13,7 @@ This training modules assumes you have knowledge about data management basics su
 For trainees who do not have the possibility to install Python and the required Python packages, EUDAT provides pre-installed virtual machines in a training environment. To get access to this training environment, please use the [EUDAT contact pages](https://eudat.eu/support-request?service=DOCUMENTATION). Please provide some details on which community you are from and in which context you would like to follow the tutorial.
 
 ### Important remarks
-The B2SHARE service makes a distinction between the two terms `record` and `draft record`. A record is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by first creating a draft record, which is modifiable until finally committed. Files can be placed into a draft record, but not into an existing (final) record.
+The B2SHARE service makes a distinction between the two terms `record` and `draft record`. A record is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by first creating a draft record, which is modifiable. Files and metadata can be placed into a draft record, but not into a published record.
 
 In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. Metadata of an existing published record can be updated by modifying the corresponding draft record and committing it as a new version of the original record.
 

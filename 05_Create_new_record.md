@@ -1,11 +1,13 @@
 # Create a new record
-When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a draft record and adding files and metadata. This page will guide you through the creation process of a new draft record and publishing it as a record. It covers:
+When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a draft record and adding files and metadata. This page will guide you through the creation process of a new draft records, preparing and finally publishing it as a record. It covers:
 
- - the creation of a new draft record,
- - the addition of files and metadata and
- - the final completion.
+ - The creation of a new draft record,
+ - The addition of files and metadata and
+ - Committing the draft record to publish it
 
-Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record` (or simply `draft`). A **record** is unchangeable and has a persistent identifier (PID) assigned to it. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into a record.
+Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record` (or simply `draft`). A **record** is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into a record.
+
+It is possible to create a new version of your record with new metadata and PIDs, the old version though will remain intact without alteration and is still identifiable and referable.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -61,12 +63,12 @@ On success, the response status code and text will be different this time:
 }
 ```
 
-Response code 201 indicates the draft record has been successfully created. The record ID `id` in the response text is used to identify the draft record during the additional steps of adding files and metadata:
+Response code 201 indicates the draft record has been successfully created. The record ID metadata field `id` in the response text is used to identify the draft record during the additional steps of adding files and metadata:
 
 ```python
 >>> result = json.loads(r.text)
->>> draftid = result["id"]
->>> print draftid
+>>> recordid = result["id"]
+>>> print recordid
 fe5937afaad34d5e929053c9f66a7aca
 ```
 
@@ -78,6 +80,8 @@ draft
 ```
 
 After creation, the next steps are to add files and metadata. This can be done in any order and repeatedly after each addition. In the next sections, both procedures are explained.
+
+Please note that the record ID will remain the same during the draft stage and after finally publishing the record.
 
 ### Add files to your new draft record
 After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a POST request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record.
@@ -101,7 +105,7 @@ In this statement, the action of opening the file is not actually performed. The
 Define the request URL by adding the file bucket ID and `files` end point:
 
 ```python
->>> url = 'https://trng-b2share.eudat.eu/api/files/' + filebucketid
+>>> url = 'https://vm0045.kaj.pouta.csc.fi/api/files/' + filebucketid
 >>> payload = {'access_token': token}
 ```
 
@@ -136,7 +140,7 @@ If the request is successful, the result can be checked:
 }
 ```
 
-The mime-type is detected, direct links are given and a checksum is calculated.
+The mime-type is detected, direct links are given and a checksum is calculated. The `version_id` can be used to refer to this specific upload of the file in case new versions are uploaded later on.
 
 If the request fails, check the error by displaying the response text, for example when the `files` object has errors:
 
@@ -221,126 +225,10 @@ When all your files have been uploaded, you can check the draft record's current
 
 A list of two files is returned, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket ID.
 
-### Add new metadata to your draft record
-Metadata is added to a draft record by issuing a HTTP patch request with a JSON patch list of operations that add or update metadata fields with corresponding values. Some of the fields are required by the metadata schema, other are optional. Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) to get the required and optional list of fields used for metadata.
+### Add additional metadata to your draft record
+Metadata is added to a draft record by issuing a HTTP patch request with a JSON patch list of operations that add or update metadata fields with corresponding values.
 
-First, the request headers need to be defined:
-```python
->>> header = {'Content-Type': 'application/json-patch+json'}
-```
-
-#### Preparing your new metadata
-An object with the new and updated metadata fields and values needs to be constructed. As the community, title and open access check have already been set when the draft record was created, only some missing fields are provided:
-```python
->>> metadata = {"creators": "B2SHARE-Training author",
-                "description": "My first dataset ingested using the B2SHARE API",
-                "licence": "CC-0-BY",
-                "contact_email": "email@example.com"}
-```
-
-#### Creating a JSON patch
-The metadata update call is made using a patch request containing the patch operations and headers. Note that:
-- The `api/records/<record_id>/draft` API end-point is used
-- The metadata updates for the record must be provided in the [JSON patch format](http://jsonpatch.com) in order to avoid to have to send all the existing metadata as well
-- The patch format contains one or more JSONPath strings. The root of these paths is the metadata object, as this is the only mutable object
-
-In order to successfully update the metadata, a JSON patch is created using the `jsonpatch` Python package. First, the original existing metadata of the record is retrieved:
-```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/fe5937afaad34d5e929053c9f66a7aca/draft"
->>> r = requests.get(url, params=payload, verify=False)
->>> result = json.loads(r.text)
->>> metadata_old = result["metadata"]
->>> print json.dumps(metadata_old, indent=4)
-{
-    "publication_state": "draft",
-    "owners": [
-        111
-    ],
-    "title": "My test upload",
-    "open_access": true,
-    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-    "$schema": "https://vm0045.kaj.pouta.csc.fi/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
-}
-```
-
-The actual JSON patch is created by:
-```python
->>> patch = jsonpatch.make_patch(metadata_old, metadata)
->>> print patch
-[{"path": "/publication_state", "op": "remove"}, {"path": "/owners", "op": "remove"}, {"path": "/title", "op": "remove"}, {"path": "/open_access", "op": "remove"}, {"path": "/community", "op": "remove"}, {"path": "/$schema", "op": "remove"}, {"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}, {"path": "/contact_email", "value": "email@example.com", "op": "add"}, {"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"}, {"path": "/licence", "value": "CC-0-BY", "op": "add"}]
-```
-
-The current patch will remove any existing fields not present in the metadata object, therefore these are removed in the final patch:
-```python
->>> finpatch = [d for d in patch if d["op"] <> "remove"]
->>> print finpatch
-[{u'path': u'/creators', u'value': 'B2SHARE-Training author', u'op': u'add'}, {u'path': u'/contact_email', u'value': 'email@example.com', u'op': u'add'}, {u'path': u'/description', u'value': 'My first dataset ingested using the B2SHARE API', u'op': u'add'}, {u'path': u'/licence', u'value': 'CC-0-BY', u'op': u'add'}]
-```
-
-The patch needs to be provided to the `data` argument as a serialized string and because Python by default adds a unicode indication to any string value, some additional processing is needed. Without any specific Python packages this can be done as follows:
-```python
->>> strpatch = "[%s]" % ",".join([json.dumps(x) for x in finpatch])
->>> print strpatch
-[{"path": "/creators", "value": ["B2SHARE-Training author"], "op": "add"},{"path": "/contact_email", "value": "email@example.com", "op": "add"},{"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"},{"path": "/licence", "value": "CC-0-BY", "op": "add"}]
-```
-
-#### Submitting the patch
-The serialized JSON patch is sent to the service in order to update the metadata. First, the header of the request needs to be set:
-```python
->>> header = {'Content-Type': 'application/json-patch+json'}
-```
-
-Now, the request response text shows the updated metadata:
-```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/fe5937afaad34d5e929053c9f66a7aca/draft"
->>> r = requests.patch(url, data=strpatch, params=payload, headers=header, verify=False)
->>> print r
-<Response [200]>
->>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
-{
-  "created": "2016-11-17T13:14:42.155419+00:00",
-  "id": "fe5937afaad34d5e929053c9f66a7aca",
-  "links": {
-    "files": "https://vm0045.kaj.pouta.csc.fi/api/files/5b54daea-1219-4406-8899-abc722aee57b",
-    "publication": "https://vm0045.kaj.pouta.csc.fi/api/records/fe5937afaad34d5e929053c9f66a7aca",
-    "self": "https://vm0045.kaj.pouta.csc.fi/api/records/fe5937afaad34d5e929053c9f66a7aca/draft"
-  },
-  "metadata": {
-    "$schema": "https://vm0045.kaj.pouta.csc.fi/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema",
-    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-    "contact_email": "email@example.com",
-    "creators": [
-      "B2SHARE-Training author"
-    ],
-    "description": "My first dataset ingested using the B2SHARE API",
-    "licence": "CC-0-BY",
-    "open_access": true,
-    "owners": [
-      111
-    ],
-    "publication_state": "draft",
-    "title": "My test upload"
-  },
-  "updated": "2016-11-17T16:32:35.601059+00:00"
-}
-```
-
-Compare the created and updated metadata timestamp:
-```python
->>> print result["created"], result["updated"]
-2016-11-17T13:14:42.155419+00:00 2016-11-17T16:32:35.601059+00:00
-```
-
-In case the patch request did not succeed (status code 400), an error description containing all errors is returned in the request response text. For example, the `creators` field value needs to be an array:
-```python
->>> patch = '[{"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}]'
->>> r = requests.patch(url, data=patch, params=payload, headers=header, verify=False)
->>> print r.status_code
-400
->>> print r.text
-{"message": "Validation error.", "status": 400, "errors": [{"message": "'B2SHARE-Training author' is not of type 'array'", "field": "creators"}]}
-```
+Since this procedure is quite extensive, refer to the [Updating record metadata](06_Updating_record_metadata.md) module to update your draft record's current metadata.
 
 ### Commit the changes
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable!
@@ -352,6 +240,7 @@ In this case, the only thing that needs to be changed is the patch string. As on
 
 The final commit request will return the updated object metadata in case the request is successfull (status code 200):
 ```python
+>>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/' + recordid + '/draft"
 >>> r = requests.patch(url, data=commit, params={'access_token': token}, headers=header, verify=False)
 >>> print r.status_code
 200
@@ -388,6 +277,8 @@ The final commit request will return the updated object metadata in case the req
 ```
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
+
+A published record will always have a draft record equivalent. If you ever want to change any of the records metadata, then the draft record can be immediately used for this process.
 
 ### Check and display your results
 Once the deposit process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.

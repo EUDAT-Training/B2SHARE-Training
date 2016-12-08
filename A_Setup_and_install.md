@@ -61,12 +61,13 @@ Once Python and pip are installed on your machine, a package needs to be install
 
 The following packages are required:
 ```sh
+jsonpatch
 requests
 ```
 
 Use pip to install it:
 ```sh
-pip install requests
+pip install jsonpatch requests
 ```
 
 ## Machine setup

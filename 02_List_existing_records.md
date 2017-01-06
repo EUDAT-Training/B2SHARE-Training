@@ -18,13 +18,13 @@ B2SHARE also returns the total number of records in the service:
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
-341
+33
 ```
 
 To get all records, which potentially may take a long time, the request can be altered by adding pagination parameters. In the following request, the page size and offset parameters define which records are returned. Increasing the size to a larger number and setting the page offset gives different results:
 
 ```python
->>> payload = {'size': 100,
+>>> payload = {'size': 10,
                'page': 1,
                'access_token': token
                }
@@ -36,9 +36,9 @@ To check whether any records are actually retrieved, the JSON package can be use
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
-341
+33
 >>> print len(result["hits"]["hits"])
-100
+10
 ```
 
 Please note that the actual response text is very long and therefore not very usable yet since it cannot be interpreted as a data structure:

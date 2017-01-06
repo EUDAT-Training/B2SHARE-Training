@@ -5,12 +5,29 @@ Please note that altering the metadata of a published record will generate a new
 
 This guide covers:
 
+- Getting metadata schema information
 - Preparing new metadata
 - Creating a JSON patch
 - Submitting your patch
 - Inspecting the result
 
 Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) to get the required and optional list of fields used for metadata.
+
+In this guide a published record with ID `fe5937afaad34d5e929053c9f66a7aca` will be updated, so this number will be used during each step.
+
+## Getting metadata schema information
+Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and asses the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
+
+Lets determine the record's attached community ID:
+```python
+>>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/" + recordid
+>>> r = requests.get(url, params={'access_token': token}, verify=False)
+>>> result = json.loads(r.text)
+>>> print result["metadata"]["community"]
+e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
+```
+
+With this community ID, the community metadata schema can be retrieved and available fields listed. Refer to the [Get community metadata schema](03_Communities.md#get-community-metadata-schema) section of the [Communities](03_Communities.md) guide to see how to achieve this.
 
 ## Updating metadata
 In order to update a record's metadata, the record ID is required while making patch requests. The procedure can be applied to either draft or published records.
@@ -37,7 +54,7 @@ The metadata update call is made using a patch request containing the patch oper
 
 In order to successfully update the metadata, a JSON patch is created using the `jsonpatch` Python package. First, the original existing metadata of the record is retrieved:
 ```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/' + recordid + '/draft"
+>>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/" + recordid + "/draft"
 >>> r = requests.get(url, params=payload, verify=False)
 >>> result = json.loads(r.text)
 >>> metadata_old = result["metadata"]

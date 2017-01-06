@@ -198,7 +198,7 @@ To retrieve the community metadata schema, use the `/api/communities/<community_
 }
 ```
 
-The schema contains all required fields together with field type and descriptions.
+The schema contains all required fields together with field type and descriptions. The required fields are also listed and need to be provided in case new records are created.
 
 ## Registering new communities
 It is possible to register new communities in B2SHARE, but currently not via de the API. Please contact the [EUDAT helpdesk](https://eudat.eu/support-request?service=B2SHARE) in order to do so.

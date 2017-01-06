@@ -87,5 +87,4 @@ Again, the result is processed to ease interpretation:
 
 ### Sorting your results
 
-
 To see what communities are available and which records they have published in B2SHARE, follow the [Communities guide](03_Communities.md).

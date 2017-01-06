@@ -59,8 +59,8 @@ In general, the following holds for HTTP request responses:
 
 The HTTP API does not impose a specific workflow for creating a record. The following example workflow only defines the most basic steps:
 
-1. Identify a target community for your data by using the HTTP API [List all communities](03_Communities.md#list-all-communties) function.
-1. Using the community's identifier, retrieve the JSON Schema of the record's metadata. 1. The submitted metadata will have to conform to this schema. Use the [Get community schema](03_Communities.md#get-community-metadata-schema) function.
-1. Create a draft record: use the [Create draft record]() function
-1. Upload the files into the draft record. You will have to use one HTTP request per file. Use the Upload file function
-1. Set the complete metadata and publish the record. Use the Publish draft function
+1. Identify a target community for your data by following the HTTP API [List all communities](03_Communities.md#list-all-communties) guide
+1. Using the community's identifier, retrieve the community's JSON Schema of the record's metadata. The submitted metadata will have to conform to this schema. Use the [Get community schema](03_Communities.md#get-community-metadata-schema) guide to achieve this
+1. Create a draft record: follow the [Create draft record](05_Create_new_record.md) guide to create a draft record with initial metadata in it
+1. [Upload files](05_Create_new_record.md#add-files-to-your-new-draft-record) into the draft record
+1. Set the [complete metadata](05_Create_new_record.md#add-additional-metadata-to-your-draft-record) and publish the record

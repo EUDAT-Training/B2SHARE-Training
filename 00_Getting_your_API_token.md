@@ -38,8 +38,10 @@ Once you have generated your access token, it can be used and tested with your o
 Assuming you have stored the access token in a file named `token.txt` and it is accessible from the current working directory, you can read it using the following commands in a Python session:
 ```python
 >>> f = open(r'token.txt', 'r')
->>> token = f.read()
+>>> token = f.read().strip()
 ```
+
+Note: The strip command here removes any training new line characters that may be added when you save the token to a file.
 
 Test your reading by displaying the value of your access token:
 

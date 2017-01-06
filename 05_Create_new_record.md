@@ -228,19 +228,19 @@ A list of two files is returned, including the files' sizes. You can do this wit
 ### Add additional metadata to your draft record
 Metadata is added to a draft record by issuing a HTTP patch request with a JSON patch list of operations that add or update metadata fields with corresponding values.
 
-Since this procedure is quite extensive, refer to the [Updating record metadata](06_Updating_record_metadata.md) module to update your draft record's current metadata.
+Since this procedure is quite extensive, refer to the [Update record metadata](06_Update_record_metadata.md) module to update your draft record's current metadata.
 
-### Commit the changes
-The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable!
+### Publishing your draft record
+The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!
 
-In this case, the only thing that needs to be changed is the patch string. As only the `publication_state` metadata field will be set to 'published', the patch is created directly as a string without using the `jsonpatch` package:
+In this case, the only thing that needs to be changed is the value of the `publication_state` metadata field. The metadata field will be set to 'published', and therefore the patch can be created directly as a string without using the `jsonpatch` package:
 ```python
 >>> commit = '[{"op": "add", "path":"/publication_state", "value": "published"}]'
 ```
 
 The final commit request will return the updated object metadata in case the request is successfull (status code 200):
 ```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/' + recordid + '/draft"
+>>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/" + recordid + "/draft"
 >>> r = requests.patch(url, data=commit, params={'access_token': token}, headers=header, verify=False)
 >>> print r.status_code
 200
@@ -275,6 +275,8 @@ The final commit request will return the updated object metadata in case the req
     "created": "2016-11-17T13:14:42.155419+00:00"
 }
 ```
+
+Your draft record is now published as a new record!
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
 

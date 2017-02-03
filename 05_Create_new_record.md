@@ -277,11 +277,31 @@ The final commit request will return the updated object metadata in case the req
 }
 ```
 
-Your draft record is now published as a new record!
+Your draft record is now published as a new record and is available under the URL `https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2`!
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
 
+#### Important
 A published record will always have a draft record equivalent. If you ever want to change any of the records metadata, then the draft record can be immediately used for this process.
+
+Please note that the file bucket ID of the draft record differs from the file record ID of the published record. By retrieving the published record metadata, the new file bucket ID can be obtained from the corresponding URL:
+
+```python
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2', verify=False)
+>>> result = json.loads(r.text)
+>>> filebucket = result["links"]["files"]
+>>> print filebucket
+https://trng-b2share.eudat.eu/api/files/8421cc4a-8762-4708-b94b-ec04a3cf04ee
+```
+
+Using this URL the state of the file bucket of the published record can be investigated. It contains the exact same files as the draft version, but it is locked and therefore cannot be changed anymore:
+
+```python
+>>> r = requests.get(filebucket, verify=False)
+>>> result = json.loads(r.text)
+>>> print result["locked"]
+True
+```
 
 ### Check and display your results
 Once the deposit process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.

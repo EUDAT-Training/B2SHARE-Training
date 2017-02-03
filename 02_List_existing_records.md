@@ -52,7 +52,7 @@ Please note that the actual response text is very long and therefore not very us
 The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available.
 
 ```python
->>> payload = {'draft': 1,
+>>> payload = {'drafts': "",
                'access_token': token
                }
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)
@@ -65,23 +65,38 @@ Again, the result is processed to ease interpretation:
 2
 >>> print json.dumps(result["hits"]["hits"][0], indent=4)
 {
-    "updated": "2016-11-16T14:10:40.744596+00:00",
-    "metadata": {
-        "publication_state": "draft",
-        "owners": [
-            111
-        ],
-        "title": "Test",
-        "open_access": true,
-        "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-        "$schema": "https://vm0045.kaj.pouta.csc.fi/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
-    },
-    "id": "fe1c0c0c487e4cc5ab098916827d87c4",
-    "links": {
-        "self": "https://vm0045.kaj.pouta.csc.fi/api/records/fe1c0c0c487e4cc5ab098916827d87c4/draft",
-        "publication": "https://vm0045.kaj.pouta.csc.fi/api/records/fe1c0c0c487e4cc5ab098916827d87c4"
-    },
-    "created": "2016-11-16T14:10:40.744589+00:00"
+  "aggregations": {},
+  "hits": {
+    "hits": [
+      {
+        "created": "2016-12-23T15:18:26.425855+00:00",
+        "id": "5881b3d048584aa7932c37d725ad533c",
+        "links": {
+          "publication": "https://trng-b2share.eudat.eu/api/records/5881b3d048584aa7932c37d725ad533c",
+          "self": "https://trng-b2share.eudat.eu/api/records/5881b3d048584aa7932c37d725ad533c/draft"
+        },
+        "metadata": {
+          "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema",
+          "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+          "open_access": true,
+          "owners": [
+            588
+          ],
+          "publication_state": "draft",
+          "titles": [
+            {
+              "title": "Test"
+            }
+          ]
+        },
+        "updated": "2016-12-23T15:18:26.425864+00:00"
+      }
+    ],
+    "total": 1
+  },
+  "links": {
+    "self": "https://trng-b2share.eudat.eu/api/records/?q=&size=10&page=1"
+  }
 }
 ```
 

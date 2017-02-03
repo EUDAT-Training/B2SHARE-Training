@@ -49,7 +49,7 @@ Please note that the actual response text is very long and therefore not very us
 ```
 
 ### Retrieve a list of your draft records
-The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available.
+The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available.
 
 ```python
 >>> payload = {'drafts': "",
@@ -100,6 +100,6 @@ Again, the result is processed to ease interpretation:
 }
 ```
 
-### Sorting your results
+### Communities
 
 To see what communities are available and which records they have published in B2SHARE, follow the [Communities guide](03_Communities.md).

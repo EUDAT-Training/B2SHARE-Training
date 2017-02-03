@@ -244,4 +244,4 @@ They are the same! Please note that B2SHARE adds a prefix to the checksum to ind
 In this example, we just retrieve a single records. To retrieve a list of records withfiltering of from a specific community in a similar manner, please follow the [next](02_List_existing_records.md) guide.
 
 ### Troubleshooting
-When working with remote servers, information retrieval by making requests might not always be succeed. To check whether the request has been successful, always check the reponse code. The most commonly occuring codes are listed in the [HTTP reponse codes](B_Request_and_Metadata_Reference_Guide.md) table.
+When working with remote servers, information retrieval by making requests might not always be succeed. To make sure the request has been successful, always check the reponse code. The most commonly occuring codes are listed in the [HTTP reponse codes](B_Request_and_Metadata_Reference_Guide.md) table.

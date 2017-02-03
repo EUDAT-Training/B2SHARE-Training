@@ -16,11 +16,11 @@ Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference
 In this guide a published record with ID `fe5937afaad34d5e929053c9f66a7aca` will be updated, so this number will be used during each step.
 
 ## Getting metadata schema information
-Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and asses the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
+Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and assess the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
 
 Lets determine the record's attached community ID:
 ```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/" + recordid
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
 >>> r = requests.get(url, params={'access_token': token}, verify=False)
 >>> result = json.loads(r.text)
 >>> print result["metadata"]["community"]
@@ -54,7 +54,7 @@ The metadata update call is made using a patch request containing the patch oper
 
 In order to successfully update the metadata, a JSON patch is created using the `jsonpatch` Python package. First, the original existing metadata of the record is retrieved:
 ```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/" + recordid + "/draft"
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
 >>> r = requests.get(url, params=payload, verify=False)
 >>> result = json.loads(r.text)
 >>> metadata_old = result["metadata"]
@@ -100,7 +100,7 @@ The serialized JSON patch is sent to the service in order to update the metadata
 
 Now, the request response text shows the updated metadata:
 ```python
->>> url = "https://vm0045.kaj.pouta.csc.fi/api/records/' + recordid + '/draft"
+>>> url = "https://trng-b2share.eudat.eu/api/records/' + recordid + '/draft"
 >>> r = requests.patch(url, data=strpatch, params=payload, headers=header, verify=False)
 >>> print r
 <Response [200]>

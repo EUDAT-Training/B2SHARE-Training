@@ -52,9 +52,12 @@ The total number of defined communities is found in the `total` key:
 ```
 
 The community ID can be found by:
+
 ```python
 >>> community_id = result["hits"]["hits"][5]["id"]
-
+>>> print community_id
+e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
+```
 
 ## Retrieve community-specific records
 If you solely want the records of a given community, say EUDAT, the corresponding community ID must be added to the records request as part of the query parameter `q`. Using the information found in the previous section:
@@ -65,6 +68,7 @@ If you solely want the records of a given community, say EUDAT, the correspondin
 ```
 
 By repeating the processing with JSON, the number of results can be displayed:
+
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
@@ -72,6 +76,7 @@ By repeating the processing with JSON, the number of results can be displayed:
 ```
 
 The structure of the results is exactly the same as with other records-retrieving requests:
+
 ```python
 >>> print json.dumps(result["hits"]["hits"][0], indent=4)
 {
@@ -121,6 +126,7 @@ If an empty community collection is requested, the response will be positive, bu
 Each community has a specific metadata schema specified which identifies all the fields that possibly need to be filled in before a new record can be completed.
 
 To retrieve the community metadata schema, use the `/api/communities/<community_id>/schemas/<version>` API endpoint. The `version` parameter can be a number or, to get the latest version, 'last'.
+
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/last', params=payload)
 >>> result = json.loads(r.text)

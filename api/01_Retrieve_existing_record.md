@@ -28,6 +28,7 @@ Now that you have the token value, prepare your HTTP GET request with the `reque
 ```
 
 To verify whether the request succeeded and see the result, print the variable `r` and the response text:
+
 ```python
 >>> print r
 <Response [200]>
@@ -103,7 +104,8 @@ To improve the usability of the response text, use the JSON package to transform
 ```
 
 Now the metadata of the record can be directly printed using the `metadata` key for the dictionary `result`. Don't forget the `indent=4` argument and value as otherwise the output will be in serialized form:
-```
+
+```python
 >>> print json.dumps(result["metadata"], indent=4)
 {
     "community_specific": {
@@ -186,12 +188,14 @@ test-file.txt
 In many cases, the files in a record are needed to allow further processing of the data set. A simple loop allows to get all files and store them at a specific location. Since all files are publically accessible, no access token for authentication is required as in the previous sections.
 
 To avoid overwriting any existing files, a specific download folder is created in the current working directory using the Python package `os`:
+
 ```python
 >>> import os
 >>> os.mkdir('download')
 ```
 
 Using the `urllib` package, files can be directly downloaded per file URL. Files are downloaded through the API using the following URL:
+
 ```
 https://trng-b2share.eudat.eu/api/files/<FILE_BUCKET_ID>/<FILE_KEY>
 ```
@@ -208,6 +212,7 @@ Using the information from the previous section, a simple `for` loop downloads a
 ```
 
 A single file was successfully downloaded:
+
 ```
 >>> print rf
 <Response [200]>

@@ -1,5 +1,10 @@
 # List existing records
-In this guide the retrieval of a list of existing records, possibly in paginated form, is covered. Furthermore, the filtering of records for specific communities is explained.
+In this guide the retrieval of a list of existing records, possibly in paginated form, is explained.
+
+This guide covers:
+- Retrieving published records, either all or in paginated form
+- Retrieving your draft records
+- Searching for specific records
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -58,6 +63,7 @@ The [Create a new record](05_Create_new_record.md) guide explains the creation o
 ```
 
 Again, the result is processed to ease interpretation:
+
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
@@ -89,6 +95,27 @@ Again, the result is processed to ease interpretation:
 ```
 
 As is visible, the first hit has its `publication_state` metadata field is set to `draft`.
+
+### Searching for specific records
+If you want a list of all published records containing specific keywords or values, the API can be used to handle a query string which will filter the results.
+
+The payload needs to be altered by specifying a value for the parameter `q`, in this case 'test'. Your access token is not required, since only public records will be searched.
+
+```python
+>>> payload = {'q': 'test'}
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+```
+
+Checking the results reveals that over 30 records have been found and that the returned data is automatically paginated:
+
+```python
+>>> print result["hits"]["total"]
+31
+>>> print len(result["hits"]["hits"])
+10
+```
+
+You can sort the result by specifying a value for the parameter `sort`, either `mostrecent` or `bestmatch`.
 
 ### Communities
 

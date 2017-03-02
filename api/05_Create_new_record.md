@@ -2,12 +2,12 @@
 When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a draft record and adding files and metadata. This page will guide you through the creation process of a new draft records, preparing and finally publishing it as a record. It covers:
 
  - The creation of a new draft record,
- - The addition of files and metadata and
+ - The addition of files and metadata, and
  - Committing the draft record to publish it
 
-Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record` (or simply `draft`). A **record** is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into a record.
+Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record` (or simply `draft`). A **record** is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into an already published record.
 
-It is possible to create a new version of your record with new metadata and PIDs, the old version though will remain intact without alteration and is still identifiable and referable.
+It is possible to create a new version of your published record with new metadata and PIDs. After updating it into a new version, the old version though will remain intact without alteration and is still identifiable and referable.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -32,7 +32,7 @@ In this case, a new open access record is created for the EUDAT community with t
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token},
-                data=metadata, headers=header, verify=False)
+                data=metadata, headers=header)
 ```
 
 Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work.

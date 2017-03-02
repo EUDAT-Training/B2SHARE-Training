@@ -223,7 +223,7 @@ In order to check that the contents of the file haven't changed, the checksum ca
 >>> import md5
 >>> fd = open('download/test-file.txt', 'r')
 >>> d = fd.read()
->>> print md5.md5(dt).hexdigest()
+>>> print md5.md5(d).hexdigest()
 d6eb32081c822ed572b70567826d9d9d
 >>> print result["files"][0]["checksum"]
 md5:d6eb32081c822ed572b70567826d9d9d

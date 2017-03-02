@@ -1,5 +1,5 @@
 # List existing records
-In this guide the retrieval of a list of existing records in paginated form is shown. Furthermore, the filtering of records for specific communities is explained.
+In this guide the retrieval of a list of existing records, possibly in paginated form, is covered. Furthermore, the filtering of records for specific communities is explained.
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.

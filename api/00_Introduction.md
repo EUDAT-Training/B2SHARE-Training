@@ -65,6 +65,8 @@ In many cases, you will get a warning about insecure connections through HTTPS w
 
 You can ignore this. All requests not using your token for authentication don't need to have verification turned off.
 
+If your request fails with an HTTP response code 401, you need to update your access token on the B2SHARE website.
+
 ## A publication workflow
 
 The HTTP API does not impose a specific workflow for creating a record. The following example workflow only defines the most basic steps:

@@ -10,7 +10,7 @@ This guide assumes you have successfully registered your account on the [B2SHARE
 As shown in the guide '[Getting your API token](00_Getting_your_API_token.md)', to get the first set of records from the B2SHARE service, the following request suffices:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records')
 ```
 
 B2SHARE also returns the total number of records in the service:
@@ -18,25 +18,24 @@ B2SHARE also returns the total number of records in the service:
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
-33
+112
 ```
 
 To get all records, which potentially may take a long time, the request can be altered by adding pagination parameters. In the following request, the page size and offset parameters define which records are returned. Increasing the size to a larger number and setting the page offset gives different results:
 
 ```python
 >>> payload = {'size': 10,
-               'page': 1,
-               'access_token': token
+               'page': 1
                }
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
 ```
 
-To check whether any records are actually retrieved, the JSON package can be used. Indeed, 341 records were found, but only records 101 to 200.
+To check whether any records are actually retrieved, again the JSON package can be used. Indeed, 112 records were found, but only records 101 to 200.
 
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
-33
+112
 >>> print len(result["hits"]["hits"])
 10
 ```
@@ -45,16 +44,16 @@ Please note that the actual response text is very long and therefore not very us
 
 ```python
 >>> print type(r.text), len(r.text)
-<type 'unicode'> 657711
+<type 'unicode'> 15126
 ```
 
 ### Retrieve a list of your draft records
-The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available.
+The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available. Note that you now need to include your access token in order to authenticate yourself.
 
 ```python
->>> payload = {'drafts=1&published_state=draft': "",
+>>> payload = {'drafts': 1,
                'access_token': token
-               }
+              }
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)
 ```
 
@@ -62,43 +61,34 @@ Again, the result is processed to ease interpretation:
 ```python
 >>> result = json.loads(r.text)
 >>> print result["hits"]["total"]
-2
+3
 >>> print json.dumps(result["hits"]["hits"][0], indent=4)
 {
-  "aggregations": {},
-  "hits": {
-    "hits": [
-      {
-        "created": "2016-12-23T15:18:26.425855+00:00",
-        "id": "5881b3d048584aa7932c37d725ad533c",
-        "links": {
-          "publication": "https://trng-b2share.eudat.eu/api/records/5881b3d048584aa7932c37d725ad533c",
-          "self": "https://trng-b2share.eudat.eu/api/records/5881b3d048584aa7932c37d725ad533c/draft"
-        },
-        "metadata": {
-          "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema",
-          "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-          "open_access": true,
-          "owners": [
-            588
-          ],
-          "publication_state": "draft",
-          "titles": [
+    "updated": "2017-01-15T14:11:20.765092+00:00",
+    "metadata": {
+        "publication_state": "draft",
+        "owners": [
+            10
+        ],
+        "open_access": true,
+        "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+        "titles": [
             {
-              "title": "Test"
+                "title": "Documentation"
             }
-          ]
-        },
-        "updated": "2016-12-23T15:18:26.425864+00:00"
-      }
-    ],
-    "total": 1
-  },
-  "links": {
-    "self": "https://trng-b2share.eudat.eu/api/records/?q=&size=10&page=1"
-  }
+        ],
+        "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
+    },
+    "id": "4d29477128404717bcdf4500f3b56bee",
+    "links": {
+        "self": "https://trng-b2share.eudat.eu/api/records/4d29477128404717bcdf4500f3b56bee/draft",
+        "publication": "https://trng-b2share.eudat.eu/api/records/4d29477128404717bcdf4500f3b56bee"
+    },
+    "created": "2017-01-15T14:11:20.765083+00:00"
 }
 ```
+
+As is visible, the first hit has its `publication_state` metadata field is set to `draft`.
 
 ### Communities
 

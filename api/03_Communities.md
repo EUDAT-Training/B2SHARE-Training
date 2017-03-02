@@ -14,7 +14,7 @@ This guide assumes you have successfully registered your account on the [B2SHARE
 To assess which communities are defined in B2SHARE, use the communities API end-point `/api/communities`. By default, B2SHARE returns all defined communities when requested. To see information about the EUDAT community (at index 5), do as follows:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/communities', verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/communities')
 >>> result = json.loads(r.text)
 >>> print json.dumps(result["hits"]["hits"][5], indent=4)
 {

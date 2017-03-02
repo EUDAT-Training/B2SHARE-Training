@@ -1,11 +1,11 @@
 # B2SHARE API Python Training Module
-<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using programmatic interfaces (APIs). It covers complete usage and implementation and provides step-by-step examples using Python.
+<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using application programming interfaces (APIs). It covers complete usage and implementation of the B2SHARE REST API and provides step-by-step examples using Python.
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 
 Please note that in order to use the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu/youraccount) to do so.
 
-This module is work in progress and subject to change. Since B2SHARE is currently in development, the API might change as well. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://trng-b2share.eudat.eu/docs/b2share-rest-api) on the B2SHARE website.
+Although this module is complete, it is subject to change due to possible future alterations in the API alterations. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.
 
 ### Prerequisites
 This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers. In addition, all scripts are written in the [Python scripting](http://python.org) language. If you have no experience in programming or want to learn more about Python, it is highly recommended to follow [some](https://www.stavros.io/tutorials/python) [tutorials](http://pythonprogramminglanguage.com) or start [reading](https://en.wikibooks.org/wiki/Python_Programming) about it.

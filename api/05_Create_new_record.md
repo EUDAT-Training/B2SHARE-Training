@@ -19,7 +19,7 @@ In the following diagram the general deposit workflow of B2SHARE is shown. All b
 
 ![B2SHARE deposit workflow](img/B2SHARE-deposit-workflow.png "B2SHARE deposit workflow")
 
-The red boxes indicate an object state, where in this workflow only drafts and records exist. Metadata (yellow) has to be manually added in the commit request. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes).
+The red boxes indicate an object state, where in this workflow only drafts and records exist. Files and metadata can be added multiple times. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes).
 
 ### Create a new draft record
 After loading your token a post request will create a new draft record. Only some basic metadata is needed, like the title and community, which is sent along with the request as the data argument together with a header defining the content type. All metadata can be changed later during the deposit workflow.
@@ -31,7 +31,8 @@ In this case, a new open access record is created for the EUDAT community with t
 >>> metadata = {"titles":[{"title":"My test upload"}],
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=metadata, headers=header, verify=False)
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token},
+                data=metadata, headers=header, verify=False)
 ```
 
 Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work.

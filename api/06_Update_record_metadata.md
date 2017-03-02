@@ -13,14 +13,15 @@ This guide covers:
 
 Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) to get the required and optional list of fields used for metadata.
 
-In this guide a published record with ID `fe5937afaad34d5e929053c9f66a7aca` will be updated, so this number will be used during each step.
+In this guide a published record with ID `2a441018bf254cd28ba336613186e6f2` will be updated, so this number will be used during each step. Any modifications to metadata should be done to the record's draft equivalent. This object is found by adding the `draft` endpoint.
 
 ## Getting metadata schema information
 Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and assess the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
 
-Lets determine the record's attached community ID:
+Lets determine the published record's draft equivalent community ID as stored in its metadata:
 ```python
->>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
+>>> recordid = '2a441018bf254cd28ba336613186e6f2'
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
 >>> r = requests.get(url, params={'access_token': token}, verify=False)
 >>> result = json.loads(r.text)
 >>> print result["metadata"]["community"]
@@ -54,33 +55,39 @@ The metadata update call is made using a patch request containing the patch oper
 
 In order to successfully update the metadata, a JSON patch is created using the `jsonpatch` Python package. First, the original existing metadata of the record is retrieved:
 ```python
->>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
 >>> r = requests.get(url, params=payload, verify=False)
 >>> result = json.loads(r.text)
 >>> metadata_old = result["metadata"]
 >>> print json.dumps(metadata_old, indent=4)
 {
-    "publication_state": "draft",
+    "community_specific": {},
+    "publication_state": "published",
     "owners": [
-        111
+        12
     ],
-    "title": "My test upload",
     "open_access": true,
     "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-    "$schema": "https://vm0045.kaj.pouta.csc.fi/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
+    "titles": [
+        {
+            "title": "My test upload"
+        }
+    ],
+    "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/json_schema"
 }
 ```
 
 The actual JSON patch is created by:
 ```python
+>>> import jsonpatch
 >>> patch = jsonpatch.make_patch(metadata_old, metadata)
 >>> print patch
-[{"path": "/publication_state", "op": "remove"}, {"path": "/owners", "op": "remove"}, {"path": "/title", "op": "remove"}, {"path": "/open_access", "op": "remove"}, {"path": "/community", "op": "remove"}, {"path": "/$schema", "op": "remove"}, {"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}, {"path": "/contact_email", "value": "email@example.com", "op": "add"}, {"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"}, {"path": "/licence", "value": "CC-0-BY", "op": "add"}]
+[{"path": "/community_specific", "op": "remove"}, {"path": "/publication_state", "op": "remove"}, {"path": "/owners", "op": "remove"}, {"path": "/open_access", "op": "remove"}, {"path": "/community", "op": "remove"}, {"path": "/titles", "op": "remove"}, {"path": "/$schema", "op": "remove"}, {"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}, {"path": "/contact_email", "value": "email@example.com", "op": "add"}, {"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"}, {"path": "/licence", "value": "CC-0-BY", "op": "add"}]
 ```
 
 The current patch will remove any existing fields not present in the metadata object, therefore these are removed in the final patch:
 ```python
->>> finpatch = [d for d in patch if d["op"] <> "remove"]
+>>> finpatch = filter(lambda x: x["op"] <> "remove", patch)
 >>> print finpatch
 [{u'path': u'/creators', u'value': 'B2SHARE-Training author', u'op': u'add'}, {u'path': u'/contact_email', u'value': 'email@example.com', u'op': u'add'}, {u'path': u'/description', u'value': 'My first dataset ingested using the B2SHARE API', u'op': u'add'}, {u'path': u'/licence', u'value': 'CC-0-BY', u'op': u'add'}]
 ```
@@ -89,7 +96,7 @@ The patch needs to be provided to the `data` argument as a serialized string and
 ```python
 >>> strpatch = "[%s]" % ",".join([json.dumps(x) for x in finpatch])
 >>> print strpatch
-[{"path": "/creators", "value": ["B2SHARE-Training author"], "op": "add"},{"path": "/contact_email", "value": "email@example.com", "op": "add"},{"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"},{"path": "/licence", "value": "CC-0-BY", "op": "add"}]
+[{"path": "/creators", "value": "B2SHARE-Training author", "op": "add"},{"path": "/contact_email", "value": "email@example.com", "op": "add"},{"path": "/description", "value": "My first dataset ingested using the B2SHARE API", "op": "add"},{"path": "/licence", "value": "CC-0-BY", "op": "add"}]
 ```
 
 #### Submitting the patch
@@ -100,7 +107,7 @@ The serialized JSON patch is sent to the service in order to update the metadata
 
 Now, the request response text shows the updated metadata:
 ```python
->>> url = "https://trng-b2share.eudat.eu/api/records/' + recordid + '/draft"
+>>> url = 'https://trng-b2share.eudat.eu/api/records/' + recordid + "/draft"
 >>> r = requests.patch(url, data=strpatch, params=payload, headers=header, verify=False)
 >>> print r
 <Response [200]>

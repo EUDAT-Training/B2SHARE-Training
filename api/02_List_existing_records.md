@@ -52,7 +52,7 @@ Please note that the actual response text is very long and therefore not very us
 The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available.
 
 ```python
->>> payload = {'drafts': "",
+>>> payload = {'drafts=1&published_state=draft': "",
                'access_token': token
                }
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)

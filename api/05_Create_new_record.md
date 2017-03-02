@@ -22,7 +22,7 @@ In the following diagram the general deposit workflow of B2SHARE is shown. All b
 The red boxes indicate an object state, where in this workflow only drafts and records exist. Files and metadata can be added multiple times. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes).
 
 ### Create a new draft record
-After loading your token a post request will create a new draft record. Only some basic metadata is needed, like the title and community, which is sent along with the request as the data argument together with a header defining the content type. All metadata can be changed later during the deposit workflow.
+After loading your token a **POST** request will create a new draft record. Only some basic metadata is needed, like the title and community, which is sent along with the request as the data argument together with a header defining the content type. All metadata can be changed later during the deposit workflow.
 
 In this case, a new open access record is created for the EUDAT community with the title 'My test upload':
 
@@ -31,43 +31,41 @@ In this case, a new open access record is created for the EUDAT community with t
 >>> metadata = {"titles":[{"title":"My test upload"}],
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token},
-                data=metadata, headers=header)
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dummps(metadata), headers=header)
 ```
 
-Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work.
+Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work. Furthermore, the metadata dictionary is converted to a string using the JSON package.
 
 On success, the response status code and text will be different this time:
 
 ```python
 >>> print r
 <Response [201]>
->>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
+>>> print r.text
 {
-    "updated": "2017-02-03T09:24:57.838332+00:00",
-    "metadata": {
-        "community_specific": {},
-        "publication_state": "draft",
-        "owners": [
-            12
-        ],
-        "open_access": true,
-        "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
-        "titles": [
-            {
-                "title": "My test upload"
-            }
-        ],
-        "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
-    },
-    "id": "2a441018bf254cd28ba336613186e6f2",
-    "links": {
-        "files": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf",
-        "self": "https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2/draft",
-        "publication": "https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2"
-    },
-    "created": "2017-02-03T09:24:57.838323+00:00"
+  "created": "2017-03-02T16:34:26.383505+00:00",
+  "id": "b43a0e6914e34de8bd19613bcdc0d364",
+  "links": {
+    "files": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa",
+    "publication": "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364",
+    "self": "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/draft"
+  },
+  "metadata": {
+    "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema",
+    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+    "community_specific": {},
+    "open_access": true,
+    "owners": [
+      10
+    ],
+    "publication_state": "draft",
+    "titles": [
+      {
+        "title": "My test upload"
+      }
+    ]
+  },
+  "updated": "2017-03-02T16:34:26.383514+00:00"
 }
 ```
 
@@ -77,17 +75,17 @@ Response code 201 indicates the draft record has been successfully created. The 
 >>> result = json.loads(r.text)
 >>> recordid = result["id"]
 >>> print recordid
-2a441018bf254cd28ba336613186e6f2
+b43a0e6914e34de8bd19613bcdc0d364
 ```
 
 The record is still in a draft state, as is indicated in the `publication_state` property:
 
 ```python
->>> print result["publication_state"]
+>>> print result["metadata"]["publication_state"]
 draft
 ```
 
-After creation, the next steps are to add files and metadata. This can be done in any order and repeatedly after each addition. In the next sections, both procedures are explained.
+After creation, the next steps are to add files and metadata. This can be done in any order and repeatedly after each addition until the draft record is finally published. In the next sections, both procedures are explained.
 
 Please note that the record ID will remain the same during the draft stage and after finally publishing the record.
 
@@ -99,13 +97,13 @@ Files in records are placed in file buckets attached to a record with a specific
 ```python
 >>> filebucketid = result["links"]["files"].split('/')[-1]
 >>> print filebucketid
-bbb85e9f-1640-4299-a7c8-b0a4b29df4cf
+0163d244-5845-40ca-899c-d1d0025f68aa
 ```
 
 First, define a dictionary which contains Python open calls to the files. Files are added one-by-one:
 
 ```python
->>> upload_file = open('sequence.txt', 'rb')
+>>> upload_file = {"file": open('sequence.txt', 'rb')}
 ```
 
 In this statement, the action of reading the file is not actually performed. The file will be read only when the request is done and send as a direct stream.
@@ -121,7 +119,7 @@ Define the request URL by adding the file bucket ID to the `files` end point and
 The complete put request looks as follows:
 
 ```python
->>> r = requests.put(url + '/sequence.txt', files=upload_file, params=payload, headers=header, verify=False)
+>>> r = requests.put(url + '/sequence.txt', files=upload_file, params=payload, headers=header)
 ```
 
 If the request is successful, the result can be checked:
@@ -133,19 +131,19 @@ If the request is successful, the result can be checked:
 >>> print json.dumps(result, indent=4)
 {
     "mimetype": "text/plain",
-    "updated": "2017-02-03T09:55:33.654440+00:00",
-    "is_head": true,
+    "updated": "2017-03-02T16:40:14.672198+00:00",
     "links": {
-        "self": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt",
-        "version": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt?versionId=4d5efca2-cdb0-44d2-acef-4b679e670198",
-        "uploads": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt?uploads"
+        "self": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt",
+        "version": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt?versionId=c616c2c8-531f-4c00-91d8-c0a5c996194f",
+        "uploads": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt?uploads"
     },
-    "created": "2017-02-03T09:55:33.651024+00:00",
-    "checksum": "md5:ef897a013eea4f7efef58bcac0251ada",
-    "version_id": "4d5efca2-cdb0-44d2-acef-4b679e670198",
+    "is_head": true,
+    "created": "2017-03-02T16:40:14.668025+00:00",
+    "checksum": "md5:e617f15cd8bded0c4e92e35b5af1609d",
+    "version_id": "c616c2c8-531f-4c00-91d8-c0a5c996194f",
     "delete_marker": false,
-    "key": "sequence2.txt",
-    "size": 38
+    "key": "sequence.txt",
+    "size": 440
 }
 ```
 
@@ -154,6 +152,7 @@ The mime-type is detected, direct links are given and a checksum is calculated. 
 If the request fails, check the error by displaying the response text, for example when the `files` object has errors. The reponse text will, in this case, a HTML page describing the error.
 
 When the upload file is not accessible:
+
 ```python
 >>> print r.status_code
 400
@@ -172,56 +171,56 @@ Repeat the above steps to add other files.
 When all your files have been uploaded, you can check the draft record's current status regarding these files using the URL with a GET request:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/files/' + filebucketid, params=payload, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/files/' + filebucketid, params=payload)
 >>> result = json.loads(r.text)
 >>> print json.dumps(result, indent=4)
 {
     "max_file_size": 1048576000,
-    "updated": "2017-02-03T09:55:33.659236+00:00",
+    "updated": "2017-03-02T16:42:48.980058+00:00",
     "locked": false,
     "links": {
-        "self": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf",
-        "uploads": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf?uploads",
-        "versions": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf?versions"
+        "self": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa",
+        "uploads": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa?uploads",
+        "versions": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa?versions"
     },
-    "created": "2017-02-03T09:24:57.857752+00:00",
+    "created": "2017-03-02T16:34:26.405147+00:00",
     "quota_size": null,
-    "id": "bbb85e9f-1640-4299-a7c8-b0a4b29df4cf",
+    "id": "0163d244-5845-40ca-899c-d1d0025f68aa",
     "contents": [
         {
             "mimetype": "text/plain",
-            "updated": "2017-02-03T09:45:11.058574+00:00",
-            "is_head": true,
+            "updated": "2017-03-02T16:42:48.974457+00:00",
             "links": {
-                "self": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence.txt",
-                "version": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence.txt?versionId=abfc82a0-c3a2-4f93-85da-07575df9ff86",
-                "uploads": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence.txt?uploads"
+                "self": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence2.txt",
+                "version": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence2.txt?versionId=5c13ccc5-d0c4-4e81-b4ba-42a5e6ab4432",
+                "uploads": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence2.txt?uploads"
             },
-            "created": "2017-02-03T09:45:11.054631+00:00",
-            "checksum": "md5:ef69caaaeea9c17120821a9eb6c7f1de",
-            "version_id": "abfc82a0-c3a2-4f93-85da-07575df9ff86",
+            "is_head": true,
+            "created": "2017-03-02T16:42:48.970708+00:00",
+            "checksum": "md5:0f8d51036979343c38dcc291c18dae7e",
+            "version_id": "5c13ccc5-d0c4-4e81-b4ba-42a5e6ab4432",
             "delete_marker": false,
-            "key": "sequence.txt",
-            "size": 192
+            "key": "sequence2.txt",
+            "size": 4042
         },
         {
             "mimetype": "text/plain",
-            "updated": "2017-02-03T09:55:33.654440+00:00",
-            "is_head": true,
+            "updated": "2017-03-02T16:40:14.672198+00:00",
             "links": {
-                "self": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt",
-                "version": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt?versionId=4d5efca2-cdb0-44d2-acef-4b679e670198",
-                "uploads": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf/sequence2.txt?uploads"
+                "self": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt",
+                "version": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt?versionId=c616c2c8-531f-4c00-91d8-c0a5c996194f",
+                "uploads": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa/sequence.txt?uploads"
             },
-            "created": "2017-02-03T09:55:33.651024+00:00",
-            "checksum": "md5:ef897a013eea4f7efef58bcac0251ada",
-            "version_id": "4d5efca2-cdb0-44d2-acef-4b679e670198",
+            "is_head": true,
+            "created": "2017-03-02T16:40:14.668025+00:00",
+            "checksum": "md5:e617f15cd8bded0c4e92e35b5af1609d",
+            "version_id": "c616c2c8-531f-4c00-91d8-c0a5c996194f",
             "delete_marker": false,
-            "key": "sequence2.txt",
-            "size": 38
+            "key": "sequence.txt",
+            "size": 440
         }
     ],
-    "size": 295
+    "size": 4482
 }
 ```
 
@@ -236,6 +235,7 @@ Since this procedure is quite extensive, refer to the [Update record metadata](0
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!
 
 In this case, the only thing that needs to be changed is the value of the `publication_state` metadata field. The metadata field will be set to 'submitted', and therefore the patch can be created directly as a string:
+
 ```python
 >>> header = {'Content-Type': 'application/json-patch+json'}
 >>> commit = '[{"op": "add", "path":"/publication_state", "value": "submitted"}]'
@@ -244,6 +244,7 @@ In this case, the only thing that needs to be changed is the value of the `publi
 Also, the header of the request is set.
 
 The final commit request will return the updated object metadata in case the request is successfull (status code 200):
+
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
 >>> r = requests.patch(url, data=commit, params={'access_token': token}, headers=header, verify=False)

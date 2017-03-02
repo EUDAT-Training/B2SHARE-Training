@@ -234,52 +234,61 @@ Since this procedure is quite extensive, refer to the [Update record metadata](0
 ### Publishing your draft record
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!
 
-In this case, the only thing that needs to be changed is the value of the `publication_state` metadata field. The metadata field will be set to 'submitted', and therefore the patch can be created directly as a string:
+In this case, the only thing that needs to be changed is the value of the `publication_state` metadata field. The metadata field will be set to 'submitted', and therefore the patch can be created directly as a string. Also, the header of the request is set:
 
 ```python
 >>> header = {'Content-Type': 'application/json-patch+json'}
 >>> commit = '[{"op": "add", "path":"/publication_state", "value": "submitted"}]'
 ```
 
-Also, the header of the request is set.
-
 The final commit request will return the updated object metadata in case the request is successfull (status code 200):
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.patch(url, data=commit, params={'access_token': token}, headers=header, verify=False)
+>>> r = requests.patch(url, data=commit, params=payload, headers=header, verify=False)
 >>> print r
 <Response [200]>
 >>> result = json.loads(r.text)
 >>> print json.dumps(result, indent=4)
 {
-    "updated": "2017-02-03T10:16:54.744721+00:00",
+    "updated": "2017-03-02T17:07:13.958052+00:00",
     "metadata": {
         "community_specific": {},
         "publication_state": "published",
-        "owners": [
-            12
-        ],
         "open_access": true,
+        "DOI": "http://doi.org/10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
+        "language": "en_GB",
+        "publisher": "EUDAT",
+        "ePIC_PID": "http://hdl.handle.net/11304/ab379f3b-8ff2-41ff-a96b-a3a066cc820c",
         "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
         "titles": [
             {
                 "title": "My test upload"
             }
         ],
+        "contact_email": "email@example.com",
+        "descriptions": [
+            {
+                "description": "My first dataset ingested using the B2SHARE API",
+                "description_type": "Abstract"
+            }
+        ],
+        "owners": [
+            10
+        ],
         "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
     },
-    "id": "2a441018bf254cd28ba336613186e6f2",
+    "id": "b43a0e6914e34de8bd19613bcdc0d364",
     "links": {
-        "files": "https://trng-b2share.eudat.eu/api/files/bbb85e9f-1640-4299-a7c8-b0a4b29df4cf",
-        "self": "https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2/draft",
-        "publication": "https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2"
+        "files": "https://trng-b2share.eudat.eu/api/files/0163d244-5845-40ca-899c-d1d0025f68aa",
+        "self": "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/draft",
+        "publication": "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364"
     },
-    "created": "2017-02-03T09:24:57.838323+00:00"
+    "created": "2017-03-02T16:34:26.383505+00:00"
 }
 ```
 
-Your draft record is now published as a new record and is available under the URL `https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2`!
+Your draft record is now published as a new record and is available under the URL `https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364`!
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
 
@@ -289,17 +298,17 @@ A published record will always have a draft record equivalent. If you ever want 
 Please note that the file bucket ID of the draft record differs from the file record ID of the published record. By retrieving the published record metadata, the new file bucket ID can be obtained from the corresponding URL:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records/2a441018bf254cd28ba336613186e6f2', verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/' + recordid)
 >>> result = json.loads(r.text)
 >>> filebucket = result["links"]["files"]
 >>> print filebucket
-https://trng-b2share.eudat.eu/api/files/8421cc4a-8762-4708-b94b-ec04a3cf04ee
+https://trng-b2share.eudat.eu/api/files/c1422a22-b8d4-42d6-9e94-1e5590294cb4
 ```
 
 Using this URL the state of the file bucket of the published record can be investigated. It contains the exact same files as the draft version, but it is locked and therefore cannot be changed anymore:
 
 ```python
->>> r = requests.get(filebucket, verify=False)
+>>> r = requests.get(filebucket)
 >>> result = json.loads(r.text)
 >>> print result["locked"]
 True
@@ -308,6 +317,6 @@ True
 ### Check and display your results
 Once the deposit process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
 
-The record ID `id` in the response message can directly be used to see the landing page of the newly created deposit: [2a441018bf254cd28ba336613186e6f2](https://trng-b2share.eudat.eu/records/2a441018bf254cd28ba336613186e6f2). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
+The record ID `id` in the response message can directly be used to see the landing page of the newly created deposit: [b43a0e6914e34de8bd19613bcdc0d364](https://trng-b2share.eudat.eu/records/b43a0e6914e34de8bd19613bcdc0d364). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
 
 Unfortunately, some of the metadata schema fields are missing since during the metadata update step, these fields were not added to the patch. It is highly recommended to complete all fields during this step in order to increase the discoverability, authenticity and reusability of the dataset. Please check the [Update record metadata](06_Update_record_metadata.md) module to update your published record's metadata.

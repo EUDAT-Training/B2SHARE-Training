@@ -55,6 +55,16 @@ In general, the following holds for HTTP request responses:
 - A collection of records is represented as a JSON array of objects: `[{ "field1": value, ... }, … ]}`
 - Timestamps are in UTC and formatted according to ISO 8601: `YYYY-MM-DDTHH:MM:SS+00:00`
 
+In many cases, you will get a warning about insecure connections through HTTPS when turning off certificate verification in the request statement (`verify=False`):
+
+```
+```python
+/usr/lib/python2.7/dist-packages/urllib3/connectionpool.py:732: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.org/en/latest/security.html (This warning will only appear once by default.)
+  InsecureRequestWarning)
+```
+
+You can ignore this. All requests not using your token for authentication don't need to have verification turned off.
+
 ## A publication workflow
 
 The HTTP API does not impose a specific workflow for creating a record. The following example workflow only defines the most basic steps:

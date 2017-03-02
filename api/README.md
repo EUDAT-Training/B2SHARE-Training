@@ -5,7 +5,7 @@ All submodules have been set up to use the [B2SHARE training instance](https://t
 
 Please note that in order to use the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu/youraccount) to do so.
 
-Although this module is complete, it is subject to change due to possible future alterations in the API alterations. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.
+Although this module is complete, it is subject to change due to possible future alterations in the API specification. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.
 
 ### Prerequisites
 This training modules assumes you have knowledge about data management basics such as depositing, metadata and persistent identifiers. In addition, all scripts are written in the [Python scripting](http://python.org) language. If you have no experience in programming or want to learn more about Python, it is highly recommended to follow [some](https://www.stavros.io/tutorials/python) [tutorials](http://pythonprogramminglanguage.com) or start [reading](https://en.wikibooks.org/wiki/Python_Programming) about it.
@@ -18,7 +18,6 @@ The B2SHARE service makes a distinction between the two terms `record` and `draf
 In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. Metadata of an existing published record can be updated by modifying the corresponding draft record and committing it as a new version of the original record.
 
 ### Submodules
-
 Note: it it highly recommended to follow the guides in the given order. Later modules assume specific knowledge about Python and how to setup requests.
 
 Submodule | Contents
@@ -33,3 +32,6 @@ Submodule | Contents
 [Example script](10_Example_script.md) | Example script with functions handling B2SHARE records
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata
+
+### Contact
+If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

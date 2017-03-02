@@ -54,8 +54,6 @@ We can use the token to display some records from the B2SHARE repository. Withou
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
 ```
 
-Most likely you will get a warning about insecure connections through HTTPS. You can ignore this.
-
 To check whether the request succeeded, the `r` variable contains the HTTP response code:
 
 ```python

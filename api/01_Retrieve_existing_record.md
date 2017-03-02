@@ -13,7 +13,6 @@ This guide assumes you have successfully registered your account on the [B2SHARE
 To retrieve a specific record, the `record_id` of that record is required and needs to be sent through the API. The data used in this GET request are:
 
  - URL path: `/api/records/<record_id>`: The basic url extended with the `record_id` value
- - Required parameters: `access_token`
 
 As already described, the value of the access token is read from the `token.txt` file in Python as follows:
 
@@ -25,14 +24,7 @@ Now that you have the token value, prepare your HTTP GET request with the `reque
 
 ```python
 >>> import requests
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records/41ccbfb505e641de8a75cc0b0f3818e2', params={'access_token': token}, verify=False)
-```
-
-Most likely you will get a warning (as shown below) about insecure connections through HTTPS. You can ignore this.
-
-```python
-/usr/lib/python2.7/dist-packages/urllib3/connectionpool.py:732: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.org/en/latest/security.html (This warning will only appear once by default.)
-  InsecureRequestWarning)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/41ccbfb505e641de8a75cc0b0f3818e2')
 ```
 
 To verify whether the request succeeded and see the result, print the variable `r` and the response text:
@@ -99,7 +91,7 @@ To verify whether the request succeeded and see the result, print the variable `
 }
 ```
 
-Although the response text is nicely indented, the response text is always a string and therefore the data can't be mapped through dictionary indexes yet.
+Although the response text is nicely indented, the response text is always a string and therefore the data can't be accessed through dictionary indexes yet.
 
 ### Process your record
 
@@ -210,12 +202,10 @@ Using the information from the previous section, a simple `for` loop downloads a
 >>> import urllib
 >>> for f in result["files"]:
 ...     with open("download/" + f["key"], 'wb') as fout:
-...             rf = requests.get("https://trng-b2share.eudat.eu/api/files/%s/%s" % (f["bucket"], f["key"]), verify=False)
+...             rf = requests.get("https://trng-b2share.eudat.eu/api/files/%s/%s" % (f["bucket"], f["key"]))
 ...             fout.write(rf.content)
 ...
 ```
-
-Again, you might get warning about unverified requests through HTTPS, these can be ignored.
 
 A single file was successfully downloaded:
 ```

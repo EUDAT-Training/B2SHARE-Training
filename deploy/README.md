@@ -13,6 +13,9 @@ Note: it it highly recommended to follow the guides in the given order. Later mo
 Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to deploying B2SHARE
+[Installation](01_Installation.md) | Installing required software and packages
+[Configuration](02_Configuration.md) | Configuring and testing your B2SHARE deployment and connected services
+[Community integration](05_Community_integration.md) | Setting up your community details and metadata schema
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

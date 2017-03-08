@@ -6,6 +6,8 @@ Although this module is complete, it is subject to change due to possible future
 ### Prerequisites
 This training modules assumes you have knowledge about using and configuring Linux environments, Docker image handling and command-line interfaces.
 
+Although there is a dedicated submodule for installing all prerequisite software, any problems arising during installation should be solved by the user using the documentation of the corresponding software. Links are provided for all used packages and software.
+
 ### Submodules
 
 Note: it it highly recommended to follow the guides in the given order. Later modules assume all previous steps have been completed successfully.
@@ -13,9 +15,9 @@ Note: it it highly recommended to follow the guides in the given order. Later mo
 Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to deploying B2SHARE
-[Installation](01_Installation.md) | Installing required software and packages
-[Configuration](02_Configuration.md) | Configuring and testing your B2SHARE deployment and connected services
-[Community integration](05_Community_integration.md) | Setting up your community details and metadata schema
+[Installation](04_Installation.md) | Installing required software and packages
+[Configuration](08_Configuration.md) | Configuring and testing your B2SHARE deployment and connected services
+[Community integration](12_Community_integration.md) | Setting up your community details and metadata schema
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

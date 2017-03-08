@@ -5,7 +5,7 @@ The information on this page is based on the [B2SHARE installation guide](https:
 - Setting up and configuration of connected containers services
 - Starting and stopping its services
 - Entering the Docker environment
-- Using the b2share tool
+- General usage the b2share tool
 - Troubleshooting
 
 ## Prerequisites
@@ -109,6 +109,7 @@ Commands:
 
 As is visible, there is a Python warning for a experimental feature. This can be ignored.
 
+### Command-specific help
 Additional help can be requested by adding the `--help` option. This holds for any of the subcommands and the options thereafter, e.g. to see the listing of the communities help, enter:
 
 ```sh
@@ -127,6 +128,7 @@ Commands:
   set_schema
 ```
 
+### Subcommand help
 To see a help for the create subcommand, enter:
 
 ```sh

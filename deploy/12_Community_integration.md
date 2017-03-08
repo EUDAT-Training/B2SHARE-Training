@@ -2,7 +2,7 @@
 Now that your B2SHARE instance is ready for use, communities can be added in order to allow the upload of new records.
 
 This guide covers:
-- Usage of the `b2share` tool
+- Listing existing communities
 - Adding new communities
 - Configuring and updating communities
 - Adding roles to specific users
@@ -30,9 +30,9 @@ A new community can be added by a single command:
 $ b2share communities create <community_name> "<description>" <logo>
 ```
 
-where 'community_name' is the name of your community, 'description' is the text describing your community and 'logo' is the path to an image containing the logo of your community. This path needs to be relative to `$B2SHARE_UI_PATH/img/communities`. All fields are mandatory.
+where `community_name` is the name of your community, `description` is the text describing your community and `logo` is the path to an image containing the logo of your community. This path needs to be relative to `$B2SHARE_UI_PATH/img/communities`. All fields are mandatory.
 
-If you don't have a logo image yet, set the 'logo' argument to an existing one, e.g. `eudat.png`. To update your logo see the [Updating your community logo](#Updating-your-community-logo) section below.
+If you don't have a logo image yet, set the `logo` argument to an existing one, e.g. `eudat.png`. To update your logo see the [Updating your community logo](#Updating-your-community-logo) section below.
 
 ## Configure your community
 The name and description of an existing community can be edited by:
@@ -41,7 +41,7 @@ The name and description of an existing community can be edited by:
 $ b2share communities edit <community_name> <option> <value>
 ```
 
-where 'community_name' is the name of your community, 'option' is either `--name` or `--description` and 'value' is the new value for the corresponding field.
+where `community_name` is the name of your community, `option` is either '--name' or '--description' and `value` is the new value for the corresponding field.
 
 ## Setting the community metadata schema
 Define a metadata schema for your community by preparing a JSON file which describes the fields of the metadata schema. The installation of B2SHARE provides several existing community JSON files that can be used as a starting point for your own community. Copy an existing one from `/eudat/b2share/demo/b2share_demo/data/communities/block_schemas/`, or create a new one with the following contents (including one metadata schema field specified):
@@ -69,7 +69,7 @@ To attach the schema to your community enter:
 $ b2share communities set_schema <community_name> <community_metadata_file>
 ```
 
-where 'community_name' is the name of your community and 'community_metadata_file' is the name of the JSON metadata schema file.
+where `community_name` is the name of your community and `community_metadata_file` is the name of the JSON metadata schema file.
 
 ## Updating your community logo
 Upload a logo into your Docker container or download one directly from the web using `wget` or a similar tool.

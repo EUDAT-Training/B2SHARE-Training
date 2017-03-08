@@ -5,6 +5,7 @@ The information on this page is based on the [B2SHARE installation guide](https:
 - Setting up and configuration of connected containers services
 - Starting and stopping its services
 - Entering the Docker environment
+- Using the b2share tool
 - Troubleshooting
 
 ## Prerequisites
@@ -50,3 +51,98 @@ $ docker-compose rm -a
 ```
 
 Run the [build and run commands](04_Installation.md#Building-and-running-B2SHARE) again to get your B2SHARE instance up and running again.
+
+## Entering the Docker container environment
+If you need to configure anything within one of the Docker containers it is possible to enter each one of them using the following command:
+
+```sh
+$ docker exec -it <container_name> /bin/bash
+```
+
+where `container_name` is the name of the container you want to enter, e.g.: `dockerize_b2share_1`.
+
+You will automatically be located in the `/eudat/b2share` directory:
+
+```sh
+$ pwd
+/eudat/b2share
+```
+
+## Using the b2share tool
+Once you have entered the B2SHARE container `dockerize_b2share_1`, you can use the `b2share` tool to directly interact with the Invenio back-end:
+
+```
+$ b2share
+/usr/lib/python3.4/site-packages/dojson/contrib/to_marc21/model.py:22: UserWarning: MARC21 undo feature is experimental
+  warnings.warn('MARC21 undo feature is experimental')
+Usage: b2share [OPTIONS] COMMAND [ARGS]...
+
+  Command Line Interface for Invenio.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  access       Account commands.
+  alembic      Perform database migrations.
+  assets       Web assets commands.
+  b2records    B2SHARE Records commands.
+  collect      Collect static files.
+  communities  communities management commands.
+  db           Database commands.
+  demo         Demonstration commands.
+  deposit      Deposit management commands.
+  files        Files management commands.
+  index        Management command for search indicies.
+  instance     Instance commands.
+  migrate      Migration commands.
+  npm          Generate a package.json file.
+  oai          OAI commands.
+  pid          PID-Store management commands.
+  records      Record management commands.
+  roles        Role commands.
+  run          Runs a development server.
+  schemas      Schemas management commands.
+  shell        Runs a shell in the app context.
+  users        User commands.
+```
+
+As is visible, there is a Python warning for a experimental feature. This can be ignored.
+
+Additional help can be requested by adding the `--help` option. This holds for any of the subcommands and the options thereafter, e.g. to see the listing of the communities help, enter:
+
+```sh
+$ b2share communities --help
+Usage: b2share communities [OPTIONS] COMMAND [ARGS]...
+
+  communities management commands.
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  create      Create a community in the database.
+  edit        Edit data of the specified community.
+  list        List all communities in this instances...
+  set_schema
+```
+
+To see a help for the create subcommand, enter:
+
+```sh
+$ b2share communities create --help
+/usr/lib/python3.4/site-packages/dojson/contrib/to_marc21/model.py:22: UserWarning: MARC21 undo feature is experimental
+  warnings.warn('MARC21 undo feature is experimental')
+Usage: b2share communities create [OPTIONS] NAME DESCRIPTION LOGO
+
+  Create a community in the database. Name can be 255 characters long.
+  Description is a text of maximally 1024 characters enclosed in
+  parentheses. The logo parameter should be a valid path to a logo file
+  relative to B2SHARE_UI_PATH/img/communities directory
+
+Options:
+  -v, --verbose
+  --help         Show this message and exit.
+```
+
+## Troubleshooting

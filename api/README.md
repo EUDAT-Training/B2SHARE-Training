@@ -1,5 +1,5 @@
-# B2SHARE API Python Training Module
-<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using application programming interfaces (APIs). It covers complete usage and implementation of the B2SHARE REST API and provides step-by-step examples using Python.
+# B2SHARE REST API Python Training Module
+<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using application programming interfaces (APIs). It covers complete usage and implementation of the [B2SHARE REST API](https://b2share.eudat.eu/help/api) and provides step-by-step examples using Python.
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 

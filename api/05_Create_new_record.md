@@ -87,7 +87,7 @@ draft
 
 After creation, the next steps are to add files and metadata. This can be done in any order and repeatedly after each addition until the draft record is finally published. In the next sections, both procedures are explained.
 
-Please note that the record ID will remain the same during the draft stage and after finally publishing the record.
+Please note that the record ID will remain the same during the draft stage and after finally publishing the record. There is no attached EPIC PID yet.
 
 ### Add files to your new draft record
 After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a PUT request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record.

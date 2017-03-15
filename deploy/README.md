@@ -18,6 +18,7 @@ Submodule | Contents
 [Installation](04_Installation.md) | Installing required software and packages
 [Configuration](08_Configuration.md) | Configuring and testing your B2SHARE deployment and connected services
 [Community integration](12_Community_integration.md) | Setting up your community details and metadata schema
+[b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

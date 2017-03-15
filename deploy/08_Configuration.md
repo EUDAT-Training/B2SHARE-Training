@@ -42,7 +42,7 @@ To start the containers again, enter:
 $ docker-compose up -d
 ```
 
-If there are any complaints about missing environment variables, make sure they are known to the host system (see [Installation guide](04_Installation.md#Set-environment-variables))
+If there are any complaints about missing environment variables, make sure they are known to the host system (see [Installation guide](04_Installation.md#set-environment-variables))
 
 ### Removing currently built containers
 If you encounter any problems or broken containers, it might help to remove all containers and start over again:
@@ -51,7 +51,7 @@ If you encounter any problems or broken containers, it might help to remove all 
 $ docker-compose rm -a
 ```
 
-Run the [build and run commands](04_Installation.md#Building-and-running-B2SHARE) again to get your B2SHARE instance up and running again.
+Run the [build and run commands](04_Installation.md#building-and-running-b2share) again to get your B2SHARE instance up and running again.
 
 ## Entering the Docker container environment
 If you need to configure anything within one of the Docker containers it is possible to enter each one of them using the following command:
@@ -110,43 +110,7 @@ Commands:
 
 As is visible, there is a Python warning for a experimental feature. This can be ignored.
 
-### Command-specific help
-Additional help can be requested by adding the `--help` option. This holds for any of the subcommands and the options thereafter, e.g. to see the listing of the communities help, enter:
-
-```sh
-$ b2share communities --help
-Usage: b2share communities [OPTIONS] COMMAND [ARGS]...
-
-  communities management commands.
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  create      Create a community in the database.
-  edit        Edit data of the specified community.
-  list        List all communities in this instances...
-  set_schema
-```
-
-### Subcommand help
-To see a help for the create subcommand, enter:
-
-```sh
-$ b2share communities create --help
-/usr/lib/python3.4/site-packages/dojson/contrib/to_marc21/model.py:22: UserWarning: MARC21 undo feature is experimental
-  warnings.warn('MARC21 undo feature is experimental')
-Usage: b2share communities create [OPTIONS] NAME DESCRIPTION LOGO
-
-  Create a community in the database. Name can be 255 characters long.
-  Description is a text of maximally 1024 characters enclosed in
-  parentheses. The logo parameter should be a valid path to a logo file
-  relative to B2SHARE_UI_PATH/img/communities directory
-
-Options:
-  -v, --verbose
-  --help         Show this message and exit.
-```
+To see a complete overview of all commands in the b2share tool, see [Appendix A. The b2share tool reference](A_b2share_Tool_Reference.md)
 
 ## Set the super administrator
 The superadministrator right allows a particular user to run any B2SHARE operation. Please be careful in assigning it.

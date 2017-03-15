@@ -233,4 +233,4 @@ If you are an administrator or developer the details of the error follows:
 The '<username>' requested to use a not registered response redirection URI: <OAuth URL>
 ```
 
-This means that your B2ACCESS OAuth URL is not properly configured, probably due to an erroneous domain name or incorrect endpoint. Please visit the corresponding B2ACCESS instance (see [above](#Different-B2ACCESS-instances), log in with your OAuth Client user and enter the correct URL in the `OAuth client return URL` field.
+This means that your B2ACCESS OAuth URL is not properly configured, probably due to an erroneous domain name or incorrect endpoint. Please visit the corresponding B2ACCESS instance (see [above](#different-b2access-instances), log in with your OAuth Client user and enter the correct URL in the `OAuth client return URL` field.

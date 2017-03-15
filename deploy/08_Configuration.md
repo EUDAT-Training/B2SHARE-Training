@@ -1,11 +1,12 @@
 # Configuration
-After successfully [installing](05_Installation.md) the prerequisites and B2SHARE software package, your B2SHARE instance needs to configured.
+After successfully [installing](05_Installation.md) the prerequisites and B2SHARE software package, your B2SHARE instance needs to configured. This includes setting the super administrator.
 
-The information on this page is based on the [B2SHARE installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst) provided by the developers. The submodule covers the full configuration of B2SHARE and corresponding services:
+The information on this page is partially based on the [B2SHARE installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst) provided by the developers. The submodule covers the full configuration of B2SHARE and corresponding services:
 - Setting up and configuration of connected containers services
 - Starting and stopping its services
 - Entering the Docker environment
 - General usage the b2share tool
+- Setting the super administrator
 - Troubleshooting
 
 ## Prerequisites
@@ -146,5 +147,38 @@ Options:
   -v, --verbose
   --help         Show this message and exit.
 ```
+
+## Set the super administrator
+The superadministrator right allows a particular user to run any B2SHARE operation. Please be careful in assigning it.
+
+Please note: all role operations identify the user based on the email address. The user must therefore have logged in into B2SHARE instance at least once in order to be known by the system.
+
+### Add super administration rights
+The super administration privileges are set using the b2share tool using the `access` command:
+
+```sh
+$ b2share access allow -e <email_address> superuser-access
+```
+
+where the argument `email_address` is the email address of the user you want to give administrator privileges to. The command will not give any response even if it successfully added the rights. To see the actual
+
+### List current user rights
+You can list whether a user has super administrator rights by the following command:
+
+```sh
+$ b2share access show -e <email_address>
+user:<email_address>:superuser-access::allow
+```
+
+If there is no listing, it means that no user has super administration rights.
+
+### Remove super administration rights
+If you want to revoke the super administration rights of a specific user, the following command with similar arguments does exactly that:
+
+```sh
+$ b2share access remove -e <email_address> superuser-access
+```
+
+where `email_address` is the email address of the user.
 
 ## Troubleshooting

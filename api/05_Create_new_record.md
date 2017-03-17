@@ -19,7 +19,7 @@ In the following diagram the general deposit workflow of B2SHARE is shown. All b
 
 ![B2SHARE deposit workflow](img/B2SHARE-deposit-workflow.png "B2SHARE deposit workflow")
 
-The red boxes indicate an object state, where in this workflow only drafts and records exist. Files and metadata can be added multiple times. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes).
+The red boxes indicate an object state, where in this workflow only draft, submitted and published records exist. Files and metadata can be added multiple times. Persistent identifiers (PIDs) and checksum are automatically added by B2SHARE (green boxes). Once a draft record is committed, depending on the community's requirements, the record is either in submitted state and needs further approval or is immediately published.
 
 ### Create a new draft record
 After loading your token a **POST** request will create a new draft record. Only some basic metadata is needed, like the title and community, which is sent along with the request as the data argument together with a header defining the content type. All metadata can be changed later during the deposit workflow.

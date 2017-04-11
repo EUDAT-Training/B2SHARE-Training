@@ -32,7 +32,7 @@ e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
 With this community ID, the community metadata schema can be retrieved and required metadata fields listed. Refer to the [Get community metadata schema](03_Communities.md#get-community-metadata-schema) section of the [Communities](03_Communities.md) guide to see how to achieve this.
 
 ## Updating metadata
-In order to update a draft record's metadata, the record ID is required while making patch requests. The procedure can be applied to either draft or published records.
+To update a draft record's metadata, the record ID is required while making patch requests. The procedure can be applied to either draft or published records.
 
 #### Preparing your new metadata
 An object with the new and updated metadata fields and values needs to be constructed. As the community, title and open access check have already been set when the draft record was created, only some missing fields are provided:

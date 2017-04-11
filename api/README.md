@@ -1,9 +1,9 @@
 # B2SHARE REST API Python Training Module
-<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) using application programming interfaces (APIs). It covers complete usage and implementation of the [B2SHARE REST API](https://b2share.eudat.eu/help/api) and provides step-by-step examples using Python.
+<img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in using the [EUDAT B2SHARE service](https://trng-b2share.eudat.eu) through application programming interfaces (APIs). It covers complete usage and implementation of the [B2SHARE REST API](https://b2share.eudat.eu/help/api) and provides step-by-step examples using Python. All functionality is also available in the web interface of B2SHARE, but the API allows integration of its functionality into your own workflows and applications.
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 
-Please note that in order to use the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu/youraccount) to do so.
+Please note that in order to use some functionality of the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu/youraccount) to do so.
 
 Although this module is complete, it is subject to change due to possible future alterations in the API specification. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.
 
@@ -29,6 +29,7 @@ Submodule | Contents
 [Communities](03_Communities.md) | Community-specific functionality is explained
 [Create new record](05_Create_new_record.md) | Learn how to create new records and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
+[Special requests](08_Special_requests.md) | Various examples of special requests made using the API
 [Example script](10_Example_script.md) | Example script with functions handling B2SHARE records
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata

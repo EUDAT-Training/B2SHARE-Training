@@ -5,6 +5,7 @@ This guide covers:
 - Listing existing communities
 - Adding new communities
 - Configuring and updating communities
+- Setting the community metadata schema
 - Adding roles to specific users
 - Adding users to your community
 

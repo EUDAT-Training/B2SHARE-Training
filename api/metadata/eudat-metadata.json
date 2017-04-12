@@ -1,0 +1,270 @@
+{
+    "community_specific": {
+        "type": "object"
+    },
+    "publisher": {
+        "type": "string",
+        "description": "The entity responsible for making the resource available, either a person, an organization, or a service.",
+        "title": "Publisher"
+    },
+    "embargo_date": {
+        "title": "Embargo Date",
+        "type": "string",
+        "description": "The date marking the end of the embargo period. The record will be marked as open access on the specified date at midnight. Please note that the record metadata is always publicly accessible, and only the data files can have private access.",
+        "format": "date-time"
+    },
+    "license": {
+        "description": "Specify the license under which this data set is available to the users (e.g. GPL, Apache v2 or Commercial). Please use the License Selector for help and additional information.",
+        "title": "License",
+        "required": [
+            "license"
+        ],
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+            "license_uri": {
+                "title": "URL",
+                "type": "string",
+                "format": "uri"
+            },
+            "license": {
+                "type": "string"
+            }
+        }
+    },
+    "resource_types": {
+        "description": "The type(s) of the resource.",
+        "title": "Resource Type",
+        "minItems": 1,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "resource_type_general"
+            ],
+            "type": "object",
+            "properties": {
+                "resource_type_general": {
+                    "enum": [
+                        "Audiovisual",
+                        "Collection",
+                        "Dataset",
+                        "Event",
+                        "Image",
+                        "InteractiveResource",
+                        "Model",
+                        "PhysicalObject",
+                        "Service",
+                        "Software",
+                        "Sound",
+                        "Text",
+                        "Workflow",
+                        "Other"
+                    ],
+                    "title": "Category"
+                },
+                "resource_type": {
+                    "type": "string",
+                    "title": "Description"
+                }
+            }
+        },
+        "uniqueItems": true,
+        "type": "array"
+    },
+    "alternate_identifiers": {
+        "uniqueItems": true,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "alternate_identifier",
+                "alternate_identifier_type"
+            ],
+            "type": "object",
+            "properties": {
+                "alternate_identifier": {
+                    "type": "string"
+                },
+                "alternate_identifier_type": {
+                    "type": "string",
+                    "title": "Type"
+                }
+            }
+        },
+        "type": "array",
+        "description": "Any kind of other reference such as a URN, URI or an ISBN number.",
+        "title": "Alternate identifiers"
+    },
+    "contributors": {
+        "uniqueItems": true,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "contributor_name",
+                "contributor_type"
+            ],
+            "type": "object",
+            "properties": {
+                "contributor_name": {
+                    "type": "string",
+                    "title": "Name"
+                },
+                "contributor_type": {
+                    "enum": [
+                        "ContactPerson",
+                        "DataCollector",
+                        "DataCurator",
+                        "DataManager",
+                        "Distributor",
+                        "Editor",
+                        "HostingInstitution",
+                        "Producer",
+                        "ProjectLeader",
+                        "ProjectManager",
+                        "ProjectMember",
+                        "RegistrationAgency",
+                        "RegistrationAuthority",
+                        "RelatedPerson",
+                        "Researcher",
+                        "ResearchGroup",
+                        "RightsHolder",
+                        "Sponsor",
+                        "Supervisor",
+                        "WorkPackageLeader",
+                        "Other"
+                    ],
+                    "title": "Type"
+                }
+            }
+        },
+        "type": "array",
+        "description": "The list of all other contributors. Please mention all persons that were relevant in the creation of the resource.",
+        "title": "Contributors"
+    },
+    "publication_state": {
+        "enum": [
+            "draft",
+            "submitted",
+            "published"
+        ],
+        "type": "string",
+        "description": "State of the publication workflow.",
+        "title": "Publication State"
+    },
+    "open_access": {
+        "type": "boolean",
+        "description": "Indicate whether the record's files are publicly accessible or not. In case of restricted access the uploaded files will only be accessible by the record's owner and the community administrators. Please note that the record's metadata is always publicly accessible. ",
+        "title": "Open Access"
+    },
+    "community": {
+        "type": "string",
+        "description": "The community to which the record has been submitted.",
+        "title": "Community"
+    },
+    "language": {
+        "type": "string",
+        "description": "The primary language of the resource. Please use ISO_639-3 language codes.",
+        "title": "Language"
+    },
+    "titles": {
+        "description": "The title(s) of the uploaded resource, or a name by which the resource is known.",
+        "title": "Titles",
+        "minItems": 1,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "title"
+            ],
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "uniqueItems": true,
+        "type": "array"
+    },
+    "contact_email": {
+        "title": "Contact Email",
+        "type": "string",
+        "description": "Contact email information for this record.",
+        "format": "email"
+    },
+    "descriptions": {
+        "uniqueItems": true,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "description",
+                "description_type"
+            ],
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "description_type": {
+                    "enum": [
+                        "Abstract",
+                        "Methods",
+                        "SeriesInformation",
+                        "TableOfContents",
+                        "TechnicalInfo",
+                        "Other"
+                    ],
+                    "title": "Type"
+                }
+            }
+        },
+        "type": "array",
+        "description": "A more elaborate description of the resource. Focus on a content description that makes it easy for others to find, and to interpret its relevance.",
+        "title": "Descriptions"
+    },
+    "version": {
+        "type": "string",
+        "description": "Denote the version of the resource.",
+        "title": "Version"
+    },
+    "keywords": {
+        "uniqueItems": true,
+        "items": {
+            "type": "string"
+        },
+        "type": "array",
+        "description": "A list of keywords or key phrases describing the resource.",
+        "title": "Keywords"
+    },
+    "publication_date": {
+        "title": "Publication Date",
+        "type": "string",
+        "description": "The date when the data was or will be made publicly available (e.g. 1971-07-13)",
+        "format": "date"
+    },
+    "creators": {
+        "uniqueItems": true,
+        "items": {
+            "additionalProperties": false,
+            "required": [
+                "creator_name"
+            ],
+            "type": "object",
+            "properties": {
+                "creator_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "type": "array",
+        "description": "The full name of the creators. The personal name format should be: family, given (e.g.: Smith, John).",
+        "title": "Creators"
+    },
+    "disciplines": {
+        "uniqueItems": true,
+        "items": {
+            "type": "string"
+        },
+        "type": "array",
+        "description": "The scientific disciplines linked with the resource.",
+        "title": "Disciplines"
+    }
+}

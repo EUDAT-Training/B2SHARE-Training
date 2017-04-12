@@ -226,10 +226,12 @@ When all your files have been uploaded, you can check the draft record's current
 
 The links to the file bucket is displayed, as well as the 'contents' list of two files, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket ID.
 
-### Add additional metadata to your draft record
-Metadata is added to a draft record by issuing a HTTP patch request with a JSON patch list of operations that add or update metadata fields with corresponding values.
+### Add metadata to your draft record
+Metadata is added to a draft record while creating the initial object. By issuing a HTTP patch request with a JSON patch list of operations the current metadata of a record can be updated with additional or updated metadata fields and corresponding values.
 
-Since this procedure is quite extensive, refer to the [Update record metadata](06_Update_record_metadata.md) module to update your draft record's current metadata. This module can also be used to update metadata of existing records.
+Since this procedure is quite extensive, refer to the [Update record metadata](06_Update_record_metadata.md) guide to update your draft record's current metadata. This module can also be used to update metadata of existing records.
+
+To see how you can fully employ the metadat schema of a community, refer to the [Updating all community metadata fields](06_Update_record_metadata.md#updating-all-community-metadata-fields) section of that same guide.
 
 ### Publishing your draft record
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!

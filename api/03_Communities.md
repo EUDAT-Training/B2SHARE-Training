@@ -123,12 +123,14 @@ The structure of the results is exactly the same as with other records-retrievin
 If an empty community collection is requested, the response will be positive, but the results structure will be empty.
 
 ## Get community metadata schema
-Each community has a specific metadata schema specified which identifies all the fields that possibly need to be filled in before a new record can be completed.
+Each community has a specific metadata schema which identifies all the fields that possibly need to be filled in before a new record can be completed.
+
+Schema definition are defined using the [JSON Schema specification](http://json-schema.org/documentation.html) that allows automatic validation of all fields according the schema. The specification currently has Internet-Draft status and is reviewed by the Internet Engineering Task Force (IETF). For a more elaborate description, refer to the [Data Structures](../deploy/10_Data_structures.md) guide in the deploy module of this repository.
 
 To retrieve the community metadata schema, use the `/api/communities/<community_id>/schemas/<version>` API endpoint. The `version` parameter can be a number or, to get the latest version, 'last'.
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/last', params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/last')
 >>> result = json.loads(r.text)
 >>> print json.dumps(result["json_schema"], indent=4)
 {
@@ -237,7 +239,9 @@ To retrieve the community metadata schema, use the `/api/communities/<community_
 
 Please note that several listings have been shortened for clarity.
 
-The schema contains all required fields together with field type and descriptions. The required fields are also listed and need to be provided in case new records are created.
+The schema contains all required fields together with field type and descriptions. The required fields are also listed and need to be provided in case new records are created. The definition is used by B2SHARE to validate the metadata schema values you provide.
+
+To fully process a metadata schema definition during the metadata annotation phase of the ingest workflow, refer to the [Update all community metadata fields](06_Update_all_community_metadata_fields.md) guide.
 
 ## Registering new communities
 It is possible to register new communities in B2SHARE, but currently not via the API. Please contact the [EUDAT helpdesk](https://eudat.eu/support-request?service=B2SHARE) in order to do so. If you are using your own instance of B2SHARE, you can configure a community directly using the provided tools. Refer to the [Community Integration](../deploy/12_Community_integration.md) guide on how to do this.

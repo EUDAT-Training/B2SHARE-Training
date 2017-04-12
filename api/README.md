@@ -29,6 +29,7 @@ Submodule | Contents
 [Communities](03_Communities.md) | Community-specific functionality is explained
 [Create new record](05_Create_new_record.md) | Learn how to create new records and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
+[Update all community metadata fields](07_Update_all_community_metadata_fields.md) | Learn how to update all community metadata fields in your record
 [Special requests](08_Special_requests.md) | Various examples of special requests made using the API
 [Example script](10_Example_script.md) | Example script with functions handling B2SHARE records
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python

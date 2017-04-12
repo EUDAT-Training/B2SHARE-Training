@@ -484,12 +484,12 @@ The metadata has been successfully updated, as can be seen on the actual [landin
 ### Creating a new record
 When creating new records, the metadata values structure can be directly sent to the B2SHARE server without using a patch.
 
-In this case, a new open access record is created for the EUDAT community with the title 'My second test upload':
+Because a record needs to be deposited under a community, the EUDAT community ID is added and the title is replaced by a single new string:
 
 ```python
 >>> metadata_new['titles'] = {'title': 'My second test upload'}
 >>> metadata_new['community'] = "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095"
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata_new), headers=header)
 ```
 
 Adding files, additional metadata and finally published the record is shown in the [Create new record](05_Create_new_record.md) guide.

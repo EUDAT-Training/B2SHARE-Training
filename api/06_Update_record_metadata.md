@@ -174,4 +174,4 @@ In case the patch request did not succeed (status code 400), an error descriptio
 ```
 
 ## Updating all community metadata fields
-If you are publishing datasets as part of specific communities, often all metadata fields that the community specifies in the community metadata schema need to be provided upon commit. For a strategy to achieve this, please follow the next [Updating all community metadata fields](07_Updating_all_community_metadata_fields.md) guide.
+If you are publishing datasets as part of specific communities, often all metadata fields that the community specifies in the community metadata schema need to be provided upon commit. For a strategy to achieve this, please follow the next [Update all community metadata fields](07_Update_all_community_metadata_fields.md) guide.

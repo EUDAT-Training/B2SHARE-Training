@@ -241,7 +241,7 @@ Please note that several listings have been shortened for clarity.
 
 The schema contains all required fields together with field type and descriptions. The required fields are also listed and need to be provided in case new records are created. The definition is used by B2SHARE to validate the metadata schema values you provide.
 
-To fully process a metadata schema definition during the metadata annotation phase of the ingest workflow, refer to the [Update all community metadata fields](06_Update_all_community_metadata_fields.md) guide.
+To fully process a metadata schema definition during the metadata annotation phase of the ingest workflow, refer to the [Update all community metadata fields](07_Update_all_community_metadata_fields.md) guide.
 
 ## Registering new communities
-It is possible to register new communities in B2SHARE, but currently not via the API. Please contact the [EUDAT helpdesk](https://eudat.eu/support-request?service=B2SHARE) in order to do so. If you are using your own instance of B2SHARE, you can configure a community directly using the provided tools. Refer to the [Community Integration](../deploy/12_Community_integration.md) guide on how to do this.
+It is possible to register new communities in B2SHARE, but currently not via the API. Please contact the [EUDAT helpdesk](https://eudat.eu/support-request?service=B2SHARE) in order to do so. If you are using your own instance of B2SHARE, you can configure a community directly using the provided tools. Refer to the [Community Integration](../deploy/12_Community_integration.md) guide of the [B2SHARE Deployment](../deploy) module on how to do this.

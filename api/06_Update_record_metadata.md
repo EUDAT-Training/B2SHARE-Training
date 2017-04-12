@@ -88,7 +88,7 @@ The actual JSON patch is created by:
 The current patch will remove any existing fields not present in the new metadata object, therefore these need to be removed in the final patch:
 
 ```python
->>> finpatch = filter(lambda x: x["op"] <> "remove", patch)
+>>> finpatch = filter(lambda x: x["op"] != "remove", patch)
 >>> print finpatch
 [{u'path': u'/publisher', u'value': 'EUDAT', u'op': u'add'}, {u'path': u'/contact_email', u'value': 'email@example.com', u'op': u'add'}, {u'path': u'/descriptions', u'value': [{'description': 'My first dataset ingested using the B2SHARE API', 'description_type': 'Abstract'}], u'op': u'add'}, {u'path': u'/language', u'value': 'en_GB', u'op': u'add'}]
 ```

@@ -10,7 +10,7 @@ This guide covers:
  - Creating a JSON patch that can modify the current record metadata
 - Submitting the metadata using the corresponding required request method
 
-## Community metadata schemas
+### Community metadata schemas
 For a more elaborate description of metadata schema definitions in B2SHARE, refer to the [Data Structures](../deploy/10_Data_strucutres.md) guide in the deploy module of this repository. For a general introduction of JSON Schemas, check out their [online book](https://spacetelescope.github.io/understanding-json-schema) which gives a quick general introduction.
 
 ## Getting the community metadata schema definition and structure
@@ -207,9 +207,289 @@ Finally, the metadata fields that must be structured as an object are:
 Given these structures and lists, for each metadata field the right information can be provided upon making the PATCH request to the B2SHARE server.
 
 ## Provide metadata values by file
-The values of metadata fields are often stored in separate files. In this section, a comma-separated value (CSV) [file](metadata/eudat-metadata.csv) is used to get the values for each field.
+The values of metadata fields are often stored in separate files along with the actual research data. In this section, a comma-separated value (CSV) [file](metadata/eudat-metadata.csv) is used to get the values for each metadata field.
 
 In the metadata file, the first column represents the metadata field names, the second the optional subfield name in that field, while the columns thereafter indicate the actual values, one or more for each field. Together with the community metadata schema definition a structure is generated that can be used to create a JSON patch, which can be uploaded along with the PATCH request to the B2SHARE service.
 
-Run the [eudat-load.py](metadata/eudat-load.py) file to see what how the resulting metadata structure looks like.
+Run the test function in the Python [load.py](metadata/load.py) file to see what how the resulting metadata structure looks like. You are free to use this code in your own projects, but please note that there is no error checking at all, it solely serves for this example.
 
+### Load the new metadata from file
+Using the code from the example [Python load module](metadata/load.py), the new metadata is loaded from the CSV file and can be used to derive the required changes. For the code below, you need to run the interactive Python session from the metadata folder in this module, or change the work directory before running loading the module and running the code (as shown below):
+
+```python
+>>> import os
+>>> os.chdir('metadata')
+>>> import load
+>>> metadata_new = load.getMetadata('eudat-metadata.csv', 'e9b9792e-79fb-4b07-b6b4-b9c2bd06d095')
+>>> print json.dumps(metadata_new, indent=4)
+{
+    "publisher": "EUDAT",
+    "embargo_date": "2017-09-01T17:00:00+01:00",
+    "license": {
+        "license_uri": "https://opensource.org/licenses/mit-license.php",
+        "license": "MIT"
+    },
+    "resource_types": [
+        {
+            "resource_type_general": "Text",
+            "resource_type": "Numbered text"
+        }
+    ],
+    "alternate_identifiers": [
+        {
+            "alternate_identifier": "10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
+            "alternate_identifier_type": "DOI"
+        }
+    ],
+    "contributors": [
+        {
+            "contributor_name": "John Smith",
+            "contributor_type": "ContactPerson"
+        },
+        {
+            "contributor_name": "John Doe",
+            "contributor_type": "DataManager"
+        }
+    ],
+    "open_access": true,
+    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+    "language": "en_GB",
+    "titles": [
+        {
+            "title": "My test upload"
+        },
+        {
+            "title": "This is really my test upload"
+        }
+    ],
+    "contact_email": "email@example.com",
+    "descriptions": [
+        {
+            "description": "My first dataset ingested using the B2SHARE API",
+            "description_type": "Abstract"
+        },
+        {
+            "description": "First",
+            "description_type": "SeriesInformation"
+        }
+    ],
+    "version": "1",
+    "keywords": [
+        "test",
+        "series",
+        "numbers",
+        "example"
+    ],
+    "publication_date": "2017-03-02",
+    "creators": [
+        {
+            "creator_name": "Jane Smith"
+        },
+        {
+            "creator_name": "Jane Doe"
+        }
+    ],
+    "disciplines": [
+        "Mathematics",
+        "Number theory"
+    ]
+}
+```
+
+### Updating an existing record
+In this section, the metadata of the existing published record `b43a0e6914e34de8bd19613bcdc0d364` is updated with the metadata of the CSV file. This record has been published under the EUDAT community and can therefore be updated using the EUDAT metadata schema definition that has been loaded in the previous sections.
+
+#### Get the current metadata
+As has been shown in the previous guides, the current record metadata is obtained by requesting the record from B2SHARE. Because the record will be edited, the draft version is requested using the designated endpoint in the URL. Please make sure you have your token loaded in the variable `token`:
+
+```python
+>>> recordid = 'b43a0e6914e34de8bd19613bcdc0d364'
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
+>>> payload = {'access_token': token}
+>>> r = requests.get(url, params=payload)
+>>> result = json.loads(r.text)
+```
+
+The current record metadata looks as follows:
+
+```python
+>>> metadata = result["metadata"]
+>>> print json.dumps(metadata, indent=4)
+{
+    "community_specific": {},
+    "publication_state": "published",
+    "open_access": true,
+    "DOI": "http://doi.org/10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
+    "language": "en_GB",
+    "publisher": "EUDAT",
+    "ePIC_PID": "http://hdl.handle.net/11304/ab379f3b-8ff2-41ff-a96b-a3a066cc820c",
+    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+    "titles": [
+        {
+            "title": "My test upload"
+        }
+    ],
+    "contact_email": "email@example.com",
+    "descriptions": [
+        {
+            "description": "My first dataset ingested using the B2SHARE API",
+            "description_type": "Abstract"
+        }
+    ],
+    "owners": [
+        10
+    ],
+    "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/draft_json_schema"
+}
+```
+
+#### Prepare the JSON patch
+To update the metadata a JSON patch needs to be prepared containing all changes in the metadata values. Together with the new and old metadata, the JSON patch is constructed as follows:
+
+```python
+>>> import jsonpatch
+>>> patch = jsonpatch.make_patch(metadata, metadata_new)
+>>> print patch
+[{"path": "/community_specific", "op": "remove"}, {"path": "/publication_state", "op": "remove"}, {"path": "/DOI", "op": "remove"}, {"path": "/ePIC_PID", "op": "remove"}, {"path": "/titles/1", "value": {"title": "This is really my test upload"}, "op": "add"}, {"path": "/descriptions/1", "value": {"description": "First", "description_type": "SeriesInformation"}, "op": "add"}, {"path": "/owners", "op": "remove"}, {"path": "/$schema", "op": "remove"}, {"path": "/embargo_date", "value": "2017-09-01T17:00:00+01:00", "op": "add"}, {"path": "/license", "value": {"license_uri": "https://opensource.org/licenses/mit-license.php", "license": "MIT"}, "op": "add"}, {"path": "/resource_types", "value": [{"resource_type_general": "Text", "resource_type": "Numbered text"}], "op": "add"}, {"path": "/alternate_identifiers", "value": [{"alternate_identifier": "10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364", "alternate_identifier_type": "DOI"}], "op": "add"}, {"path": "/contributors", "value": [{"contributor_name": "John Smith", "contributor_type": "ContactPerson"}, {"contributor_name": "John Doe", "contributor_type": "DataManager"}], "op": "add"}, {"path": "/version", "value": "1", "op": "add"}, {"path": "/keywords", "value": ["test", "series", "numbers", "example"], "op": "add"}, {"path": "/publication_date", "value": "2017-03-02", "op": "add"}, {"path": "/creators", "value": [{"creator_name": "Jane Smith"}, {"creator_name": "Jane Doe"}], "op": "add"}, {"path": "/disciplines", "value": ["Mathematics", "Number theory"], "op": "add"}]
+```
+
+Any values of metadata fields that are added or changed are included in the patch. Values that do not change are not touched. Unfortunately, the patch now also contains several operations that will delete existing metadata field values that are not present in the new metadata values:
+
+```python
+>>> print filter(lambda x: x["op"] == "remove", patch)
+[{u'path': u'/community_specific', u'op': u'remove'}, {u'path': u'/publication_state', u'op': u'remove'}, {u'path': u'/DOI', u'op': u'remove'}, {u'path': u'/ePIC_PID', u'op': u'remove'}, {u'path': u'/owners', u'op': u'remove'}, {u'path': u'/$schema', u'op': u'remove'}]
+```
+
+These operations therefore need to be removed from the patch, as the values are still needed for the descriptive and technical metadata:
+
+```python
+>>> patch_new = filter(lambda x: x["op"] != "remove", patch)
+>>> print patch_new
+[{u'path': u'/titles/1', u'value': {'title': 'This is really my test upload'}, u'op': u'add'}, {u'path': u'/descriptions/1', u'value': {'description': 'First', 'description_type': 'SeriesInformation'}, u'op': u'add'}, {u'path': u'/embargo_date', u'value': '2017-09-01T17:00:00+01:00', u'op': u'add'}, {u'path': u'/license', u'value': {'license_uri': 'https://opensource.org/licenses/mit-license.php', 'license': 'MIT'}, u'op': u'add'}, {u'path': u'/resource_types', u'value': [{'resource_type_general': 'Text', 'resource_type': 'Numbered text'}], u'op': u'add'}, {u'path': u'/alternate_identifiers', u'value': [{'alternate_identifier': '10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364', 'alternate_identifier_type': 'DOI'}], u'op': u'add'}, {u'path': u'/contributors', u'value': [{'contributor_name': 'John Smith', 'contributor_type': 'ContactPerson'}, {'contributor_name': 'John Doe', 'contributor_type': 'DataManager'}], u'op': u'add'}, {u'path': u'/version', u'value': '1', u'op': u'add'}, {u'path': u'/keywords', u'value': ['test', 'series', 'numbers', 'example'], u'op': u'add'}, {u'path': u'/publication_date', u'value': '2017-03-02', u'op': u'add'}, {u'path': u'/creators', u'value': [{'creator_name': 'Jane Smith'}, {'creator_name': 'Jane Doe'}], u'op': u'add'}, {u'path': u'/disciplines', u'value': ['Mathematics', 'Number theory'], u'op': u'add'}]
+```
+
+An alternative approach would be to filter the existing metadata fields for fields that will not be altered and then create the patch.
+
+#### Update the record metadata
+To update the record metadata, a serialized JSON patch is sent to the B2SHARE server in a PATCH request.
+
+First, the request headers and payload need to be prepared:
+
+```python
+>>> header = {'Content-Type': 'application/json-patch+json'}
+>>> payload = {'access_token': token}
+```
+
+After the request has been made, the new metadata can be shown:
+
+```python
+>>> r = requests.patch(url, data=json.dumps(patch_new), params=payload, headers=header)
+>>> print r
+<Response [200]>
+>>> result = json.loads(r.text)
+>>> print json.dumps(result, indent=4)
+{
+  "created": "2017-03-02T17:07:13.895604+00:00",
+  "id": "b43a0e6914e34de8bd19613bcdc0d364",
+  "links": {
+    "files": "https://trng-b2share.eudat.eu/api/files/c1422a22-b8d4-42d6-9e94-1e5590294cb4",
+    "self": "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364"
+  },
+  "metadata": {
+    "$schema": "https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/0#/json_schema",
+    "DOI": "http://doi.org/10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
+    "alternate_identifiers": [
+      {
+        "alternate_identifier": "10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
+        "alternate_identifier_type": "DOI"
+      }
+    ],
+    "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+    "community_specific": {},
+    "contact_email": "email@example.com",
+    "contributors": [
+      {
+        "contributor_name": "John Smith",
+        "contributor_type": "ContactPerson"
+      },
+      {
+        "contributor_name": "John Doe",
+        "contributor_type": "DataManager"
+      }
+    ],
+    "creators": [
+      {
+        "creator_name": "Jane Smith"
+      },
+      {
+        "creator_name": "Jane Doe"
+      }
+    ],
+    "descriptions": [
+      {
+        "description": "My first dataset ingested using the B2SHARE API",
+        "description_type": "Abstract"
+      },
+      {
+        "description": "First",
+        "description_type": "SeriesInformation"
+      }
+    ],
+    "disciplines": [
+      "Mathematics",
+      "Number theory"
+    ],
+    "ePIC_PID": "http://hdl.handle.net/11304/ab379f3b-8ff2-41ff-a96b-a3a066cc820c",
+    "embargo_date": "2017-09-01T17:00:00+01:00",
+    "keywords": [
+      "test",
+      "series",
+      "numbers",
+      "example"
+    ],
+    "language": "en_GB",
+    "license": {
+      "license": "MIT",
+      "license_uri": "https://opensource.org/licenses/mit-license.php"
+    },
+    "open_access": true,
+    "owners": [
+      10
+    ],
+    "publication_date": "2017-03-02",
+    "publication_state": "published",
+    "publisher": "EUDAT",
+    "resource_types": [
+      {
+        "resource_type": "Numbered text",
+        "resource_type_general": "Text"
+      }
+    ],
+    "titles": [
+      {
+        "title": "My test uploads"
+      },
+      {
+        "title": "This is really my test upload"
+      }
+    ],
+    "version": "1"
+  },
+  "updated": "2017-04-12T14:00:36.096395+00:00"
+}
+```
+
+The metadata has been successfully updated, as can be seen on the actual [landing page of the record](https://trng-b2share.eudat.eu/records/b43a0e6914e34de8bd19613bcdc0d364).
+
+### Creating a new record
+When creating new records, the metadata values structure can be directly sent to the B2SHARE server without using a patch.
+
+In this case, a new open access record is created for the EUDAT community with the title 'My second test upload':
+
+```python
+>>> metadata_new['titles'] = {'title': 'My second test upload'}
+>>> metadata_new['community'] = "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095"
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
+```
+
+Adding files, additional metadata and finally published the record is shown in the [Create new record](05_Create_new_record.md) guide.

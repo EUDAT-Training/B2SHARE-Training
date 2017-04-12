@@ -31,7 +31,7 @@ In this case, a new open access record is created for the EUDAT community with t
 >>> metadata = {"titles":[{"title":"My test upload"}],
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dummps(metadata), headers=header)
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
 ```
 
 Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work. Furthermore, the metadata dictionary is converted to a string using the JSON package.

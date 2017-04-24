@@ -1,0 +1,32 @@
+embargo_date;;2017-09-01T17:00:00+01:00
+contributors;contributor_name;John Smith
+contributors;contributor_type;ContactPerson
+contributors;contributor_name;John Doe
+contributors;contributor_type;DataManager
+community;;e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
+titles;title;My test upload
+titles;title;This is really my test upload
+descriptions;description;My first dataset ingested using the B2SHARE API
+descriptions;description_type;Abstract
+descriptions;description;First
+descriptions;description_type;SeriesInformation
+keywords;;test
+keywords;;series
+keywords;;numbers
+keywords;;example
+open_access;;true
+alternate_identifiers;alternate_identifier_type;DOI
+alternate_identifiers;alternate_identifier;10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364
+disciplines;;Mathematics
+disciplines;;Number theory
+publisher;;EUDAT
+contact_email;;email@example.com
+publication_date;;2017-03-02
+resource_types;resource_type_general;Text
+resource_types;resource_type;Numbered text
+language;;en_GB
+license;license_uri;https://opensource.org/licenses/mit-license.php
+license;license;MIT
+creators;creator_name;Jane Smith
+creators;creator_name;Jane Doe
+version;;1

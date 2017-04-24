@@ -1,6 +1,5 @@
 # Install and setup the required software your on machine
-
-This document describes the necessary steps to make your machine ready for using Python and connecting to the B2SHARE service.
+This guide describes the necessary steps to make your machine ready for using Python and connecting to the B2SHARE service.
 
 ## Prerequisites
 You need a machine equipped with an internet connection and a recent version of the Python software package (version >= 2.7) and the Package Installer for Python (pip) which is installed with the newest versions of Python.
@@ -61,12 +60,13 @@ Once Python and pip are installed on your machine, a package needs to be install
 
 The following packages are required:
 ```sh
+jsonpatch
 requests
 ```
 
 Use pip to install it:
 ```sh
-pip install requests
+pip install jsonpatch requests
 ```
 
 ## Machine setup

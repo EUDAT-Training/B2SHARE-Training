@@ -24,7 +24,7 @@ contact_email;;email@example.com
 publication_date;;2017-03-02
 resource_types;resource_type_general;Text
 resource_types;resource_type;Numbered text
-language;;en_GB
+language;;eng
 license;license_uri;https://opensource.org/licenses/mit-license.php
 license;license;MIT
 creators;creator_name;Jane Smith

@@ -183,6 +183,9 @@ $ export LOAD_DEMO_COMMUNITIES_AND_RECORDS=0
 
 Please note that this will load several communities and records. If you need to have clean install, leave it to 0.
 
+### The b2share.cfg file
+Many settings are made directly in the Python `b2share.cfg` file, of which an example can be found [here](https://github.com/EUDAT-B2SHARE/v2-prod-instance/blob/master/b2share.cfg). Please refer to the [B2SHARE Python Configuration](06_B2SHARE_Python_configuration.md) guide to learn how this file can be used to configure your own B2SHARE instance.
+
 ## Building and running B2SHARE
 Now that everything has been set up properly, the B2SHARE instance can be build:
 

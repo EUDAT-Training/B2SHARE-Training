@@ -320,7 +320,7 @@ The current record metadata looks as follows:
     "publication_state": "published",
     "open_access": true,
     "DOI": "http://doi.org/10.5072/b2share.b43a0e6914e34de8bd19613bcdc0d364",
-    "language": "en_GB",
+    "language": "eng",
     "publisher": "EUDAT",
     "ePIC_PID": "http://hdl.handle.net/11304/ab379f3b-8ff2-41ff-a96b-a3a066cc820c",
     "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
@@ -447,7 +447,7 @@ After the request has been made, the new metadata can be shown:
       "numbers",
       "example"
     ],
-    "language": "en_GB",
+    "language": "eng",
     "license": {
       "license": "MIT",
       "license_uri": "https://opensource.org/licenses/mit-license.php"
@@ -484,12 +484,26 @@ The metadata has been successfully updated, as can be seen on the actual [landin
 ### Creating a new record
 When creating new records, the metadata values structure can be directly sent to the B2SHARE server without using a patch.
 
-Because a record needs to be deposited under a community, the EUDAT community ID is added and the title is replaced by a single new string:
+Because a record needs to be deposited under a community, the EUDAT community ID is added and the title is replaced by a list with a single new string:
 
 ```python
->>> metadata_new['titles'] = {'title': 'My second test upload'}
+>>> metadata_new['titles'] = [{'title': 'My second test upload'}]
 >>> metadata_new['community'] = "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095"
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata_new), headers=header)
+```
+
+If the request was successfull and thus the new draft record was created, the response code is 201:
+
+```python
+>>> print r
+<Response [201]>
+```
+
+If some error occurred, for example the structure contains errors, the response code will be 400 or higher:
+
+```python
+>>> print r.text
+{"message": "Validation error.", "status": 400}
 ```
 
 Adding files, additional metadata and finally published the record is shown in the [Create new record](05_Create_new_record.md) guide.

@@ -9,7 +9,7 @@ The information on this page is partially based on the [B2SHARE installation gui
 - Setting the super administrator
 - Troubleshooting
 
-## Prerequisites
+### Prerequisites
 Please make sure you have completed the previous submodules and your instance is successfully running.
 
 ## Configuration of connected container services

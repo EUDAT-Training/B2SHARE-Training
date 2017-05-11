@@ -243,7 +243,7 @@ In this case, the only thing that needs to be changed is the value of the `publi
 >>> commit = '[{"op": "add", "path":"/publication_state", "value": "submitted"}]'
 ```
 
-The final commit request will return the updated object metadata in case the request is successfull (status code 200):
+The final commit request will return the updated object metadata in case the request is successful (status code 200):
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"

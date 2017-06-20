@@ -44,8 +44,11 @@ Currently there are two instances of B2ACCESS running:
 
 This instance can be used to test your instance. Any user registration request will be automatically granted and therefore can be immediately used.
 
-- The production instance run by EUDAT
+- The [production instance](https://b2access.eudat.eu/home/home) run by EUDAT
+
 The production instance of B2ACCESS can only be used for production instance of B2SHARE. You registration requests will only be granted if sufficient information is provided that you need an actual production registration.
+
+For the remaining part of this guides and all other guides, it is assumed that the B2ACCESS acceptance instance is used. For more information on B2ACCESS and its configuration, please refer to the EUDAT user documentation on [B2ACCESS service integration](https://eudat.eu/services/userdoc/b2access-service-integration).
 
 ### Registering your B2ACCESS OAuth 2.0 client
 To let B2SHARE automatically communicate with B2ACCESS a OAuth 2.0 Client registration is required.

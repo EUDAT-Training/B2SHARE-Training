@@ -27,14 +27,14 @@ After loading your token a **POST** request will create a new draft record. Only
 In this case, a new open access record is created for the EUDAT community with the title 'My test upload':
 
 ```python
->>> header = {"Content-Type": 'application/json'}
->>> metadata = {"titles":[{"title":"My test upload"}],
+>>> header = {"Content-Type": "application/json"}
+>>> metadata = {"titles": [{"title":"My test upload"}],
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
 ```
 
-Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work. Furthermore, the metadata dictionary is converted to a string using the JSON package.
+Please note the trailing slash (`/`) at the end of the URL. Without it, the request will currently not work. Furthermore, the metadata dictionary is converted to a string using the JSON package. The metadata strictly follows the metadata schema of the EUDAT community, otherwise the data will not be accepted.
 
 On success, the response status code and text will be different this time:
 
@@ -297,7 +297,7 @@ An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been au
 #### Important
 A published record will always have a draft record equivalent. If you ever want to change any of the records metadata, then the draft record can be immediately used for this process.
 
-Please note that the file bucket ID of the draft record differs from the file record ID of the published record. By retrieving the published record metadata, the new file bucket ID can be obtained from the corresponding URL:
+Please note that the file bucket ID of the draft record differs from the file bucket ID of the published record. By retrieving the published record metadata, the new file bucket ID can be obtained from the corresponding URL:
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/' + recordid)

@@ -9,7 +9,6 @@ Please make sure your machine has been properly set up to use Python and require
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS.
 
 ### Get details of a specific record
-
 To retrieve a specific record, the `record_id` of that record is required and needs to be sent through the API. The data used in this GET request are:
 
  - URL path: `/api/records/<record_id>`: The basic url extended with the `record_id` value

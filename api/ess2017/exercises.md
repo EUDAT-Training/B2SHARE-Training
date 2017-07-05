@@ -10,6 +10,7 @@ To make the exercises the following is needed:
  - requests
  - simplejson
  - jsonpatch
+ - copy
 
 Packages can be installed using the PIP tool, see [here](https://pip.pypa.io/en/stable/installing/) on how to install this tool.
 
@@ -318,7 +319,7 @@ Please note: the `$schema`, `_files`, `_deposit`, `_oai` and `_pid` are not to b
 In this final exercise, a new draft record is created and prepared for final publication. This includes adding initial metadata, updating it through a patch and adding files to publish. Final step is to change its state from draft to published.
 
 #### Exercise 3a Create a new draft record
-Create a new draft record with some metadata values.
+Create a new draft record with some metadata values. The record is to be published under the EUDAT community and will be open access. For this a header is prepared that indicates the type of data that's being sent along with the request. Of course, the metadata to be sent is also prepared.
 
 - Endpoint: `/api/records/`
 - Method: POST
@@ -326,11 +327,55 @@ Create a new draft record with some metadata values.
 
 Tasks:
 - Prepare the header
+
+```python
+>>> header = {"Content-Type": "application/json"}
+```
+
 - Prepare the payloads
-- Get your token to send with the request
-- Check your draft record ID
-- Get the `publication_state` metadata value
-- Get the file bucket ID
+
+```python
+>>> metadata = {"titles": [{"title": "My EUDAT Summer School 2017 upload"}],
+                "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
+                "open_access": True}
+```
+
+- Load the token to be sent with the request (in case you haven't done so already), since authentication is required:
+
+```python
+>>> f = open(‘token.txt’, ‘r’)
+>>> token = f.read().strip()
+```
+
+- Prepare the parameters dictionary:
+
+```python
+>>> params = {"access_token": token}
+```
+
+- Execute the draft record creation request and check that it worked:
+
+```python
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
+>>> print r
+<Response [201]>
+```
+
+- Store the draft record ID in the variable `record_id` (which will differ from what you see below, since it is unique):
+
+```python
+>>> res = r.json()
+>>> record_id = res['id']
+>>> print record_id
+a766efd2e5d543968fff9dd7bf3783c5
+```
+
+- Get the `publication_state` metadata value:
+
+```python
+>>> print res['metadata']['publication_state']
+draft
+```
 
 #### Exercise 3b Upload files
 Add files to your newly created draft record.
@@ -340,9 +385,52 @@ Add files to your newly created draft record.
 - Response: 200
 
 Tasks:
-- Set the header
+- Files in records are placed in file buckets attached to a record with a specific `FILE_BUCKET_ID`. This identifier can be extracted from the returned information after creating the draft record in the nested property `files` of the property `links`:
+
+```python
+>>> filebucket_id = res['links']['files'].split('/')[-1]
+>>> print filebucket_id
+f90aaf16-6bb0-44af-a345-aa492e10ca0e
+```
+
+- Set the header for upload. The content type needs to be set as binary stream, while the server must accept JSON information:
+
+```python
+>>> header = {"Accept": "application/json", "Content-Type": "application/octet-stream"}
+```
+
 - Open the file handle of the file to be uploaded
-- Send the file
+
+```python
+>>> upload_file = {"file": open('EUDAT-logo2011.jpg', 'rb')}
+```
+
+- Prepare access token payload to be sent with the request:
+
+```python
+>>> payload = {'access_token': token}
+```
+
+- Execute the put request:
+
+```python
+>>> r = requests.put(res['links']['files'] + '/EUDAT-logo2011.jpg', files=upload_file, params=params, headers=header)
+>>> print r
+<Response [200]>
+```
+
+- Check whether the file was correctly added to the draft record:
+
+```python
+>>> print json.dumps(r.json(), indent=4)
+{
+    "mimetype": "image/jpeg",
+    "updated": "2017-07-04T20:39:12.524379+00:00",
+    ...
+    "key": "EUDAT-logo2011.jpg",
+    "size": 34282
+}
+```
 
 #### Exercise 3c Update and complete metadata
 Create a JSON patch to update the current metadata values of the draft record.
@@ -352,9 +440,40 @@ Create a JSON patch to update the current metadata values of the draft record.
 - Response: 200
 
 Tasks:
-- Create a JSON patch from the old metadata
-- Remove all existing fields that need to be preserved
+- Set values for the new metadata in another variable `metadata_new`, for example by adding a description:
 
+```python
+>>> import copy
+>>> metadata_new = copy.deepcopy(metadata)
+>>> metadata_new['descriptions'] = [{"description": "Some description", "description_type": "Abstract"}]
+>>> metadata_new['community_specific'] = {}
+>>> print json.dumps(metadata, indent=4)
+...
+```
+
+- Create a JSON patch from the old metadata
+
+```python
+>>> import jsonpatch
+>>> patch = jsonpatch.make_patch(metadata, metadata_new)
+>>> print patch
+[{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}]
+```
+
+- Set the header for the patch request:
+
+```python
+>>> header = {'Content-Type': 'application/json-patch+json'}
+```
+
+- Execute the request command with the serialized patch as the data payload:
+
+```python
+>>> url = 'https://trng-b2share.eudat.eu/api/records/' + record_id + "/draft"
+>>> r = requests.patch(url, data=patch.to_string(), params=params, headers=header)
+>>> print r
+<Response [200]>
+```
 
 #### Exercise 3d Publish record
 Create a final JSON patch to publish your draft record and make it publicly available.
@@ -364,8 +483,44 @@ Create a final JSON patch to publish your draft record and make it publicly avai
 - Response: 200
 
 Tasks:
-- Create the simple JSON patch
-- Set the header
-- Do the request and check the `publication_state` metadata field
-- Check the DOI and ePIC PID
-- Check your publication on the website
+- Create the simple JSON patch (as a string!) to set the `publication_state` to 'submitted':
+
+```python
+>>> commit = '[{"op": "replace", "path":"/publication_state", "value": "submitted"}]'
+```
+
+- Set the header:
+
+```python
+>>> header = {'Content-Type': 'application/json-patch+json'}
+```
+
+- Create the URL do the request:
+
+```python
+>>> url = 'https://trng-b2share.eudat.eu/api/records/' + record_id + "/draft"
+>>> r = requests.patch(url, data=commit, params=params, headers=header)
+>>> print r
+<Response [200]>
+```
+
+- Check the `publication_state` field:
+
+```python
+>>> res = r.json()
+>>> print res['metadata']['publication_state']
+published
+```
+
+- Check the DOI and ePIC PID:
+
+```python
+>>> print res['metadata']['ePIC_PID']
+http://hdl.handle.net/0000/a766efd2e5d543968fff9dd7bf3783c5
+>>> print res['metadata']['DOI']
+http://doi.org/XXXX/b2share.a766efd2e5d543968fff9dd7bf3783c5
+```
+
+Unfortunately, these do not work for records generated on the training site of B2SHARE.
+
+- Check your publication on the website!

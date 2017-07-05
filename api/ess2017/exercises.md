@@ -2,9 +2,11 @@
 <img width="25%" height="25%" align="right" src="img/EUDATSummerSchool.png" alt="EUDAT Summer School logo" text="EUDAT Summer School logo">
 This document contains several exercises that introduce the core functionality of the B2SHARE REST API.
 
-### Prerequisites
+All exercises are to be done using the [B2SHARE training instance](https://trng-b2share.eudat.eu).
+
+#### Prerequisites
 To make the exercises the following is needed:
-- Internet connection
+- Internet connection and browser (preferably Firefox or Chrome)
 - Python 2.7+ installed
 - Packages installed:
  - requests
@@ -12,9 +14,13 @@ To make the exercises the following is needed:
  - jsonpatch
  - copy
 
-Packages can be installed using the PIP tool, see [here](https://pip.pypa.io/en/stable/installing/) on how to install this tool.
+All these packages are present on your account on the training VM. If you are using your own laptop environment, please make sure these are installed. Packages can be installed using the PIP tool, see [here](https://pip.pypa.io/en/stable/installing/) on how to install this tool. Use the PIP tool as follows:
 
-### Requests
+```sh
+pip install <package name>
+```
+
+#### Requests
 Requirements for each request:
 - Request URL and HTTP method (e.g. GET, PUT)
 - Object identifiers when loading object states (e.g. record, community)
@@ -23,7 +29,7 @@ Optional:
 - Additional parameters (e.g. your token)
 - Data payloads (e.g. files or text)
 
-After each request, check the status of your request by printing the request object or its status code specifically:
+After each request, check the status of your request by printing the request object or its status code specifically, for example:
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/communities')
@@ -42,7 +48,7 @@ If the status code is in the range of 300 to 599, the request failed and needs t
 NOT FOUND
 ```
 
-### Handling response data
+#### Handling response data
 In general, every request made to the B2SHARE service will return a HTTP response code and a text, independent of whether the request was successful or completely understood.
 
 The response text is always in the JSON format and can be interpreted using the `json` package, e.g.:
@@ -60,13 +66,13 @@ or
 12
 ```
 
-### Access token loading
+#### Access token loading
 For some of the requests, a personal access token is required. This token can be generated on the [B2SHARE website](https://trng-b2share.eudat.eu) by logging in and navigating to your profile page.
 
 Copy the token to the clipboard and store it in a file:
 
 ```sh
-$ echo "token here" > token.txt
+echo "your token here" > token.txt
 ```
 
 Then load it in your Python session:
@@ -78,13 +84,22 @@ Then load it in your Python session:
 <token>
 ```
 
-### Data retrieval
+#### Obtain upload image
+For the record creation exercise, make sure you have a file that can be ingested along with the record. Store it in your current working directory, e.g.:
+
+```sh
+wget https://github.com/EUDAT-Training/B2SHARE-Training/raw/master/api/ess2017/img/EUDATSummerSchool.png
+```
+
+Remember the file name of this file, since you'll need it in the exercise.
+
+#### Data retrieval
 B2SHARE stores data in separate objects of which each object represents a record, community or other entity. Each object has its own identifier which uniquely identifies the object and makes it possible to refer to it from other objects and using it in URLs. So to retrieve the data of a specific object, this identifier needs to be added to the URL of the request.
 
 ## Exercises
 The exercises in this section can be done using Python, cURL or directly in the browser. Only the creation of new records cannot easily be done in the browser directly through the API, use Python or cURL for this.
 
-### Records
+### Records (15 min)
 In this exercise the information and metadata of a single record will be retrieved and processed. In addition, the file contained in the record is downloaded and checked.
 
 #### Exercise 1a Retrieve single record info
@@ -112,30 +127,42 @@ Tasks:
 
 - Execute the request, check whether the request succeeded and store the response text in the variable `res`
 
+```python
+>>> r = requests.get(url)
+>>> print r
+<Response [200]>
+>>> print r.text
+{
+...
+}
+```
+
 #### Exercise 1b Check metadata and included files
 Investigate the metadata and files contained in the record using the results obtained in the previous exercise.
 
 Use the results of the previous exercise.
 
 Tasks:
-- Find the ePIC PID of the record:
+- Find the ePIC PID of the record by extracting it from the JSON encoded response text:
 
 ```python
+>>> res = r.json()
 >>> print res['metadata']['ePIC_PID']
 http://hdl.handle.net/11304/619eda56-100f-43f0-9e72-98a22792eb25
 ```
 
-- Display the value of the title, author and description metadata values:
+- Display the value of the title, author and description metadata fields:
 
 ```python
->>> for key in ['titles', 'creators', 'descriptions']:
-...     print res['metadata'][key]
-...
+>>> print res['metadata']['titles']
 [{u'title': u'RDA Foundation Governance Document'}]
+>>> print res['metadata']['creators']
 [{u'creator_name': u'Research Data Alliance Council'}, {u'creator_name': u'RDA2'}]
+>>> print res['metadata']['descriptions']
 [{u'description': u'A document describing the high-level structures of the Research Data Alliance Foundation. This document is separate from the regular governance document, which describes procedures and processes.', u'description_type': u'Abstract'}]
 ```
 
+- What can you tell about the structure of each metadata field?
 - Is the record open access and currently published?
 
 #### Exercise 1c Download and compare checksum
@@ -171,15 +198,16 @@ Tasks:
 md5:c8afdb36c52cf4727836669019e69222
 ```
 
-- Download the file to the `download` folder:
+- Download the file to the `download` folder by opening a file handle and writing the content of the earlier request:
 
 ```python
->>> with open(f['key'], 'wb') as fout:
-...     rf = requests.get("https://trng-b2share.eudat.eu/api/files/%s/%s" % (f["bucket"], f["key"]))
-...     fout.write(rf.content)
+>>> burl = "https://trng-b2share.eudat.eu/api/files/%s/%s" % (f["bucket"], f["key"])
+>>> fout = open(f['key'], 'wb')
+>>> rf = requests.get()
+>>> fout.write(rf.content)
 ```
 
-- Generate the checksum of the downloaded file using the `md5` package:
+- Generate the checksum of the downloaded file (or directly using the request content) using the `md5` package:
 
 ```python
 >>> import md5
@@ -195,7 +223,7 @@ c8afdb36c52cf4727836669019e69222
 True
 ```
 
-### Communities and metadata schemas
+### Communities and metadata schemas (15 min)
 In this exercise the metadata and metadata schema of a community is retrieved and processed.
 
 #### Exercise 2a Retrieve existing communities
@@ -206,11 +234,27 @@ Retrieve a list of all defined communities.
 - Response: 200
 
 Tasks:
-- Retrieve the communities listing
+- Retrieve the communities listing:
+
+```python
+>>> url = 'https://trng-b2share.eudat.eu/api/communities'
+>>> r = requests.get(url)
+>>> res = r.json()
+>>> print res['hits']['hits']
+{
+...
+}
+```
+
 - Determine the number of existing communities
 
+```python
+>>> print res['hits']['total']
+12
+```
+
 #### Exercise 2b Retrieve the records of a community
-Retrieve a list of all records published under the EUDAT community.
+Retrieve a list of all records published under the EUDAT community. This will be done by displaying the records of the repository, but subject to a query parameter containing the community identifier.
 
 - Endpoint: `/api/records?q=community:<COMMUNITY_ID>`
 - Method: GET
@@ -223,19 +267,21 @@ Tasks:
 - Determine the required parameters for the request (`q=community:<COMMUNITY_ID>`)
 
 ```python
->>> params = {'q': 'community:e9b9792e-79fb-4b07-b6b4-b9c2bd06d095'}
+>>> community_id = 'e9b9792e-79fb-4b07-b6b4-b9c2bd06d095'
+>>> params = {'q': 'community:' + community_id}
 ```
 
 - Execute the request with correct URL:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
+>>> url = 'https://trng-b2share.eudat.eu/api/records'
+>>> r = requests.get(url, params=params)
 >>> print r
 <Response [200]>
 >>> res = r.json()
 ```
 
-- Determine the number of records published:
+- Determine the number of records published under this community:
 
 ```python
 >>> print res['hits']['total']
@@ -262,17 +308,33 @@ Tasks:
 - Retrieve the community metadata schema:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/last')
+>>> url = 'https://trng-b2share.eudat.eu/api/communities/' + community_id + '/schemas/last'
+>>> r = requests.get(url)
 >>> print r
 <Response [200]>
 >>> res = r.json()
 ```
 
-- Store the schema in the variable `schema`:
+- Store the schema basic metadata field definitions in the variable `schema`. These fields are stored in the first element of the 'allOf' field of the 'json_schema' dictionary:
 
 ```python
 >>> schema = res['json_schema']['allOf'][0]
+>>> print schema
+{
+...
+}
 ```
+
+- Display the community-specific fields. These fields are stored in the second element of the 'allOf' field of the 'json_schema' dictionary. These fields won't be addressed in the remainder of the exercises, but are shown for clarity:
+
+```python
+>>> print res['json_schema']['allOf'][1]['properties']
+{
+...
+}
+```
+
+- Are there any community-specific fields that need to be filled in for new records?
 
 #### Exercise 2c Investigate metadata schema structure
 Determine the required metadata fields and investigate the required structure of each field.
@@ -315,8 +377,10 @@ Please note: the `$schema`, `_files`, `_deposit`, `_oai` and `_pid` are not to b
 }
 ```
 
-### Record creation and data upload
-In this final exercise, a new draft record is created and prepared for final publication. This includes adding initial metadata, updating it through a patch and adding files to publish. Final step is to change its state from draft to published.
+Etc.
+
+### Record creation and data upload (30 min)
+In this final exercise, a new draft record is created and prepared for final publication. This includes adding initial metadata, updating it through a patch and adding files to publish. Final step is to change its state from draft to published. Once it is published, a record is visible on the B2SHARE website.
 
 #### Exercise 3a Create a new draft record
 Create a new draft record with some metadata values. The record is to be published under the EUDAT community and will be open access. For this a header is prepared that indicates the type of data that's being sent along with the request. Of course, the metadata to be sent is also prepared.
@@ -326,7 +390,7 @@ Create a new draft record with some metadata values. The record is to be publish
 - Response: 201
 
 Tasks:
-- Prepare the header
+- Prepare the header for the request:
 
 ```python
 >>> header = {"Content-Type": "application/json"}
@@ -356,7 +420,8 @@ Tasks:
 - Execute the draft record creation request and check that it worked:
 
 ```python
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata), headers=header)
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/records/',
+                    params={'access_token': token}, data=json.dumps(metadata), headers=header)
 >>> print r
 <Response [201]>
 ```
@@ -399,7 +464,7 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 >>> header = {"Accept": "application/json", "Content-Type": "application/octet-stream"}
 ```
 
-- Open the file handle of the file to be uploaded
+- Open the file handle of the file to be uploaded (this can be any file you like), e.g. the EUDAT logo:
 
 ```python
 >>> upload_file = {"file": open('EUDAT-logo2011.jpg', 'rb')}
@@ -414,15 +479,17 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 - Execute the put request:
 
 ```python
->>> r = requests.put(res['links']['files'] + '/EUDAT-logo2011.jpg', files=upload_file, params=params, headers=header)
+>>> r = requests.put(res['links']['files'] + '/EUDAT-logo2011.jpg',
+                    files=upload_file, params=params, headers=header)
 >>> print r
 <Response [200]>
 ```
 
-- Check whether the file was correctly added to the draft record:
+- Check whether the file was correctly added to the draft record using the data returned in the response text:
 
 ```python
->>> print json.dumps(r.json(), indent=4)
+>>> res = r.json()
+>>> print json.dumps(res, indent=4)
 {
     "mimetype": "image/jpeg",
     "updated": "2017-07-04T20:39:12.524379+00:00",
@@ -440,7 +507,7 @@ Create a JSON patch to update the current metadata values of the draft record.
 - Response: 200
 
 Tasks:
-- Set values for the new metadata in another variable `metadata_new`, for example by adding a description:
+- Set values for the new metadata in another variable `metadata_new`, for example by adding a description and setting the required field 'community_specific':
 
 ```python
 >>> import copy
@@ -523,4 +590,4 @@ http://doi.org/XXXX/b2share.a766efd2e5d543968fff9dd7bf3783c5
 
 Unfortunately, these do not work for records generated on the training site of B2SHARE.
 
-- Check your publication on the website!
+- Check your publication on the website using the record ID!

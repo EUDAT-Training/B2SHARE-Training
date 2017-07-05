@@ -500,21 +500,30 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 ```
 
 #### Exercise 3c Update and complete metadata
-Create a JSON patch to update the current metadata values of the draft record.
+Create a JSON patch to update the current metadata values of the draft record. Add a description and setting the required field 'community_specific'. To enable easy discoverability in B2FIND later on, a value for the discipline field is added as well.
 
 - Endpoint: `/api/records/<RECORD_ID>/draft`
 - Method: PATCH
 - Response: 200
 
 Tasks:
-- Set values for the new metadata in another variable `metadata_new`, for example by adding a description and setting the required field 'community_specific':
+- First copy the current metadata to another variable `metadata_new`:
 
 ```python
 >>> import copy
 >>> metadata_new = copy.deepcopy(metadata)
+```
+
+- Why is a deep copy used here?
+- Why is a simple dictionary copy insufficient?
+
+- Set the new metadata:
+
+```python
 >>> metadata_new['descriptions'] = [{"description": "Some description", "description_type": "Abstract"}]
 >>> metadata_new['community_specific'] = {}
->>> print json.dumps(metadata, indent=4)
+>>> metadata_new['disciplines'] = ["EUDAT Summer School"]
+>>> print json.dumps(metadata_new, indent=4)
 ...
 ```
 
@@ -524,8 +533,10 @@ Tasks:
 >>> import jsonpatch
 >>> patch = jsonpatch.make_patch(metadata, metadata_new)
 >>> print patch
-[{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}]
+[{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}, {"path": "/community_specific", "value": {}, "op": "add"}, {"path": "/disciplines", "value": ["EUDAT Summer School"], "op": "add"}]
 ```
+
+- Why is the order of variables in the `make_patch` call important?
 
 - Set the header for the patch request:
 

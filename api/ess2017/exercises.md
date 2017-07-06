@@ -396,10 +396,10 @@ Tasks:
 >>> header = {"Content-Type": "application/json"}
 ```
 
-- Prepare the payloads
+- Prepare the payloads, replace the '<your name>' with your name so it can be distinguished from other uploads:
 
 ```python
->>> metadata = {"titles": [{"title": "My EUDAT Summer School 2017 upload"}],
+>>> metadata = {"titles": [{"title": "EUDAT Summer School 2017 upload of <your name>"}],
                 "community": "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095",
                 "open_access": True}
 ```
@@ -417,14 +417,18 @@ Tasks:
 >>> params = {"access_token": token}
 ```
 
-- Execute the draft record creation request and check that it worked:
+- Execute the draft record creation request and check that it worked. Note: add a trailing slash to the URL (as shown here), otherwise the request won't work currently. Again, data is to be sent as a string, so the metadata is converted using the `json` package:
 
 ```python
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/',
                     params={'access_token': token}, data=json.dumps(metadata), headers=header)
 >>> print r
 <Response [201]>
+>>> print r.reason
+CREATED
 ```
+
+Note the different response status code for the request.
 
 - Store the draft record ID in the variable `record_id` (which will differ from what you see below, since it is unique):
 
@@ -473,7 +477,7 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 - Prepare access token payload to be sent with the request:
 
 ```python
->>> payload = {'access_token': token}
+>>> params = {'access_token': token}
 ```
 
 - Execute the put request:
@@ -522,7 +526,7 @@ Tasks:
 ```python
 >>> metadata_new['descriptions'] = [{"description": "Some description", "description_type": "Abstract"}]
 >>> metadata_new['community_specific'] = {}
->>> metadata_new['disciplines'] = ["EUDAT Summer School"]
+>>> metadata_new['disciplines'] = ["1.4 → Humanities → Arts"]
 >>> print json.dumps(metadata_new, indent=4)
 ...
 ```
@@ -533,7 +537,7 @@ Tasks:
 >>> import jsonpatch
 >>> patch = jsonpatch.make_patch(metadata, metadata_new)
 >>> print patch
-[{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}, {"path": "/community_specific", "value": {}, "op": "add"}, {"path": "/disciplines", "value": ["EUDAT Summer School"], "op": "add"}]
+[{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}, {"path": "/community_specific", "value": {}, "op": "add"}, {"path": "/disciplines", "value": ["1.4 → Humanities → Arts"], "op": "add"}]
 ```
 
 - Why is the order of variables in the `make_patch` call important?

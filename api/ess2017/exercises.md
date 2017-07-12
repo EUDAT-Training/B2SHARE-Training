@@ -9,10 +9,10 @@ To make the exercises the following is needed:
 - Internet connection and browser (preferably Firefox or Chrome)
 - Python 2.7+ installed
 - Packages installed:
- - requests
- - simplejson
- - jsonpatch
- - copy
+    - requests
+    - simplejson
+    - jsonpatch
+    - copy
 
 All these packages are present on your account on the training VM. If you are using your own laptop environment, please make sure these are installed. Packages can be installed using the PIP tool, see [here](https://pip.pypa.io/en/stable/installing/) on how to install this tool. Use the PIP tool as follows:
 
@@ -297,7 +297,7 @@ Tasks:
 }
 ```
 
-#### Exercise 2b Retrieve community metadata schema
+#### Exercise 2c Retrieve community metadata schema
 Retrieve the metadata schema of the EUDAT community.
 
 - Endpoint: `/api/communities/<COMMUNITY_ID>/schemas/last`
@@ -336,7 +336,7 @@ Tasks:
 
 - Are there any community-specific fields that need to be filled in for new records?
 
-#### Exercise 2c Investigate metadata schema structure
+#### Exercise 2d Investigate metadata schema structure
 Determine the required metadata fields and investigate the required structure of each field.
 
 Use the result of the previous exercise.
@@ -421,7 +421,7 @@ Tasks:
 
 ```python
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/',
-                    params={'access_token': token}, data=json.dumps(metadata), headers=header)
+                    params=params, data=json.dumps(metadata), headers=header)
 >>> print r
 <Response [201]>
 >>> print r.reason
@@ -521,17 +521,28 @@ Tasks:
 - Why is a deep copy used here?
 - Why is a simple dictionary copy insufficient?
 
-- Set the new metadata:
+- Set the missing required metadata, in this case only the 'community_specific':
 
 ```python
->>> metadata_new['descriptions'] = [{"description": "Some description", "description_type": "Abstract"}]
 >>> metadata_new['community_specific'] = {}
+```
+
+- Add extra metadata to make your record discoverable more easily:
+
+```python
+>>> metadata_new['creators'] = [{"creator_name": "R. E. Searcher"}]
+>>> metadata_new['descriptions'] = [{"description": "Some text which nicely describes the dataset being published", "description_type": "Abstract"}]
+```
+
+- Add a discipline by selecting an item from the [exhaustive list](https://trng-b2share.eudat.eu/suggest/disciplines.json) also used by [B2FIND](http://b2find.eudat.eu). Finally, check your resulting new metadata:
+
+```python
 >>> metadata_new['disciplines'] = ["1.4 → Humanities → Arts"]
 >>> print json.dumps(metadata_new, indent=4)
 ...
 ```
 
-- Create a JSON patch from the old metadata
+- Create a JSON patch from the old metadata:
 
 ```python
 >>> import jsonpatch
@@ -593,6 +604,8 @@ Tasks:
 >>> print res['metadata']['publication_state']
 published
 ```
+
+- Why is the value for publication state 'published' instead of 'submitted'?
 
 - Check the DOI and ePIC PID:
 

@@ -125,7 +125,7 @@ Further configuration can be added to the Docker setup, for example to start the
 Now the B2SHARE software package can be installed. It is located in the GitHub repository of EUDAT-B2SHARE and can be downloaded directly:
 
 ```sh
-$ git clone https://github.com/EUDAT-B2SHARE/b2share.git
+$ git clone https://github.com/EUDAT-B2SHARE/b2share.git -b v2.0.1
 ```
 
 ### Set environment variables

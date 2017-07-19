@@ -128,6 +128,8 @@ Now the B2SHARE software package can be installed. It is located in the GitHub r
 $ git clone https://github.com/EUDAT-B2SHARE/b2share.git -b v2.0.1
 ```
 
+Please make sure to add the specific release branch (e.g. `v2.0.1`) as an argument to the command, in order to not install the master branch which is used for development purposes.
+
 ### Set environment variables
 B2SHARE requires several environment variables that are used by the Docker containers to run. These need to be known before the containers are started.
 

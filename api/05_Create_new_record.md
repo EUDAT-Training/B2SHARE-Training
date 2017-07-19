@@ -92,7 +92,7 @@ Please note that the record ID will remain the same during the draft stage and a
 ### Add files to your new draft record
 After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a PUT request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record.
 
-Files in records are placed in file buckets attached to a record with a specific `file_bucket_id`. This identifier can be extraced from the returned information after creating the draft record in the nested property `files` of the property `links`:
+Files in records are placed in file buckets attached to a record with a specific `file_bucket_id`. This identifier can be extracted from the returned information after creating the draft record in the nested property `files` of the property `links`:
 
 ```python
 >>> filebucketid = result["links"]["files"].split('/')[-1]

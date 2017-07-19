@@ -1,4 +1,4 @@
-# Configuration
+# B2SHARE Configuration
 After successfully [installing](05_Installation.md) the prerequisites and B2SHARE software package, your B2SHARE instance needs to configured. This includes setting the super administrator.
 
 The information on this page is partially based on the [B2SHARE installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst) provided by the developers. The submodule covers the full configuration of B2SHARE and corresponding services:

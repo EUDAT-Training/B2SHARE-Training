@@ -18,7 +18,9 @@ Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to deploying B2SHARE
 [Installation](04_Installation.md) | Installing required software and packages
-[Configuration](08_Configuration.md) | Configuring and testing your B2SHARE deployment and connected services
+[Services Configuration](06_Services_configuration.md) | Configuration of services that B2SHARE depends on
+[B2SHARE Configuration](08_B2SHARE_configuration.md) | Configuring and testing your B2SHARE instance
+[Data structures](10_Data_structures.md) | In-depth descriptions of all B2SHARE data structures
 [Community integration](12_Community_integration.md) | Setting up your community details and metadata schema
 [b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
 

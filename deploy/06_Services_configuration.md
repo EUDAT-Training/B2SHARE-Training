@@ -51,9 +51,7 @@ This value can always be changed later by logging in to B2ACCESS again with the 
 ### Registering a new user for B2SHARE
 Once you've successfully set up B2ACCESS, you can continue with the registration of a administrative user that will be able to configure B2ACCESS.
 
-For testing purposes, a different user can be registered which can be used to log in to your own B2SHARE instance and upload new records. Again go to the [B2ACCESS acceptance instance](https://unity.eudat-aai.fz-juelich.de:8443/home/home) and click on 'Register a new account'. Now select 'EUDAT staff' and fill out the form.
-
-Alternatively, you can use your social ID or institutional credentials by selecting the corresponding authentication option when logging in to B2SHARE.
+Refer to the [User management](09_User_management.md#Registering+a+new+user+for+B2SHARE) guide on how to register a new user in B2ACCESS.
 
 ## Configuring B2HANDLE
 In this section the configuration of B2HANDLE is described.

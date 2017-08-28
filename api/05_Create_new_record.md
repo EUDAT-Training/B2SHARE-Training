@@ -90,7 +90,7 @@ After creation, the next steps are to add files and metadata. This can be done i
 Please note that the record ID will remain the same during the draft stage and after finally publishing the record. There is no attached EPIC PID yet.
 
 ### Add files to your new draft record
-After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a PUT request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record.
+After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a PUT request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record. For every file to add to the record, a separate request is required.
 
 Files in records are placed in file buckets attached to a record with a specific `file_bucket_id`. This identifier can be extracted from the returned information after creating the draft record in the nested property `files` of the property `links`:
 
@@ -100,13 +100,13 @@ Files in records are placed in file buckets attached to a record with a specific
 0163d244-5845-40ca-899c-d1d0025f68aa
 ```
 
-First, define a dictionary which contains Python open calls to the files. Files are added one-by-one:
+First, define a file open handle to send along with the request, e.g. for the `sequence.txt` file:
 
 ```python
->>> upload_file = {"file": open('sequence.txt', 'rb')}
+>>> upload_file = open('sequence.txt', 'rb')
 ```
 
-In this statement, the action of reading the file is not actually performed. The file will be read only when the request is done and send as a direct stream.
+In this statement, the action of reading the file is not actually performed. The file will be read only when the request is done and send as a direct data stream.
 
 Define the request URL by adding the file bucket ID to the `files` end point and define the request header:
 
@@ -119,7 +119,7 @@ Define the request URL by adding the file bucket ID to the `files` end point and
 The complete put request looks as follows:
 
 ```python
->>> r = requests.put(url + '/sequence.txt', files=upload_file, params=payload, headers=header)
+>>> r = requests.put(url + '/sequence.txt', data=upload_file, params=payload, headers=header)
 ```
 
 If the request is successful, the result can be checked:

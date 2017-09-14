@@ -6,7 +6,6 @@ The information on this page is partially based on the [B2SHARE installation gui
 - Starting and stopping its services
 - Entering the Docker environment
 - General usage the b2share tool
-- Setting the super administrator
 - Troubleshooting
 
 ### Prerequisites

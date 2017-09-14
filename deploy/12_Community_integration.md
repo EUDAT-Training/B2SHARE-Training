@@ -97,7 +97,7 @@ Of course, you can fill in the variable directly.
 ## Adding roles to specific users
 Each B2SHARE record is published under a community. A community is administered by a user and therefore the community administrator has certain special rights, for example to edit a published record's metadata and to add members to the community. Community members have the privilege to publish record as part of the community.
 
-Note: all role operations identify a user based on the email address. The user must have logged in into B2SHARE instance at least once, otherwise the email address will not be found in the database.
+See for more general information on user role administration the [User management](09_User_management.md) guide.
 
 ### Adding a community administrator
 In order to set users that have administrator privileges, first the ID of the community `COMMUNITY_ID` needs to be determined. You can do this by [listing the communities](https://YOUR_B2SHARE/api/communities) through the B2SHARE REST API, find the community ID and run the following command:

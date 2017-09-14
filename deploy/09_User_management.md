@@ -4,7 +4,15 @@ This guide will dive into the management of users in B2SHARE.
 Topics covered:
 - User management principles
 - B2ACCESS user registration
+- Setting the super administrator
 - Setting user roles
+
+## User management principles
+B2SHARE users are managed twofold: a local user and one that is mapped to the B2ACCESS registered user using the email address of the user. Each user can have multiple roles, but does not necessarily need one.
+
+A role determines what a user can or can't do. Before you can set roles for a user, the user needs to be registered in B2ACCESS and logged in once in B2SHARE.
+
+Please note: all role operations identify the user based on the email address. The user must therefore have logged in into B2SHARE instance at least once in order to be known by the system.
 
 ### Registering a new user for B2SHARE
 Once you've successfully set up B2ACCESS, you can continue with the registration of a administrative user that will be able to configure B2ACCESS.
@@ -19,8 +27,6 @@ A registered user can have specific roles in B2SHARE that allows it to e.g. crea
 ### Set the super administrator
 The superadministrator right allows a particular user to run any B2SHARE operation. Please be careful in assigning it.
 
-Please note: all role operations identify the user based on the email address. The user must therefore have logged in into B2SHARE instance at least once in order to be known by the system.
-
 #### Add super administration rights
 The super administration privileges are set using the b2share tool using the `access` command:
 
@@ -30,7 +36,7 @@ $ b2share access allow -e <email_address> superuser-access
 
 where the argument `email_address` is the email address of the user you want to give administrator privileges to. The command will not give any response even if it successfully added the rights. To see the actual
 
-### List current user rights
+### List current user super administrator rights
 You can list whether a user has super administrator rights by the following command:
 
 ```sh
@@ -48,3 +54,12 @@ $ b2share access remove -e <email_address> superuser-access
 ```
 
 where `email_address` is the email address of the user.
+
+### Listing all user roles
+
+### Listing all user types
+
+### Adding a role to a user
+
+### Removing a role from a user
+

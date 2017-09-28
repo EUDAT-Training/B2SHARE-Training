@@ -213,19 +213,14 @@ $ sudo docker-compose up -d
 
 Now your own B2SHARE instance is available in your own domain! It might take a while before the service is fully running, so be patient and check back after a few minutes in your browser.
 
+In the meantime you can see the actual output of all the container logs using the following command:
+
+```sh
+sudo docker-compose logs -f
+```
+
 ### Log into B2SHARE
 To test the successfull configuration of B2ACCESS within B2SHARE, try to log in with a user (not the OAuth client user). If there are no errors, your B2ACCESS configuration is correct.
 
 ## Troubleshooting
-As with any installation of software or services, problems might arise. This section contains several issues that can be solved easily.
-
-
-### General inspection
-If B2SHARE is not building properly or the web service cannot be accessed, first inspect the logs of the Docker containers:
-
-```sh
-$ sudo docker-compose logs -f b2share
-```
-
-Try if you can find any reported problems which might impact the performance of the system.
-
+As with any installation of software or services, problems might arise. Refer to the [general troubleshooting](./B_Troubleshooting_and_known_issues.md) appendix to see if your problem can be solved.

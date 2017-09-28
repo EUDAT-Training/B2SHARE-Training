@@ -44,10 +44,10 @@ dockerize_redis_1           docker-entrypoint.sh redis ...   Up      0.0.0.0:327
 This command gives an overview of the currently running containers, run command, state and their location in the system.
 
 ### Removing currently built containers
-If you encounter any problems or broken containers, it might help to remove all containers and start over again:
+If you encounter any problems or broken containers, it might be helpful to remove all containers and start over again:
 
 ```sh
-$ docker-compose rm -a
+$ docker-compose rm
 ```
 
 Run the [build and run commands](04_Installation.md#building-and-running-b2share) again to get your B2SHARE instance up and running again.
@@ -67,6 +67,15 @@ You will automatically be located in the `/eudat/b2share` directory:
 $ pwd
 /eudat/b2share
 ```
+
+### General inspection
+If B2SHARE is not building properly or the web service cannot be accessed, first inspect the logs of the Docker containers:
+
+```sh
+$ sudo docker-compose logs -f b2share
+```
+
+Try if you can find any reported problems which might impact the performance of the system.
 
 ## Using the b2share tool
 Once you have entered the B2SHARE container `dockerize_b2share_1`, you can use the `b2share` tool to directly interact with the Invenio back-end:

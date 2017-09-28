@@ -52,7 +52,7 @@ The header is used to indicate that the payload is in JSON format. To make the r
 >>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
 ```
 
-If the request is successfull, the response looks as follows:
+If the request is successful, the response looks as follows:
 
 ```python
 >>> print r
@@ -99,7 +99,7 @@ The header is again included to indicate that the payload is in JSON format. Sim
 >>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
 ```
 
-On a successfull request, the response looks as follows:
+On a successful request, the response looks as follows:
 
 ```python
 >>> print r
@@ -127,7 +127,7 @@ To make the request, the draft record ID is required along with the DELETE reque
 >>> r = requests.delete(url, params=payload, headers=header)
 ```
 
-On a successfull request, the response code should be 204 while there is no response message:
+On a successful request, the response code should be 204 while there is no response message:
 
 ```python
 >>> print r
@@ -153,7 +153,7 @@ To make the request, the file bucket record ID of the draft record and the file 
 >>> r = requests.delete(url, params=payload, headers=header)
 ```
 
-On a successfull request, the response code should be 204 while there is no response message:
+On a successful request, the response code should be 204 while there is no response message:
 
 ```python
 >>> print r
@@ -179,7 +179,7 @@ Again, the removal is accomplished using the DELETE request operation. With the 
 >>> r = requests.delete(url, params=payload, headers=header)
 ```
 
-On a successfull request, the response code should be 204 while there is no response message:
+On a successful request, the response code should be 204 while there is no response message:
 
 ```python
 >>> print r

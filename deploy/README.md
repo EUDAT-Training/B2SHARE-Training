@@ -24,6 +24,7 @@ Submodule | Contents
 [Data structures](10_Data_structures.md) | In-depth descriptions of all B2SHARE data structures
 [Community integration](12_Community_integration.md) | Setting up your community details and metadata schema
 [b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
+[Troubleshooting and Known Issues](B_Troubleshooting_and_known_issues.md) | General troubleshooting information and known issues
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

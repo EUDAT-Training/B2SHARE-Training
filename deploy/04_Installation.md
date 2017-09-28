@@ -20,13 +20,13 @@ Currently the following platforms are supported:
 In the following guides it is assumed that B2SHARE is installed on Ubuntu. Any Ubuntu-specific commands should be translatable to other platforms without any complications.
 
 ## Prerequisites
-The following packages need to be installed:
+The following tools need to be installed:
 
-- git
+- Git
 - curl
-- docker
-- docker-engine
-- docker-compose
+- Docker Community Edition (CE)
+- Docker Engine
+- Docker Compose
 
 Make sure your platform is fully up-to-date:
 
@@ -45,7 +45,7 @@ $ sudo apt-get install git curl
 ```
 
 ### Install Docker
-To install Docker, Docker Engine and Docker Compose, please follow the following guide for [Ubuntu](https://docs.docker.com/engine/installation/linux/ubuntu/) or [CentOS](https://docs.docker.com/engine/installation/linux/centos/). Guides for other platforms are provided on the general [installation overview](https://docs.docker.com/engine/installation/) page.
+To install Docker with Docker Engine, please follow the following guide installing Docker Community Edition (CE) for [Ubuntu](https://docs.docker.com/engine/installation/linux/ubuntu/) or [CentOS](https://docs.docker.com/engine/installation/linux/centos/). Guides for other platforms are provided on the general [installation overview](https://docs.docker.com/engine/installation/) page.
 
 Please read the guides carefully as many steps are involved, including adding Docker's own package repository. After setting this up, run `apt-get update` so that the Docker packages can be found.
 
@@ -53,12 +53,6 @@ To check whether you have successfully installed Docker run:
 
 ```sh
 $ sudo docker run hello-world
-```
-
-For Docker compose run:
-
-```sh
-$ docker-compose --version
 ```
 
 #### Running Docker as a non-root user
@@ -79,6 +73,30 @@ $ sudo usermod -aG docker $user
 #### Configuring Docker
 Further configuration can be added to the Docker setup, for example to start the Docker daemon on boot. Please refer to the general [Linux post-installation guide](https://docs.docker.com/engine/installation/linux/linux-postinstall) for more information. It also contains [troubleshooting information](https://docs.docker.com/engine/installation/linux/linux-postinstall/#use-a-different-storage-engine) in case you need it.
 
+### Install Docker Compose
+Docker Compose can be installed by following the [Install Docker Compose](https://docs.docker.com/compose/install/) guide on the Docker website. Please make sure to have Docker installed before installing this component.
+
+In short, to install Docker Compose, first download the latest version from GitHub:
+
+```sh
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+```
+
+Then, apply the executable permissions to the downloaded binary:
+
+```sh
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
+
+Test Docker compose by running the follwing command:
+
+```sh
+$ docker-compose --version
+docker-compose version 1.16.1, build 6d1ac21
+```
+
+The output should be similar as shown above.
+
 ## Install B2SHARE
 Now the B2SHARE software package can be installed. It is located in the GitHub repository of EUDAT-B2SHARE and can be downloaded directly:
 
@@ -91,7 +109,7 @@ Please make sure to add the specific release branch (e.g. `v2.0.1`) as an argume
 ### Set environment variables
 B2SHARE requires several environment variables that are used by the Docker containers to run. These need to be known before the containers are started.
 
-You can run add each variable using the `export` command individually, but it might be easier to create a file `setenv.sh` somewhere on your system or to add the environment variables directly to your `.bash_profile` file. It is advisable to enclose all values between single quotes to avoid problems in interpretation of these values.
+You can run add each variable using the `export` command individually, but it might be easier to create a file `setenv.sh` somewhere on your system or to add the environment variables directly to your `.bash_profile` file. It is advisable to enclose all values between single quotes to avoid problems in interpretation of these values. For your convenience, a template `setenv.sh` can be [downloaded](./setenv.sh) from this repository.
 
 - Add the B2ACCESS OAuth client username and password:
 
@@ -126,16 +144,16 @@ $ export B2SHARE_POSTGRESQL_USER='user'
 $ export B2SHARE_DATADIR='/home/ubuntu/b2share-data'
 ```
 
-- Indicate the B2ACCESS environment to be used. To use the acceptance instance of B2ACCESS, set this value to 1. For production installations, use the production instance of B2ACCESS and set this value to 0:
+- Indicate the B2ACCESS environment to be used. To use the acceptance instance of B2ACCESS set this value to 1. For production installations, use the production instance of B2ACCESS and set this value to 0:
 
 ```sh
-$ export USE_STAGING_B2ACCESS=1              # to run with staging (testing) b2access (unity install)
+$ export USE_STAGING_B2ACCESS=1
 ```
 
 - Make sure the database and indexes are properly initialized (value 1):
 
 ```sh
-$ export INIT_DB_AND_INDEX=1                 # when run the first time, initialize the database and indices
+$ export INIT_DB_AND_INDEX=1
 ```
 
 - If you want to load sample communities and records, set the following variable to 1:
@@ -145,6 +163,13 @@ $ export LOAD_DEMO_COMMUNITIES_AND_RECORDS=0
 ```
 
 Please note that this will load several communities and records. If you need to have clean install, leave it to 0.
+
+- Set the RabbitMQ user name and password:
+
+```sh
+$ export B2SHARE_RABBITMQ_USER='user'
+$ export B2SHARE_RABBITMQ_PASS='pass'
+```
 
 ### The b2share.cfg file
 Many settings are made directly in the Python `b2share.cfg` file, of which an example can be found [here](https://github.com/EUDAT-B2SHARE/v2-prod-instance/blob/master/b2share.cfg). Please refer to the [B2SHARE Python Configuration](06_B2SHARE_Python_configuration.md) guide to learn how this file can be used to configure your own B2SHARE instance.
@@ -184,19 +209,3 @@ $ docker-compose logs -f b2share
 
 Try if you can find any reported problems which might impact the performance of the system.
 
-### B2ACCESS connection problems
-If you experience any problems during logging in, there might be problem with the B2ACCESS configuration. A common error is:
-
-```
- ERROR
-
-OAuth Authorization Server got an invalid request.
-
-If you are a user then you can be sure that the web application you was using previously is either misconfigured or buggy.
-
-If you are an administrator or developer the details of the error follows:
-
-The '<username>' requested to use a not registered response redirection URI: <OAuth URL>
-```
-
-This means that your B2ACCESS OAuth URL is not properly configured, probably due to an erroneous domain name or incorrect endpoint. Please visit the corresponding B2ACCESS instance (see [above](#different-b2access-instances), log in with your OAuth Client user and enter the correct URL in the `OAuth client return URL` field.

@@ -1,4 +1,4 @@
-# Install and setup the required software your on machine
+# Install and setup the required software on your machine
 This guide describes the necessary steps to make your machine ready for using Python and connecting to the B2SHARE service.
 
 ## Prerequisites

@@ -2,8 +2,10 @@
 In this guide more specific API calls are explained, like reporting abuse and getting access to restricted data. As the B2SHARE REST API continuously expands with new functionality, please check back later to find out new options.
 
 The guide currently covers:
-- Report a record as an abuse record
-- Send a request to get access to restricted data in a record
+- Reporting a record as an abuse record
+- Sending a request to get access to restricted data in a record
+- Deleting draft records
+- Deleting published records
 
 ### Setup your connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
@@ -50,7 +52,7 @@ The header is used to indicate that the payload is in JSON format. To make the r
 >>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
 ```
 
-If the request is successfull, the response looks as follows:
+If the request is successful, the response looks as follows:
 
 ```python
 >>> print r
@@ -97,7 +99,7 @@ The header is again included to indicate that the payload is in JSON format. Sim
 >>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
 ```
 
-On a successfull request, the response looks as follows:
+On a successful request, the response looks as follows:
 
 ```python
 >>> print r
@@ -106,4 +108,82 @@ On a successfull request, the response looks as follows:
 {
   "message": "An email was sent to the record owner."
 }
+```
+
+## Delete a draft record
+Sometimes a created draft record will not be used as a final publication and therefore it needs to be deleted. B2SHARE supports deletion of draft records by the owner of that record or the site administrator.
+
+In order to delete a draft record, a header and your access token are required:
+
+```python
+>>> header = {"Content-Type": 'application/json'}
+>>> payload = {"access_token": token}
+```
+
+To make the request, the draft record ID is required along with the DELETE request operation with the `/api/records/<record_id>/draft` endpoint in the URL. The request then looks as follows:
+
+```python
+>>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/draft"
+>>> r = requests.delete(url, params=payload, headers=header)
+```
+
+On a successful request, the response code should be 204 while there is no response message:
+
+```python
+>>> print r
+<Response [204]>
+>>> print r.text
+
+```
+
+## Delete a file from a draft record
+In case you've uploaded the wrong file to a draft record, you can delete this file again. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
+
+In order to delete a file from a draft record, a request header and your access token are required:
+
+```python
+>>> header = {"Content-Type": 'application/json'}
+>>> payload = {"access_token": token}
+```
+
+To make the request, the file bucket record ID of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
+
+```python
+>>> url = "https://trng-b2share.eudat.eu/api/files/513527a8-d3ac-4bd8-a6b0-f8fec9a94cf8/TestFile.txt"
+>>> r = requests.delete(url, params=payload, headers=header)
+```
+
+On a successful request, the response code should be 204 while there is no response message:
+
+```python
+>>> print r
+<Response [204]>
+>>> print r.text
+
+```
+
+## Delete a published record
+Deleting a published record works similar to deleting draft records. The only caveat is that this request can only be done by a site administrator, i.e. the token that is sent with the request needs to be of user with this role.
+
+To delete a published record, again a header and your access token are required and use the `/api/records/<record_id>` endpoint:
+
+```python
+>>> header = {"Content-Type": 'application/json'}
+>>> payload = {"access_token": token}
+```
+
+Again, the removal is accomplished using the DELETE request operation. With the record ID the request then looks as follows:
+
+```python
+>>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364"
+>>> r = requests.delete(url, params=payload, headers=header)
+```
+
+On a successful request, the response code should be 204 while there is no response message:
+
+```python
+>>> print r
+<Response [204]>
+>>> print r.text
+
 ```

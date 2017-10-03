@@ -3,7 +3,7 @@
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 
-Please note that in order to use some functionality of the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu/youraccount) to do so.
+Please note that in order to use some functionality of the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu) to do so.
 
 Although this module is complete, it is subject to change due to possible future alterations in the API specification. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.
 
@@ -13,9 +13,11 @@ This training modules assumes you have knowledge about data management basics su
 For trainees who do not have the possibility to install Python and the required Python packages, EUDAT provides pre-installed virtual machines in a training environment. To get access to this training environment, please use the [EUDAT contact pages](https://eudat.eu/support-request?service=DOCUMENTATION). Please provide some details on which community you are from and in which context you would like to follow the tutorial.
 
 ### Important remarks
-The B2SHARE service makes a distinction between the two terms `record` and `draft record`. A record is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by first creating a draft record, which is modifiable. Files and metadata can be placed into a draft record, but not into a published record.
+The B2SHARE service makes a distinction between the two terms `record` and `draft record`. A record is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. For clarity, often a record will be referred to as a published record.
 
-In practice, a record is equivalent to a draft record when solely trying to read a record through the service API. Metadata of an existing published record can be updated by modifying the corresponding draft record and committing it as a new version of the original record.
+A user can create a record by first creating a draft record, which is modifiable. Files can be placed into a draft record, but not into a published record. If you update the files of the draft equivalent of the published record, a new version of that record will be created with new persistent identifiers and storage locations.
+
+In practice, a published record is equivalent to a draft record when solely trying to read a record through the service API. Metadata of an existing published record can be updated by modifying the corresponding draft record and committing it as a new version of the original record.
 
 ### Submodules
 Note: it it highly recommended to follow the guides in the given order. Later modules assume specific knowledge about Python and how to setup requests.

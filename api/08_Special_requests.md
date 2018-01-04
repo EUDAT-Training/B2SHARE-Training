@@ -136,32 +136,6 @@ On a successful request, the response code should be 204 while there is no respo
 
 ```
 
-## Delete a file from a draft record
-In case you've uploaded the wrong file to a draft record, you can delete this file again. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
-
-In order to delete a file from a draft record, a request header and your access token are required:
-
-```python
->>> header = {"Content-Type": 'application/json'}
->>> payload = {"access_token": token}
-```
-
-To make the request, the file bucket record ID of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
-
-```python
->>> url = "https://trng-b2share.eudat.eu/api/files/513527a8-d3ac-4bd8-a6b0-f8fec9a94cf8/TestFile.txt"
->>> r = requests.delete(url, params=payload, headers=header)
-```
-
-On a successful request, the response code should be 204 while there is no response message:
-
-```python
->>> print r
-<Response [204]>
->>> print r.text
-
-```
-
 ## Delete a published record
 Deleting a published record works similar to deleting draft records. The only caveat is that this request can only be done by a site administrator, i.e. the token that is sent with the request needs to be of user with this role.
 

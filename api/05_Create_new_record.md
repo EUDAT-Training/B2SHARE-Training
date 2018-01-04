@@ -226,6 +226,32 @@ When all your files have been uploaded, you can check the draft record's current
 
 The links to the file bucket is displayed, as well as the 'contents' list of two files, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket ID.
 
+## Delete a file from a draft record
+In case you've uploaded the wrong file to a draft record, you can delete this file again. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
+
+In order to delete a file from a draft record, a request header and your access token are required:
+
+```python
+>>> header = {"Content-Type": 'application/json'}
+>>> payload = {"access_token": token}
+```
+
+To make the request, the file bucket record ID of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
+
+```python
+>>> url = "https://trng-b2share.eudat.eu/api/files/513527a8-d3ac-4bd8-a6b0-f8fec9a94cf8/TestFile.txt"
+>>> r = requests.delete(url, params=payload, headers=header)
+```
+
+On a successful request, the response code should be 204 while there is no response message:
+
+```python
+>>> print r
+<Response [204]>
+>>> print r.text
+
+```
+
 ### Add metadata to your draft record
 Metadata is added to a draft record while creating the initial object. By issuing a HTTP patch request with a JSON patch list of operations the current metadata of a record can be updated with additional or updated metadata fields and corresponding values.
 

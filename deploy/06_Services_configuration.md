@@ -2,14 +2,14 @@
 Several services are connected to B2SHARE in order to make it function smoothly. In this guide the configuration of each of these services is described.
 
 In this guide the following services are discussed:
-- [B2ACCESS](#Configuring+B2ACCESS): use institional or social credentials for access using EUDAT's [federated authentication and authorisation service](https://b2access.eudat.eu)
-- [B2HANDLE](#Configuring+B2ACCESS): registration and resolving of EPIC handles using EUDAT's [persistent identifier service](https://www.eudat.eu/services/userdoc/b2handle)
-- [B2DROP](#Configuring+B2DROP): direct publication from EUDAT's [data sharing and exchange service](https://b2drop.eudat.eu)
-- [DOI](#Configuring+Digital+Object+Identifier+DOI+service): registration and resolving of [DOI persistent identifiers](http://www.doi.org)
-- [B2NOTE](#Configuring+B2NOTE): adding metadata to files using EUDAT's [semantic annotation service](https://b2note.bsc.es) (in pilot phase)
+- [B2ACCESS](#configuring+b2access): use institional or social credentials for access using EUDAT's [federated authentication and authorisation service](https://b2access.eudat.eu)
+- [B2HANDLE](#configuring+b2handle): registration and resolving of EPIC handles using EUDAT's [persistent identifier service](https://www.eudat.eu/services/userdoc/b2handle)
+- [B2DROP](#configuring+b2drop): direct publication from EUDAT's [data sharing and exchange service](https://b2drop.eudat.eu)
+- [DOI](#configuring+digital+object+identifier+doi+service): registration and resolving of [DOI persistent identifiers](http://www.doi.org)
+- [B2NOTE](#configuring+b2note): adding metadata to files using EUDAT's [semantic annotation service](https://b2note.bsc.es) (in pilot phase)
 
 In addition, the following services are described:
-- [OAI-PMH](#Configuring+OAI-PMH): metadata harvesting by external metadata catalogus services like [B2FIND](http://b2find.eudat.eu)
+- [OAI-PMH](#configuring+oai-pmh): metadata harvesting by external metadata catalogus services like [B2FIND](http://b2find.eudat.eu)
 
 ## Configuring B2ACCESS
 In this section the configuration of B2ACCESS is described. B2ACCESS is always enabled and cannot be turned off.
@@ -137,13 +137,13 @@ The `PIDSTORE_DATACITE_TESTMODE` variable is currently not used, so can be left 
 ## Configuring B2NOTE
 In this section the enabling and configuration of B2NOTE is described.
 
-Currently the B2NOTE service extension is only available when the B2SHARE instance is configured to be running in production mode. Because the [B2NOTE service](https://b2note.bsc.es) is only running as a fixed single instance at BSC, no further configuration is currently possible. Enabling the service for B2SHARE can be achieved by setting the value for `SITE_FUNCTION` to 'production' in the `b2share/config.py` configuration file:
+The B2NOTE service extension is only available when a URL is provided that links the B2NOTE service. Enabling the service for B2SHARE can be achieved by setting the value for `B2NOTE_URL` to `https://b2note.bsc.es/devel/interface_main.html` in the `b2share/config.py` configuration file:
 
 ```python
-SITE_FUNCTION = 'production'
+B2NOTE_URL = 'https://b2note.bsc.es/devel/interface_main.html'
 ```
 
-This configuration item is subject to change in the near future. Please check back regularly to see how to enabling and configuration of the B2NOTE service in your instance is done in future versions of B2SHARE.
+If you have your own instance of B2NOTE running (currently not supported) you can change this URL accordingly.
 
 ## Configuring OAI-PMH
 In this section the configuration of OAI-PMH for metadata harvesting is described.

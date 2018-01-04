@@ -5,19 +5,21 @@
 
 Although this module is complete, it is subject to change due to possible future alterations of the B2SHARE deployment procedures. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [B2SHARE quick installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst).
 
+The information on this module is based on [B2SHARE version 2.1.0](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/v2.1.0).
+
 ### Prerequisites
 This training modules assumes you have knowledge about using and configuring Linux environments, Docker image handling and command-line interfaces.
 
 Although there is a dedicated submodule for installing all prerequisite software, any problems arising during installation should be solved by the user using the documentation of the corresponding software. Links are provided for all used packages and software.
 
 ### Submodules
-
 Note: it it highly recommended to follow the guides in the given order. Later modules assume all previous steps have been completed successfully.
 
 Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to deploying B2SHARE
 [Installation](04_Installation.md) | Installing required software and packages
+[B2SHARE Configuration](05_B2SHARE_configuration.md) | Configuration of your B2SHARE instance
 [Services Configuration](06_Services_configuration.md) | Configuration of services that B2SHARE depends on
 [B2SHARE Administration](08_B2SHARE_administration.md) | Administering and testing your B2SHARE instance
 [User management](09_User_management.md) | Management of users in B2SHARE

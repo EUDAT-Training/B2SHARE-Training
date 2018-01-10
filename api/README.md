@@ -32,7 +32,7 @@ Submodule | Contents
 [Create new record](05_Create_new_record.md) | Learn how to create new records and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
 [Update all community metadata fields](07_Update_all_community_metadata_fields.md) | Learn how to update all community metadata fields in your record
-[Update record files](08_Update_record_files.md) | Learn how to update the files in your record and thereby creating a new version of that record
+[Record versioning](08_Record_versioning.md) | Learn how to update the files in a record and thereby creating a new version of that record
 [Special requests](10_Special_requests.md) | Various examples of special requests made using the API
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata

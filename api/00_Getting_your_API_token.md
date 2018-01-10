@@ -2,7 +2,7 @@
 
 This guide will take you through the steps to obtain access tokens on the B2SHARE website. API or access tokens are required to access the B2SHARE service programmatically through the REST API.
 
-The B2HARE HTTP REST API can be used for interaction with B2SHARE via external services or applications. Only authenticated users can do API requests. User authentication is done by passing an `access_token` parameter along with the request. This `access_oken` can be retrieved by generating one on the B2SHARE service website.
+The B2HARE HTTP REST API can be used for interaction with B2SHARE via external services or applications. Only authenticated users can do API requests. User authentication is done by passing an `access_token` parameter along with the request. This `access_token` can be retrieved by generating one on the B2SHARE service website.
 
 Please note that access tokens are for private use only and not to be shared with other persons or institutions. Sharing them enables other people to alter your data on your behalf.
 
@@ -19,15 +19,16 @@ After logging in, navigate to your [account page](https://trng-b2share.eudat.eu/
 <img src="img/B2SHARE-API-create-api-token-1000.png" alt="B2SHARE account API tokens" text="B2SHARE account API tokens" style="width: 80%">
 
 ## API token generation
-Click on the `New token` button to generate a new personal access token. Enter a name which easily identifies the purpose for this key. By clicking `Create`, a new access token is generated which is only shown at this time. Store it somewhere in order to use later, like in a file. In this training material it is assumed that the generated token is stored in a file called `token.txt`.
+Enter a name in the textfield below 'Create new token:' which easily identifies the purpose for this key. By clicking on `New Token`, a new access token is generated which is only shown at this time. Store it somewhere in order to use later, like in a file. In this training module it is assumed that the generated token is stored in a file called `token.txt`.
 
 <img src="img/B2SHARE-API-api-tokens-1000.png" alt="B2SHARE generate token" text="B2SHARE generate token">
-
-Click 'Save' to store the access token on the server and make it usable in your applications.
 
 **Note 1:** Please note that this is the only time the access token is visible, so copy it to a safe place.
 
 **Note 2:** It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).
+
+#### Deleting a token
+You can delete a token by clicking on the 'Remove' button next to each token's title. Once a token has been removed it can no longer be used to authenticate a user while using the B2SHARE REST API.
 
 ## Testing your token
 Once you have generated your access token, it can be used and tested with your own applications. Launch a Python session and follow the steps below to verify whether the token works.

@@ -47,12 +47,12 @@ Test your reading by displaying the value of your access token:
 ptw3shzEDb6gdoCyijs5tkd...
 ```
 
-#### Retrieve existing records
-We can use the token to display some records from the B2SHARE repository. Without explaining the detailed workings, the following command issues a request to get all records from the repository without doing verification of the source:
+#### Retrieve existing draft records
+We can use the token to display some draft records from your account in the B2SHARE repository. Without explaining the detailed workings, the following command issues a request to get all draft records from the repository without doing verification of the source:
 
 ```python
 >>> import requests
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token}, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token, 'drafts': 1}, verify=False)
 ```
 
 To check whether the request succeeded, the `r` variable contains the HTTP response code:
@@ -63,9 +63,17 @@ To check whether the request succeeded, the `r` variable contains the HTTP respo
 >>> print r.status_code
 200
 ```
+
 The request was successful.
 
-#### Display a record
+If authentication failed and your token is probably invalid, the status code will be 401:
+
+```python
+>>> print r.json()
+{u'status': 401, u'message': u'Only authenticated users can search for drafts.'}
+```
+
+#### Display a (draft) record
 
 The response variable also contains the actual result text of the request in JSON format. In this case, the result is all the records from the repository. To extract the first record, do the following:
 

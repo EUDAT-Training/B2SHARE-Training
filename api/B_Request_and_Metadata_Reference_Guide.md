@@ -9,35 +9,50 @@ Before it can be used in your scripts and commands, it needs to be loaded:
 >>> import requests
 ```
 
-The base URL for all API calls is `https://trng-b2share.eudat.eu/api/' with an additional URI appended (see below).
+The base URL for all API calls is `https://trng-b2share.eudat.eu/api/` with an additional URI appended (see below).
+
+#### Important note
+
+The service expects the API request to have a trailing slash ('/') at the end of the URI, but before any parameters. Your browser and the requests Python package will automatically add this character, though when using curl (see [below](#api-interaction-using-curl)) you must make sure to add it otherwise the request will fail.
 
 ### Quick reference table
+
 A request can be made using a HTTP request method, such as `GET` or `POST`. No other HTTP request methods are currently supported by the B2SHARE service.
 
-For all requests there are optional parameters which need to be added in order to take effect. The only required parameter is the `access_token`. See the table in the 'Parameter variables' section for a complete overview.
+For all requests there are optional parameters which need to be added in order to take effect. The parameter `access_token` is required for creating or modifying records and to retrieve private or community-only records. See the table in the 'Parameter variables' section for a complete overview.
 
 For post method requests, additional non-parameter data can be sent along with the request.
 
-Request | HTTP method | URI | Optional | Return value
+Request | HTTP method | Full URI | Optional | Return value
 ------- | ----------- | --- | -------- | ------------
-List all records | GET | `records` | `page_size`, `page_offset` | List of records (in JSON format)
-List records per community | GET | `records/<community_name>` | `page_size`, `page_offset` | List of records (in JSON format) or an error message with the list of valid community identifiers if the `community_name` is invalid
-List specific record | GET | `record/<record_id>` | | A JSON-formatted string containing the record's metadata and files
-Create deposition | POST | `depositions` | | URL of the deposition (both as JSON and in the field 'Location' in the http header)
-Add file to deposition | POST | `deposition/<deposition_id>/files` | file (as multipart/form-data) | Name and size of the newly uploaded file
-List deposition files | GET | `deposition/<deposition_id>/files` | | Name and size of all the files in the deposition object
-Commit deposition | POST | `deposition/<deposition_id>/commit` | metadata, header | Location URL of the new record if the submitted metadata is valid; otherwise, the list of all the metadata fields that can be filled in and details on each one
+List all records (search) | GET | `/api/records` | `page`, `size` | List of records
+List your draft records* (search) | GET | `/api/records?drafts` | `page`, `size` | List of records
+List specific record | GET | `/api/records/<record_id>` | | A JSON-formatted string containing the record's metadata and files
+List specific draft record | GET | `/api/records/<record_id>/draft` | | A JSON-formatted string containing the draft record's metadata and files
+List communities | GET | `/api/communities` | |
+List records per community | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
+Get community schema | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
+Create draft record* | POST | `/api/records` | | Create a new draft record, requires metadata payload
+Upload file into draft record* | PUT | `/api/files/<file_bucket_id>/<filename>` | | Add file to draft record, requires file name and bucket identifier
+List uploaded files of record* | GET | `/api/files/<file_bucket_id>` | | List the file uploaded into a record object, requires file bucket identifier
+Update draft record's metadata* | PATCH | `/api/records/<record_id>` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
+Submit draft record for publication* | PATCH | `/api/records/<record_id>` | | Change status of record, requires JSON patch with value of `publication_state` field specified
+Report record as abusive* | POST | `/api/records/<record_id>/abuse` | | Report a record as an abuse record, requires specific JSON object with information, see [Special requests](10_Special_requests.md#report-a-record-as-an-abuse-record) for more information
+Request access to data in a record* | POST | `/api/records/<record_id>/accessrequests` | | Send a request to get access to restricted data in a record, requires specific JSON object with information, see [Special requests](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) for more information
+
+* requires authentication using your access token.
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.
 
 The returned object contains a lot of information which can be extracted using the object methods and variables provided. For example, a typical record retrieval request would look like this:
+
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/record/267', params={'access_token': token}, verify=False)
->>> print r.json()["files"][0]
-{u'url': u'https://trng-b2share.eudat.eu/record/267/files/sequence2.txt?version=1', u'name': u'sequence2.txt', u'size': 3893}
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4', params={'access_token': token}, verify=False)
+>>> print r.json()
 ```
-The latter command displays the first file contained in the record.
+
+The latter command displays the retrieved metadata parsed by a JSON interpreter as a dictionary.
 
 #### Available parameters
 Several parameters can be added to any request. Please note that the parameters only function for relevant HTTP request methods. The most important are:
@@ -58,13 +73,13 @@ The `params` parameter for a request can contain several variables with their co
 Variable | Description
 -------- | -----------
 access_token | Access token used for authentication
-community_name | Name of the user community in B2SHARE
-page_offset | Page offset for paginated output data
-page_size | Size of a page in case pagination is used
+community_id | Identifier of the community in B2SHARE
+page | Page offset for paginated output data
+size | Size of a page in case pagination is used
 record_id | Identifier for a specific record
-deposition_id | Identifier for a specific deposition
+drafts | Indicator to return draft records only
 
-The only mandatory variable is `access_token`, in case authentication is required. The rest of the variables are optional.
+The variable `access_token` is mandatory for creating or modifying existing records. The other variables are optional.
 
 ### Response fields
 All requests made to B2SHARE will return a response code and text. The response code equals one of the standardized HTTP response codes, indicating the success or failure of the request. An overview of these codes can be found on [Wikipedia](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
@@ -122,10 +137,10 @@ curl [options...] <url>
 ```
 For the B2SHARE training instance, this becomes:
 ```sh
-curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-F file=@<filename>]
-    [-d '{"key":"value"}'] 'https://trng-b2share.eudat.eu/api/<URI>?<parameters>'
+curl [-i] [-X <method>] [-H "Content-Type: application/json"] [-d @<filename> | -d '{"key":"value"}']
+        'https://trng-b2share.eudat.eu<URI>?<parameters>'
 ```
-where all text between brackets is optional. For `method` either `GET` (default) or `POST` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information, `-F` to send form data (i.e. files), `-d` to send additional data (i.e. metadata) and/or `-H` to set the return string format. These might be required when using some specific post requests during deposition. The parameters field is an ampersand-separated list of key-value pairs, e.g. `access_token=123123&page_offset=2`.
+where all text between brackets is optional. For `method` either `GET` (default), `POST`, `PUT`, `PATCH` or `DELETE` can be put and `URI` is one of the URIs listed in the table. Optionally, you can add `-i` to return header information. Use the `-d` option to send form data (i.e. files) or to send additional data (i.e. metadata). Use the `-H` option to add headers to the request to e.g set the return string format. These might be required when using some specific post requests during deposition. The parameters field is an ampersand-separated list of key-value pairs, e.g. `access_token=123123&page=2`.
 
 ### HTTP response codes
 
@@ -161,5 +176,12 @@ Or when a unknown identifier is used for a record:
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=payload, verify=False)
 >>> print r.text
-{"status": 404, "message": "PID does not exist."}
+{"message": "PID does not exist.", "status": 404}
+```
+
+Or when authentication is required, but not given:
+```python
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records?drafts', verify=False)
+>>> r.text
+{"message": "Only authenticated users can search for drafts.", "status": 401}
 ```

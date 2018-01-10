@@ -1,5 +1,5 @@
 # Introduction
-The B2HARE HTTP REST API can be used for interacting with B2SHARE via external services or applications, for example for integrating with other web-sites (research community portals) or for uploading or downloading large data sets that are not easily handled via a web browser. This API can also be used for metadata harvesting.
+The B2HARE HTTP REST API can be used for interacting with B2SHARE via external services or applications, for example for integrating with other websites (research community portals) or for uploading or downloading large data sets that are not easily handled via a web browser. This API can also be used for metadata harvesting.
 
 In the following introduction, the concepts of the use of the API is explained with regard to Python.
 
@@ -15,19 +15,19 @@ A record contains a set of common metadata fields and a set of custom metadata b
 Refer to the [metadata update guide](06_Update_deposit_metadata.md) to alter metadata of existing records.
 
 ## Authentication
-Only authenticated users can use the API functionality. Each HTTP request to the server must pass an `access_token` parameter that identifies the user. The `access_token` is an opaque string which can be created in the user profile when logged in to the B2SHARE web user interface. B2SHARE's access tokens follow the OAuth 2.0 standard.
+Certain API requests to the B2SHARE service require authentication, for example to create or modify draft records. Each such request to the server must provide an `access_token` parameter that identifies the user. The `access_token` is an opaque string which can be created in the user profile when logged in to the B2SHARE web user interface. B2SHARE's access tokens follow the OAuth 2.0 standard.
 
-To obtain a personal access token follow the [token retrieval guide](00_Getting_your_API_token.md).
+To obtain a personal access token follow the [token retrieval guide](00_Getting_your_access_token.md).
 
-## HTTP Requests
-The HTTP requests are made to a URL with parameters as described below. Each URL consists of a protocol part (always 'https://'), a hostname and a path. One of the following hostnames can be used to identify the B2SHARE instance:
+## HTTP requests
+The HTTP requests are made using a URL with parameters targetting a specific service. Each URL consists of a protocol part (always 'https://'), a hostname and optionally a path. One of the following hostnames can be used to identify EUDAT's B2SHARE instances:
 
 URL | Description
 --- | -----------
 `b2share.eudat.eu` | the hostname of the production site.
 `trng-b2share.eudat.eu` | the base url of the training site. Use this URL for testing.
 
-Using Python, a user can request all kinds of different data. For a quick start, refer to the [Testing your token](00_Getting_your_API_token.md#testing-your-token) guide.
+Using Python, a user can request all kinds of different data. For a quick start, refer to the [Testing your token](00_Getting_your_access_token.md#testing-your-token) guide.
 
 Each allowed request is described below as follows:
 
@@ -35,7 +35,7 @@ Parameter | Description
 --------- | -----------
 Description | Description of the function of the request
 URL path | Grammar for the allowed paths used together with one of the base URLs above
-HTTP method | Either HTTP protocols GET or POST methods
+HTTP method | Either HTTP protocols GET, POST, PATCH or DELETE methods
 Example | Example of usage
 
 Variables in the descriptions:

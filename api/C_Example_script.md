@@ -21,7 +21,7 @@ The `json` package is used to parse and display JSON-formatted strings, while `u
 This section shortly explains how to create new deposits of data sets in B2SHARE.
 
 ### Step 0: Prepare your API application
-Please follow the [Getting your API token](00_Getting_your_API_token.md) in order to get your API token. The generated token needs to be stored in a file called `token` which is read every time one of the example functions is called.
+Please follow the [Getting your API token](00_Getting_your_access_token.md) in order to get your API token. The generated token needs to be stored in a file called `token` which is read every time one of the example functions is called.
 
 ### Step 1: Create a new deposition
 To create a new deposition use the

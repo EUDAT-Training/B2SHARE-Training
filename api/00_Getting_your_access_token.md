@@ -1,10 +1,12 @@
-# Getting you API token
+# Getting your access token
 
-This guide will take you through the steps to obtain access tokens on the B2SHARE website. API or access tokens are required to access the B2SHARE service programmatically through the REST API.
+This guide will take you through the steps to obtain access tokens on the B2SHARE website. API or access tokens are required to access specific parts of the B2SHARE service programmatically through the REST API.
 
-The B2HARE HTTP REST API can be used for interaction with B2SHARE via external services or applications. Only authenticated users can do API requests. User authentication is done by passing an `access_token` parameter along with the request. This `access_token` can be retrieved by generating one on the B2SHARE service website.
+The B2HARE HTTP REST API can be used for interaction with B2SHARE via external services or applications. Only authenticated users can do API requests that create or modify records. User authentication is done by passing an `access_token` parameter along with the request. This `access_token` can be retrieved by generating one on the B2SHARE service website.
 
 Please note that access tokens are for private use only and not to be shared with other persons or institutions. Sharing them enables other people to alter your data on your behalf.
+
+Only those requests to the service that alter existing or add new draft records require authentication. All other requests like listing published records, getting record or community metadata are public and therefore can be done without providing an access token.
 
 ## Setup your machine and connection
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.

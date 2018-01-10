@@ -25,17 +25,18 @@ Note: it it highly recommended to follow the guides in the given order. Later mo
 Submodule | Contents
 ------|-------------
 [Introduction](00_Introduction.md) | General introduction to publishing data in B2SHARE
-[Getting your API token](00_Getting_your_API_token.md) | Information on registration and creating your API tokens for usage with the Python scripts
+[Getting your API token](00_Getting_your_access_token.md) | Information on registration and creating your API access tokens for usage with the Python scripts
 [Retrieve record details](01_Retrieve_existing_record.md) | Learn how to get record information of specific existing records
 [List existing records](02_List_existing_records.md) | Retrieve listings of records and paginate them
 [Communities](03_Communities.md) | Community-specific functionality is explained
 [Create new record](05_Create_new_record.md) | Learn how to create new records and add files and metadata
 [Update record metadata](06_Update_record_metadata.md) | Learn how to update the metadata of existing records
 [Update all community metadata fields](07_Update_all_community_metadata_fields.md) | Learn how to update all community metadata fields in your record
-[Special requests](08_Special_requests.md) | Various examples of special requests made using the API
-[Example script](10_Example_script.md) | Example script with functions handling B2SHARE records
+[Update record files](08_Update_record_files.md) | Learn how to update the files in your record and thereby creating a new version of that record
+[Special requests](10_Special_requests.md) | Various examples of special requests made using the API
 [Appendix A](A_Setup_and_install.md) | Setup and install guide for Python
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata
+[Appendix C](C_Example_script.md) | Example script with functions handling B2SHARE records
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

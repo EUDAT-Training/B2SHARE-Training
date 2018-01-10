@@ -12,7 +12,7 @@ Please make sure your machine has been properly set up to use Python and require
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS. In addition, the loading of the token, importing Python packages and checking request responses will not be covered here.
 
 ## Retrieve a list of records
-As shown in the guide '[Getting your API token](00_Getting_your_API_token.md)', to get the first set of records from the B2SHARE service, the following request suffices:
+As shown in the guide '[Getting your API token](00_Getting_your_access_token.md)', to get the first set of records from the B2SHARE service, the following request suffices:
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records')

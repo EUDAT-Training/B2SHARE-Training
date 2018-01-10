@@ -35,10 +35,13 @@ Get community schema | GET | `/api/records/<community_id>` | `page`, `size` | Li
 Create draft record* | POST | `/api/records` | | Create a new draft record, requires metadata payload
 Upload file into draft record* | PUT | `/api/files/<file_bucket_id>/<filename>` | | Add file to draft record, requires file name and bucket identifier
 List uploaded files of record* | GET | `/api/files/<file_bucket_id>` | | List the file uploaded into a record object, requires file bucket identifier
-Update draft record's metadata* | PATCH | `/api/records/<record_id>` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
+Update record's metadata* | PATCH | `/api/records/<record_id>` | | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
+Update draft record's metadata* | PATCH | `/api/records/<record_id>/draft` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
+Get record versions | GET | `/api/records/<record_id>/versions` | | Get a listing of all record versions of a dataset
+Get statistics | GET | `/api/stats` | | Get specific statistics about one or more records or other objects, requires specific JSON data object
 Submit draft record for publication* | PATCH | `/api/records/<record_id>` | | Change status of record, requires JSON patch with value of `publication_state` field specified
 Report record as abusive* | POST | `/api/records/<record_id>/abuse` | | Report a record as an abuse record, requires specific JSON object with information, see [Special requests](10_Special_requests.md#report-a-record-as-an-abuse-record) for more information
-Request access to data in a record* | POST | `/api/records/<record_id>/accessrequests` | | Send a request to get access to restricted data in a record, requires specific JSON object with information, see [Special requests](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) for more information
+Request access to data in a record* | POST | `/api/records/<record_id>/accessrequests` | | Send a request to get access to restricted data in a record, requires specific JSON data object with information, see [Special requests](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) for more information
 
 * requires authentication using your access token.
 
@@ -48,7 +51,7 @@ Each request by default needs at least one parameter, the URL pointing to the ob
 The returned object contains a lot of information which can be extracted using the object methods and variables provided. For example, a typical record retrieval request would look like this:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4', params={'access_token': token}, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4', params={'access_token': token})
 >>> print r.json()
 ```
 
@@ -164,7 +167,7 @@ There can be several reasons why a requests didn't succeed. In general, the firs
 For example, when a non-existing API endpoint is used as the path in the request, HTTP response code 404 is returned:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/drafts', verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/drafts')
 >>> print r.text
 {
   "message": "The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.",
@@ -174,14 +177,14 @@ For example, when a non-existing API endpoint is used as the path in the request
 
 Or when a unknown identifier is used for a record:
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=payload, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=payload)
 >>> print r.text
 {"message": "PID does not exist.", "status": 404}
 ```
 
 Or when authentication is required, but not given:
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records?drafts', verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records?drafts')
 >>> r.text
 {"message": "Only authenticated users can search for drafts.", "status": 401}
 ```

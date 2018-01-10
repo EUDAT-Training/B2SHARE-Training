@@ -59,7 +59,7 @@ The [Create a new record](05_Create_new_record.md) guide explains the creation o
 >>> payload = {'drafts': 1,
                'access_token': token
               }
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
 ```
 
 Again, the result is processed to ease interpretation:

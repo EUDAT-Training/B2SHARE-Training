@@ -273,7 +273,7 @@ The final commit request will return the updated object metadata in case the req
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.patch(url, data=commit, params=payload, headers=header, verify=False)
+>>> r = requests.patch(url, data=commit, params=payload, headers=header)
 >>> print r
 <Response [200]>
 >>> result = json.loads(r.text)

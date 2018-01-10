@@ -54,7 +54,7 @@ We can use the token to display some draft records from your account in the B2SH
 
 ```python
 >>> import requests
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token, 'drafts': 1}, verify=False)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params={'access_token': token, 'drafts': 1})
 ```
 
 To check whether the request succeeded, the `r` variable contains the HTTP response code:

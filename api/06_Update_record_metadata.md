@@ -18,12 +18,18 @@ In this guide a draft record with ID `b43a0e6914e34de8bd19613bcdc0d364` will be 
 ## Getting metadata schema information
 Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and assess the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
 
+Create a payload containig your token for authentication:
+
+```python
+>>> payload = {'access_token': token}
+```
+
 Lets determine the draft record's community ID as stored in its metadata:
 
 ```python
 >>> recordid = 'b43a0e6914e34de8bd19613bcdc0d364'
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.get(url, params={'access_token': token})
+>>> r = requests.get(url, params=payload)
 >>> result = json.loads(r.text)
 >>> print result["metadata"]["community"]
 e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
@@ -47,14 +53,14 @@ An object with the new and updated metadata fields and values needs to be constr
 #### Creating a JSON patch
 The metadata update call is made using a patch request containing the patch operations and headers. Note that:
 
-- The `api/records/<record_id>/draft` API end-point is used
+- The `api/records/<record_id>/draft` API end-point is used since our record is not yet published
 - The metadata updates for the record must be provided in the [JSON patch format](http://jsonpatch.com) in order to avoid to have to send all the existing metadata as well
 - The patch format contains one or more JSONPath strings. The root of these paths is the metadata object, as this is the only mutable object
 
 In order to successfully update the metadata, a JSON patch is created using the `jsonpatch` Python package. First, the original existing metadata of the record is retrieved which will later be altered:
 
 ```python
->>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
+>>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
 >>> r = requests.get(url, params=payload)
 >>> result = json.loads(r.text)
 >>> metadata_old = result["metadata"]

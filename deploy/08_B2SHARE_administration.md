@@ -5,7 +5,7 @@ The information on this page is partially based on the [B2SHARE installation gui
 - Starting and stopping its services
 - Overview of running containers services
 - Entering the Docker environment
-- General usage the b2share tool
+- General usage of the b2share tool
 - Troubleshooting
 
 ### Prerequisites

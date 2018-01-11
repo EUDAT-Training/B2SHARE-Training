@@ -484,7 +484,7 @@ The metadata has been successfully updated, as can be seen on the actual [landin
 ### Creating a new record
 When creating new records, the metadata values structure can be directly sent to the B2SHARE server without using a patch.
 
-Because a record needs to be deposited under a community, the EUDAT community ID is added and the title is replaced by a list with a single new string:
+Because a record needs to be deposited under a community, the EUDAT community identifier is added and the title is replaced by a list with a single new string:
 
 ```python
 >>> metadata_new['titles'] = [{'title': 'My second test upload'}]

@@ -13,7 +13,7 @@ This guide covers:
 
 Refer to [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) to get the required and optional list of fields used for metadata.
 
-In this guide a draft record with ID `b43a0e6914e34de8bd19613bcdc0d364` will be updated, so this number will be used during each step. Any modifications to metadata should be done to the record's draft equivalent. This object is found by adding the `draft` endpoint.
+In this guide a draft record with identifier `b43a0e6914e34de8bd19613bcdc0d364` will be updated, so this number will be used during each step. Any modifications to metadata should be done to the record's draft equivalent. This object is found by adding the `draft` endpoint.
 
 ## Getting metadata schema information
 Every record is published as part of a community. Each community has specific metadata schemas designed to cover the necessary information in order to easily understand and assess the contents of a publication. If an update needs to be made to the metadata fields and/or values, first the community's metadata schema needs to be examined to understand which fields can be added or updated.
@@ -24,7 +24,7 @@ Create a payload containig your token for authentication:
 >>> payload = {'access_token': token}
 ```
 
-Lets determine the draft record's community ID as stored in its metadata:
+Lets determine the draft record's community identifier as stored in its metadata:
 
 ```python
 >>> recordid = 'b43a0e6914e34de8bd19613bcdc0d364'
@@ -35,10 +35,10 @@ Lets determine the draft record's community ID as stored in its metadata:
 e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
 ```
 
-With this community ID, the community metadata schema can be retrieved and required metadata fields listed. Refer to the [Get community metadata schema](03_Communities.md#get-community-metadata-schema) section of the [Communities](03_Communities.md) guide to see how to achieve this.
+With this community identifier, the community metadata schema can be retrieved and required metadata fields listed. Refer to the [Get community metadata schema](03_Communities.md#get-community-metadata-schema) section of the [Communities](03_Communities.md) guide to see how to achieve this.
 
 ## Updating metadata
-To update a draft record's metadata, the record ID is required while making patch requests. The procedure can be applied to either draft or published records.
+To update a draft record's metadata, the record identifier is required while making patch requests. The procedure can be applied to either draft or published records.
 
 #### Preparing your new metadata
 An object with the new and updated metadata fields and values needs to be constructed. As the community, title and open access check have already been set when the draft record was created, only some missing fields are provided:

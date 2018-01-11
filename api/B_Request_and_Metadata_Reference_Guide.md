@@ -17,7 +17,7 @@ The service expects the API request to have a trailing slash ('/') at the end of
 
 ### Quick reference table
 
-A request can be made using a HTTP request method, such as `GET` or `POST`. No other HTTP request methods are currently supported by the B2SHARE service.
+A request can be made using a HTTP request method, such as `GET` or `POST`.
 
 For all requests there are optional parameters which need to be added in order to take effect. The parameter `access_token` is required for creating or modifying records and to retrieve private or community-only records. See the table in the 'Parameter variables' section for a complete overview.
 
@@ -34,6 +34,7 @@ List records per community | GET | `/api/records/<community_id>` | `page`, `size
 Get community schema | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
 Create draft record* | POST | `/api/records` | | Create a new draft record, requires metadata payload
 Upload file into draft record* | PUT | `/api/files/<file_bucket_id>/<filename>` | | Add file to draft record, requires file name and bucket identifier
+Remove file from record | DELETE | `/api/files/<file_bucket_id>/<filename>` | | Remove a file from a draft record's file bucket
 List uploaded files of record* | GET | `/api/files/<file_bucket_id>` | | List the file uploaded into a record object, requires file bucket identifier
 Update record's metadata* | PATCH | `/api/records/<record_id>` | | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
 Update draft record's metadata* | PATCH | `/api/records/<record_id>/draft` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
@@ -106,7 +107,7 @@ licence | String | License |
 open_access | Boolean | Open access | True
 PID | String | URL containing the persistent identifier (PID)
 publication_date | String | Date of publication of data set |
-record_id | Number | Deposition unique ID number | Automatic
+record_id | Number | Recird unique identifier | Automatic
 title | String | Deposit title |
 
 The following fields can also be included:

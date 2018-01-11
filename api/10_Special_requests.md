@@ -120,7 +120,7 @@ In order to delete a draft record, a header and your access token are required:
 >>> payload = {"access_token": token}
 ```
 
-To make the request, the draft record ID is required along with the DELETE request operation with the `/api/records/<record_id>/draft` endpoint in the URL. The request then looks as follows:
+To make the request, the draft record identifier is required along with the DELETE request operation with the `/api/records/<record_id>/draft` endpoint in the URL. The request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/draft"
@@ -146,7 +146,7 @@ To delete a published record, again a header and your access token are required 
 >>> payload = {"access_token": token}
 ```
 
-Again, the removal is accomplished using the DELETE request operation. With the record ID the request then looks as follows:
+Again, the removal is accomplished using the DELETE request operation. With the record identifier the request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364"

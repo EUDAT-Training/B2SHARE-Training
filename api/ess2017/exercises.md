@@ -103,7 +103,7 @@ The exercises in this section can be done using Python, cURL or directly in the 
 In this exercise the information and metadata of a single record will be retrieved and processed. In addition, the file contained in the record is downloaded and checked.
 
 #### Exercise 1a Retrieve single record info
-Retrieve the metadata and other information of a single record. You can choose any record on the [training website](https://trng-b2share.eudat.eu), or use the record ID shown below.
+Retrieve the metadata and other information of a single record. You can choose any record on the [training website](https://trng-b2share.eudat.eu), or use the record identifier shown below.
 
 - Endpoint: `/api/records/<RECORD_ID>`
 - Method: GET
@@ -184,7 +184,7 @@ Tasks:
 >>> f = res['files'][0]
 ```
 
-- Locate the file bucket ID for the file in the metadata and store it in the variable `bucket_id`:
+- Locate the file bucket identifier for the file in the metadata and store it in the variable `bucket_id`:
 
 ```python
 >>> print f['bucket']
@@ -430,7 +430,7 @@ CREATED
 
 Note the different response status code for the request.
 
-- Store the draft record ID in the variable `record_id` (which will differ from what you see below, since it is unique):
+- Store the draft record identifier in the variable `record_id` (which will differ from what you see below, since it is unique):
 
 ```python
 >>> res = r.json()
@@ -618,4 +618,4 @@ http://doi.org/XXXX/b2share.a766efd2e5d543968fff9dd7bf3783c5
 
 Unfortunately, these do not work for records generated on the training site of B2SHARE.
 
-- Check your publication on the website using the record ID!
+- Check your publication on the website using the record identifier!

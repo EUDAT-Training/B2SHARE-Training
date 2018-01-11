@@ -51,7 +51,7 @@ The total number of defined communities is found in the `total` key:
 11
 ```
 
-The community ID can be found by:
+The community identifier can be found by:
 
 ```python
 >>> community_id = result["hits"]["hits"][5]["id"]
@@ -60,7 +60,7 @@ e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
 ```
 
 ## Retrieve community-specific records
-If you solely want the records of a given community, say EUDAT, the corresponding community ID must be added to the records request as part of the query parameter `q`. Using the information found in the previous section:
+If you solely want the records of a given community, say EUDAT, the corresponding community identifier must be added to the records request as part of the query parameter `q`. Using the information found in the previous section:
 
 ```python
 >>> payload = {'q': 'community:' + community_id}

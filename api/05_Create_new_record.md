@@ -69,7 +69,7 @@ On success, the response status code and text will be different this time:
 }
 ```
 
-Response code 201 indicates the draft record has been successfully created. The record ID metadata field `id` in the response text is used to identify the draft record during the additional steps of adding files and metadata:
+Response code 201 indicates the draft record has been successfully created. The record identifier metadata field `id` in the response text is used to identify the draft record during the additional steps of adding files and metadata:
 
 ```python
 >>> result = json.loads(r.text)
@@ -87,7 +87,7 @@ draft
 
 After creation, the next steps are to add files and metadata. This can be done in any order and repeatedly after each addition until the draft record is finally published. In the next sections, both procedures are explained.
 
-Please note that the record ID will remain the same during the draft stage and after finally publishing the record. There is no attached EPIC PID yet.
+Please note that the record identifier will remain the same during the draft stage and after finally publishing the record. There is no attached EPIC PID yet.
 
 ### Add files to your new draft record
 After creation of the draft record, files can be added. This is achieved in a similar way as the previous example via a PUT request. Make sure your data files are accessible in the Python session. In this case the files named `sequence.txt` and `sequence2.txt` are added to the draft record. For every file to add to the record, a separate request is required.
@@ -108,7 +108,7 @@ First, define a file open handle to send along with the request, e.g. for the `s
 
 In this statement, the action of reading the file is not actually performed. The file will be read only when the request is done and send as a direct data stream.
 
-Define the request URL by adding the file bucket ID to the `files` end point and define the request header:
+Define the request URL by adding the file bucket identifier to the `files` end point and define the request header:
 
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/files/' + filebucketid
@@ -224,7 +224,7 @@ When all your files have been uploaded, you can check the draft record's current
 }
 ```
 
-The links to the file bucket is displayed, as well as the 'contents' list of two files, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket ID.
+The links to the file bucket is displayed, as well as the 'contents' list of two files, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket identifier.
 
 ## Delete a file from a draft record
 In case you've uploaded the wrong file to a draft record, you can delete this file again. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
@@ -236,7 +236,7 @@ In order to delete a file from a draft record, a request header and your access 
 >>> payload = {"access_token": token}
 ```
 
-To make the request, the file bucket record ID of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
+To make the request, the file bucket record identifier of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/files/513527a8-d3ac-4bd8-a6b0-f8fec9a94cf8/TestFile.txt"
@@ -323,7 +323,7 @@ An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been au
 #### Important
 A published record will always have a draft record equivalent. If you ever want to change any of the records metadata, then the draft record can be immediately used for this process.
 
-Please note that the file bucket ID of the draft record differs from the file bucket ID of the published record. By retrieving the published record metadata, the new file bucket ID can be obtained from the corresponding URL:
+Please note that the file bucket identifier of the draft record differs from the file bucket identifier of the published record. By retrieving the published record metadata, the new file bucket identifier can be obtained from the corresponding URL:
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/' + recordid)
@@ -343,8 +343,8 @@ True
 ```
 
 ### Check and display your results
-Once the deposit process is completed, the results can be checked by requesting the record data using the new record ID. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
+Once the deposit process is completed, the results can be checked by requesting the record data using the new record identifier. Follow the [record retrieval guide](01_Retrieve_existing_record.md) for an extensive description on how to do this.
 
-The record ID `id` in the response message can directly be used to see the landing page of the newly created deposit: [b43a0e6914e34de8bd19613bcdc0d364](https://trng-b2share.eudat.eu/records/b43a0e6914e34de8bd19613bcdc0d364). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
+The record identifier `id` in the response message can directly be used to see the landing page of the newly created deposit: [b43a0e6914e34de8bd19613bcdc0d364](https://trng-b2share.eudat.eu/records/b43a0e6914e34de8bd19613bcdc0d364). If the page displays a restriction message, this is due the server-side processing of the ingestion. As soon as this is finished, the message will disappear.
 
 Unfortunately, some of the metadata schema fields are missing since during the metadata update step, these fields were not added to the patch. It is highly recommended to complete all fields during this step in order to increase the discoverability, authenticity and reusability of the dataset. Please check the [Update record metadata](06_Update_record_metadata.md) module to update your published record's metadata.

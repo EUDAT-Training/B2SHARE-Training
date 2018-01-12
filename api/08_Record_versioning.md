@@ -1,5 +1,5 @@
 # Record versioning
-In most cases it is not necessary to change, remove or add new files to a record. In fact, this is not possible without creating a new version of that record. In this guide, the files of an existing record are updated, thereby creating a new draft record. A JSON patch is prepared that will publish this new draft record. The published record will have different EPIC PIDs and DOIs than the original record. In the metadata there will be a reference to the old version.
+In most cases it is not necessary to change, remove or add new files to a record. In fact, this is not possible without creating a new version of that record. In this guide, the files of an existing record are updated, thereby creating a new versioned draft record. A JSON patch is prepared that will publish this new draft record. The published record will have different EPIC PIDs and DOIs than the original record. In the metadata there will be a reference to the old version.
 
 As updates to metadata are exactly the same as for record or draft records, this is not discussed in this submodule. Please refer to the [Update record metadata](06_Update_record_metadata.md) and [Update all community metadata](07_Update_all_community_metadata.md) guides for information on how to do this.
 
@@ -281,6 +281,8 @@ Now that the new versioned draft record is complete, the draft state can be chan
 ```
 
 The version draft record is now published. If you now go the the [original record's landing page](https://trng-b2share.eudat.eu/records/a766efd2e5d543968fff9dd7bf3783c5) the dropdown element in the top-right corner indicates that there is a newer version available. The [versioned record landing page](https://trng-b2share.eudat.eu/records/2ff3f5815db3494a840e6b3f1e6a6542) indicates that the current record is the latest version.
+
+By going to the [head identifier landing page](https://trng-b2share.eudat.eu/records/7be05b53b34145b59c9ab1bca5b7aee2), the landing page to the latest version will be shown.
 
 ## Get all record versions
 You can get an overview of all versions of a specific version by using the `versions` endpoint after the record head identifier. This identifier can be extracted from the record's metadata under the `versions` field in the `links` field group.

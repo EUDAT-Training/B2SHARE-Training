@@ -33,16 +33,16 @@ Request | HTTP method | Full URI | Return value
 [List specific draft record]() | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
 [List communities](03_Communities.md#list-communities) | GET | `/api/communities` | List all communities and their metadata
 [List records per community](03_Communities.md#retrieve-community-specific-records) | GET | `/api/records/<community_id>` | List of records of a specific community
-[Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>` | List of records of a specific community
+[Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>` | Get the schema of a specific community
 [Create draft record](05_Create_new_record.md#create-a-new-draft-record) * | POST | `/api/records` | Create a new draft record, requires metadata payload
 [Upload file into draft record](05_Create_new_record.md#add-files-to-your-new-draft-record) * | PUT | `/api/files/<file_bucket_id>/<filename>` | Add file to draft record, requires file name and bucket identifier
 [Delete file from draft record](05_Create_new_record.md#delete-a-file-from-a-draft-record) * | DELETE | `/api/files/<file_bucket_id>/<filename>` | Remove a file from a draft record's file bucket
 [List uploaded files of record](05_Create_new_record.md#check-your-uploaded-files) * | GET | `/api/files/<file_bucket_id>` | List the file uploaded into a record object, requires file bucket identifier
-[Update record's metadata](05_Create_new_record.md#add-metadata-to-your-draft-record) * | PATCH | `/api/records/<record_id>` | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
+[Update record's metadata](05_Create_new_record.md#add-metadata-to-your-draft-record) * | PATCH | `/api/records/<record_id>` | Update a published record's metadata with new metadata, requires metadata in the form of a JSON patch
 [Update draft record's metadata](06_Update_record_metadata.md#updating-metadata) * | PATCH | `/api/records/<record_id>/draft` | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
 [Create a new version of an existing published record](08_Record_versioning.md#creating-a-new-draft-record-from-an-existing-published-record) * | POST | `/api/records` | Create a new draft record based on an existing published record. Requires the `version_of` parameter with the `<record_id>` of the published record as value
 [Get record versions](08_Record_versioning.md#get-all-record-versions) | GET | `/api/records/<record_id>/versions` | Get a listing of all record versions of a dataset
-[Get statistics](10_Special_requests.md#get-the-statistics-of-a-record) | GET | `/api/stats` | Get specific statistics about one or more records or other objects, requires specific JSON data object
+[Get statistics](10_Special_requests.md#get-the-statistics-of-a-record) | POST | `/api/stats` | Get specific statistics about one or more records or other objects, requires specific JSON data object
 [Submit draft record for publication](05_Create_new_record.md#publishing-your-draft-record) * | PATCH | `/api/records/<record_id>` | Change status of record, requires JSON patch with value of `publication_state` field specified
 [Report record as abusive](10_Special_requests.md#report-a-record-as-an-abuse-record) * | POST | `/api/records/<record_id>/abuse` | Report a record as an abuse record, requires specific JSON object with information
 [Request access to data in a record](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) * | POST | `/api/records/<record_id>/accessrequests` | Send a request to get access to restricted data in a record, requires specific JSON data object with information

@@ -28,7 +28,7 @@ For post method requests, additional non-parameter data can be sent along with t
 Request | HTTP method | Full URI | Return value
 ------- | ----------- | -------- | ------------
 [List all records (search)](02_List_existing_records.md#retrieve-a-list-of-records) | GET | `/api/records` | List of records
-[List your draft records* (search)](02_List_existing_records.md#retrieve-a-list-of-your-draft-records) | GET | `/api/records?drafts` | List of records
+[List your draft records (search)](02_List_existing_records.md#retrieve-a-list-of-your-draft-records) * | GET | `/api/records?drafts` | List of records
 [List specific record]() | GET | `/api/records/<record_id>` | A JSON-formatted string containing the record's metadata and files
 [List specific draft record]() | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
 [List communities](03_Communities.md#list-communities) | GET | `/api/communities` | List all communities and their metadata

@@ -12,7 +12,7 @@ Please make sure your machine has been properly set up to use Python and require
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS. In addition, the loading of the token, importing Python packages and checking request responses will not be covered here.
 
 ## Retrieve a list of records
-As shown in the guide '[Getting your API token](00_Getting_your_access_token.md)', to get the first set of records from the B2SHARE service, the following request suffices:
+As shown in the guide [Getting your API token](00_Getting_your_access_token.md), to get the first set of records from the B2SHARE service, the following request suffices:
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records')
@@ -45,12 +45,15 @@ To check whether any records are actually retrieved, again the JSON package can 
 10
 ```
 
-Please note that the actual response text is very long and therefore not very usable yet since it cannot be interpreted as a data structure:
+The actual response text is very long and therefore not very usable yet since it cannot be interpreted as a data structure:
 
 ```python
 >>> print type(r.text), len(r.text)
 <type 'unicode'> 15126
 ```
+
+Note:
+- B2SHARE will only return the latest versions of each record. See [Record versioning](08_Record_versioning.md) for more information.
 
 ### Retrieve a list of your draft records
 The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available. Note that you now need to include your access token in order to authenticate yourself.

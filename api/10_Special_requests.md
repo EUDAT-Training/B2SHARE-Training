@@ -4,6 +4,7 @@ In this guide more specific API calls are explained, like reporting abuse and ge
 The guide currently covers:
 - Reporting a record as an abuse record
 - Sending a request to get access to restricted data in a record
+- Getting the statistics of a record
 - Deleting draft records
 - Deleting published records
 
@@ -110,6 +111,58 @@ On a successful request, the response looks as follows:
 }
 ```
 
+## Get the statistics of a record
+To get an idea how many times the files in your record are downloaded, the special API endpoint `/api/stats` exists that provides this information. You need a POST method with the following structure provided as data, including the statistic and the file bucket identifier:
+
+```python
+>>> payload = {'fileDownloads': {'params': {'bucket_id': 'b0377611-d5a4-4683-9781-b83edcb86324'}, 'stat': 'bucket-file-download-total'}}
+>>> print simplejson.dumps(payload, indent=4)
+{
+    "fileDownloads": {
+        "stat": "bucket-file-download-total",
+        "params": {
+            "bucket_id": "b0377611-d5a4-4683-9781-b83edcb86324"
+        }
+    }
+}
+```
+
+Please note the value for the `stat` field which indicates that a file download statistic is being requested for the record the file bucket belongs to. With the payload serialized and a header specifying the request content type the request looks as follows:
+
+```python
+>>> headers = {'Content-Type': 'application/json'}
+>>> r = requests.post('https://trng-b2share.eudat.eu/api/stats', data=simplejson.dumps(payload), headers=headers)
+>>> print r
+<Response [200]>
+```
+
+The returned data looks as follows:
+
+```python
+>>> print simplejson.dumps(r.json(), indent=4)
+{
+    "fileDownloads": {
+        "key_type": "terms",
+        "field": "file_key",
+        "buckets": [
+            {
+                "value": 1.0,
+                "key": "sequence.txt"
+            }
+        ],
+        "type": "bucket"
+    }
+}
+```
+
+In the array as value for the `bucket` field, the `key` and `value` fields can be found which indicate the download count for each file contained in the file bucket.
+
+Please note the following:
+- If the download count of each file in a bucket is zero there will be no data in the response text.
+- The statistics of a record are not updated in realtime. It might take 15 minutes or more before a change is shown.
+- The statistics of a record are deduplicated. A file download will only be incremented a single time in case a user downloads the same file multiple times in a 10 seconds window.
+
+
 ## Delete a draft record
 Sometimes a created draft record will not be used as a final publication and therefore it needs to be deleted. B2SHARE supports deletion of draft records by the owner of that record or the site administrator.
 
@@ -137,7 +190,7 @@ On a successful request, the response code should be 204 while there is no respo
 ```
 
 ## Delete a published record
-Deleting a published record works similar to deleting draft records. The only caveat is that this request can only be done by a site administrator, i.e. the token that is sent with the request needs to be of user with this role.
+Deleting a published record works similar to deleting draft records. The only caveat is that this request can only be done by a site administrator, i.e. the token that is sent with the request must be of a user with this role.
 
 To delete a published record, again a header and your access token are required and use the `/api/records/<record_id>` endpoint:
 
@@ -161,3 +214,5 @@ On a successful request, the response code should be 204 while there is no respo
 >>> print r.text
 
 ```
+
+Please note that the equivalent draft record of the published record is also deleted when the published record is removed.

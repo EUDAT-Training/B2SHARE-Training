@@ -31,10 +31,10 @@ Request | HTTP method | Full URI | Return value
 [List your draft records (search)](02_List_existing_records.md#retrieve-a-list-of-your-draft-records) * | GET | `/api/records?drafts` | List of records
 [List specific record](01_Retrieve_existing_record.md#get-details-of-a-specific-record) | GET | `/api/records/<record_id>` | A JSON-formatted string containing the record's metadata and files
 [List specific draft record](01_Retrieve_existing_record.md#get-details-of-a-specific-record) | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
-[Download file from record](01_Retrieve_existing_record.md#downloading-files-from-a-record) | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
+[Download file from record](01_Retrieve_existing_record.md#downloading-files-from-a-record) | GET | `/api/files/<file_bucket_id>/<filename>` | A JSON-formatted string containing the draft record's metadata and files
 [List communities](03_Communities.md#list-communities) | GET | `/api/communities` | List all communities and their metadata
 [List records per community](03_Communities.md#retrieve-community-specific-records) | GET | `/api/records/<community_id>` | List of records of a specific community
-[Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>` | Get the schema of a specific community
+[Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>/schemas/<version>` | Get the schema of a specific community
 [Create draft record](05_Create_new_record.md#create-a-new-draft-record) * | POST | `/api/records` | Create a new draft record, requires metadata payload
 [Upload file into draft record](05_Create_new_record.md#add-files-to-your-new-draft-record) * | PUT | `/api/files/<file_bucket_id>/<filename>` | Add file to draft record, requires file name and bucket identifier
 [Delete file from draft record](05_Create_new_record.md#delete-a-file-from-a-draft-record) * | DELETE | `/api/files/<file_bucket_id>/<filename>` | Remove a file from a draft record's file bucket

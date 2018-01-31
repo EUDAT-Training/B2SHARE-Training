@@ -316,7 +316,7 @@ The final commit request will return the updated object metadata in case the req
 }
 ```
 
-Your draft record is now published as a new record and is available under the URL `https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364`!
+Your draft record is now published as a new record and is available under the URL `https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364`! Please note that after a successful request the metadata returned is that of the draft record. You need to do another request to the published record to get its metadata.
 
 An EPIC persistent identifier and DOI (`ePIC_PID` and `DOI` fields) have been automatically generated and added to the metadata. The `owners` field array contains the internal user IDs.
 

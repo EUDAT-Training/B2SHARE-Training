@@ -38,5 +38,8 @@ Submodule | Contents
 [Appendix B](B_Request_and_Metadata_Reference_Guide.md) | Reference guide for API requests and record metadata
 [Appendix C](C_Example_script.md) | Example script with functions handling B2SHARE records
 
+### Request reference table
+To quickly get an overview of the requests you can make with the B2SHARE service, see the [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md#request-reference-table) appendix.
+
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.

@@ -1,5 +1,5 @@
 # B2SHARE Training Module
-<img align="right" src="img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training repository provides training material and in-depth information in using the [EUDAT B2SHARE service](https://b2share.eudat.eu).
+<a href="https://eudat.eu"><img align="right" src="img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"></a> This training repository provides training material and in-depth information in using the [EUDAT B2SHARE service](https://b2share.eudat.eu).
 
 It consists of two main modules:
 - Complete coverage on using the [B2SHARE REST API](api), including step-by-step examples using Python
@@ -7,3 +7,5 @@ It consists of two main modules:
 
 ### Contact
 If you encounter any problems or have any remarks, please contact EUDAT through the website [contact form](https://eudat.eu/contact) or [request support](https://eudat.eu/support-request?service=B2SHARE) directly.
+
+B2SHARE is a service provided as part of the collaborative data infrastructure of the [EUDAT project](https://eudat.eu).

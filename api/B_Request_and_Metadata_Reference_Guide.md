@@ -11,11 +11,13 @@ Before it can be used in your scripts and commands, it needs to be loaded:
 
 The base URL for all API calls is `https://trng-b2share.eudat.eu/api/` with an additional URI appended (see below).
 
+All text-based request payloads and returned responses are encoded in JSON. Therefore a JSON package that can handle these data for you are necessary. Most commonly used are the `simplejson` or `json` packages.
+
 #### Important note
 
 The service expects the API request to have a trailing slash ('/') at the end of the URI, but before any parameters. Your browser and the requests Python package will automatically add this character, though when using curl (see [below](#api-interaction-using-curl)) you must make sure to add it otherwise the request will fail.
 
-### Quick reference table
+### Request reference table
 
 A request can be made using a HTTP request method, such as `GET` or `POST`.
 
@@ -23,31 +25,33 @@ For all requests there are optional parameters which need to be added in order t
 
 For post method requests, additional non-parameter data can be sent along with the request.
 
-Request | HTTP method | Full URI | Optional | Return value
-------- | ----------- | --- | -------- | ------------
-List all records (search) | GET | `/api/records` | `page`, `size` | List of records
-List your draft records* (search) | GET | `/api/records?drafts` | `page`, `size` | List of records
-List specific record | GET | `/api/records/<record_id>` | | A JSON-formatted string containing the record's metadata and files
-List specific draft record | GET | `/api/records/<record_id>/draft` | | A JSON-formatted string containing the draft record's metadata and files
-List communities | GET | `/api/communities` | |
-List records per community | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
-Get community schema | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
-Create draft record* | POST | `/api/records` | | Create a new draft record, requires metadata payload
-Upload file into draft record* | PUT | `/api/files/<file_bucket_id>/<filename>` | | Add file to draft record, requires file name and bucket identifier
-Delete file from draft record* | DELETE | `/api/files/<file_bucket_id>/<filename>` | | Remove a file from a draft record's file bucket
-List uploaded files of record* | GET | `/api/files/<file_bucket_id>` | | List the file uploaded into a record object, requires file bucket identifier
-Update record's metadata* | PATCH | `/api/records/<record_id>` | | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
-Update draft record's metadata* | PATCH | `/api/records/<record_id>/draft` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
-Delete draft record* | DELETE | `/api/records/<record_id>/draft` | | Delete a draft record
-Delete published record** | DELETE | `/api/records/<record_id>` | | Delete a published record
-Get record versions | GET | `/api/records/<record_id>/versions` | | Get a listing of all record versions of a dataset
-Get statistics | GET | `/api/stats` | | Get specific statistics about one or more records or other objects, requires specific JSON data object
-Submit draft record for publication* | PATCH | `/api/records/<record_id>` | | Change status of record, requires JSON patch with value of `publication_state` field specified
-Report record as abusive* | POST | `/api/records/<record_id>/abuse` | | Report a record as an abuse record, requires specific JSON object with information, see [Special requests](10_Special_requests.md#report-a-record-as-an-abuse-record) for more information
-Request access to data in a record* | POST | `/api/records/<record_id>/accessrequests` | | Send a request to get access to restricted data in a record, requires specific JSON data object with information, see [Special requests](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) for more information
+Request | HTTP method | Full URI | Return value
+------- | ----------- | -------- | ------------
+[List all records (search)](02_List_existing_records.md#retrieve-a-list-of-records) | GET | `/api/records` | List of records
+[List your draft records* (search)](02_List_existing_records.md#retrieve-a-list-of-your-draft-records) | GET | `/api/records?drafts` | List of records
+[List specific record]() | GET | `/api/records/<record_id>` | A JSON-formatted string containing the record's metadata and files
+[List specific draft record]() | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
+[List communities](03_Communities.md#list-communities) | GET | `/api/communities` | List all communities and their metadata
+[List records per community](03_Communities.md#retrieve-community-specific-records) | GET | `/api/records/<community_id>` | List of records of a specific community
+[Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>` | List of records of a specific community
+[Create draft record](05_Create_new_record.md#create-a-new-draft-record) * | POST | `/api/records` | Create a new draft record, requires metadata payload
+[Upload file into draft record](05_Create_new_record.md#add-files-to-your-new-draft-record) * | PUT | `/api/files/<file_bucket_id>/<filename>` | Add file to draft record, requires file name and bucket identifier
+[Delete file from draft record](05_Create_new_record.md#delete-a-file-from-a-draft-record) * | DELETE | `/api/files/<file_bucket_id>/<filename>` | Remove a file from a draft record's file bucket
+[List uploaded files of record](05_Create_new_record.md#check-your-uploaded-files) * | GET | `/api/files/<file_bucket_id>` | List the file uploaded into a record object, requires file bucket identifier
+[Update record's metadata](05_Create_new_record.md#add-metadata-to-your-draft-record) * | PATCH | `/api/records/<record_id>` | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
+[Update draft record's metadata](06_Update_record_metadata.md#updating-metadata) * | PATCH | `/api/records/<record_id>/draft` | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
+[Create a new version of an existing published record](08_Record_versioning.md#creating-a-new-draft-record-from-an-existing-published-record) * | POST | `/api/records` | Create a new draft record based on an existing published record. Requires the `version_of` parameter with the `<record_id>` of the published record as value
+[Get record versions](08_Record_versioning.md#get-all-record-versions) | GET | `/api/records/<record_id>/versions` | Get a listing of all record versions of a dataset
+[Get statistics](10_Special_requests.md#get-the-statistics-of-a-record) | GET | `/api/stats` | Get specific statistics about one or more records or other objects, requires specific JSON data object
+[Submit draft record for publication](05_Create_new_record.md#publishing-your-draft-record) * | PATCH | `/api/records/<record_id>` | Change status of record, requires JSON patch with value of `publication_state` field specified
+[Report record as abusive](10_Special_requests.md#report-a-record-as-an-abuse-record) * | POST | `/api/records/<record_id>/abuse` | Report a record as an abuse record, requires specific JSON object with information
+[Request access to data in a record](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) * | POST | `/api/records/<record_id>/accessrequests` | Send a request to get access to restricted data in a record, requires specific JSON data object with information
+[Delete draft record](10_Special_requests.md#delete-a-draft-record) * | DELETE | `/api/records/<record_id>/draft` | Delete a draft record
+[Delete published record](10_Special_requests.md#delete-a-published-record) ** | DELETE | `/api/records/<record_id>` | Delete a published record
 
-* requires authentication using your access token.
-** requires site administrator priviledges and authentication using your access token.
+\* requires authentication using your access token
+
+\*\* requires site administrator priviledges and authentication using your access token
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.

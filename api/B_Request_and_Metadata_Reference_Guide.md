@@ -29,8 +29,9 @@ Request | HTTP method | Full URI | Return value
 ------- | ----------- | -------- | ------------
 [List all records (search)](02_List_existing_records.md#retrieve-a-list-of-records) | GET | `/api/records` | List of records
 [List your draft records (search)](02_List_existing_records.md#retrieve-a-list-of-your-draft-records) * | GET | `/api/records?drafts` | List of records
-[List specific record]() | GET | `/api/records/<record_id>` | A JSON-formatted string containing the record's metadata and files
-[List specific draft record]() | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
+[List specific record](01_Retrieve_existing_record.md#get-details-of-a-specific-record) | GET | `/api/records/<record_id>` | A JSON-formatted string containing the record's metadata and files
+[List specific draft record](01_Retrieve_existing_record.md#get-details-of-a-specific-record) | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
+[Download file from record](01_Retrieve_existing_record.md#downloading-files-from-a-record) | GET | `/api/records/<record_id>/draft` | A JSON-formatted string containing the draft record's metadata and files
 [List communities](03_Communities.md#list-communities) | GET | `/api/communities` | List all communities and their metadata
 [List records per community](03_Communities.md#retrieve-community-specific-records) | GET | `/api/records/<community_id>` | List of records of a specific community
 [Get community schema](03_Communities.md#get-community-metadata-schema) | GET | `/api/records/<community_id>` | Get the schema of a specific community

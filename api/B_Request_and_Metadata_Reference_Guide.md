@@ -34,10 +34,12 @@ List records per community | GET | `/api/records/<community_id>` | `page`, `size
 Get community schema | GET | `/api/records/<community_id>` | `page`, `size` | List of records of a specific community
 Create draft record* | POST | `/api/records` | | Create a new draft record, requires metadata payload
 Upload file into draft record* | PUT | `/api/files/<file_bucket_id>/<filename>` | | Add file to draft record, requires file name and bucket identifier
-Remove file from record | DELETE | `/api/files/<file_bucket_id>/<filename>` | | Remove a file from a draft record's file bucket
+Delete file from draft record* | DELETE | `/api/files/<file_bucket_id>/<filename>` | | Remove a file from a draft record's file bucket
 List uploaded files of record* | GET | `/api/files/<file_bucket_id>` | | List the file uploaded into a record object, requires file bucket identifier
 Update record's metadata* | PATCH | `/api/records/<record_id>` | | Update record's metadata with new metadata, requires metadata in the form of a JSON patch
 Update draft record's metadata* | PATCH | `/api/records/<record_id>/draft` | | Update draft record's metadata with new metadata, requires metadata in the form of a JSON patch
+Delete draft record* | DELETE | `/api/records/<record_id>/draft` | | Delete a draft record
+Delete published record** | DELETE | `/api/records/<record_id>` | | Delete a published record
 Get record versions | GET | `/api/records/<record_id>/versions` | | Get a listing of all record versions of a dataset
 Get statistics | GET | `/api/stats` | | Get specific statistics about one or more records or other objects, requires specific JSON data object
 Submit draft record for publication* | PATCH | `/api/records/<record_id>` | | Change status of record, requires JSON patch with value of `publication_state` field specified
@@ -45,6 +47,7 @@ Report record as abusive* | POST | `/api/records/<record_id>/abuse` | | Report a
 Request access to data in a record* | POST | `/api/records/<record_id>/accessrequests` | | Send a request to get access to restricted data in a record, requires specific JSON data object with information, see [Special requests](10_Special_requests.md#send-a-request-to-get-access-to-restricted-data-in-a-record) for more information
 
 * requires authentication using your access token.
+** requires site administrator priviledges and authentication using your access token.
 
 ### Request methodology in Python
 Each request by default needs at least one parameter, the URL pointing to the object of which the information is requested. In addition, several optional parameters can be added providing for example authentication information, request header and verification.

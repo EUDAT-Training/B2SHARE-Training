@@ -54,12 +54,3 @@ $ b2share access remove -e <email_address> superuser-access
 ```
 
 where `email_address` is the email address of the user.
-
-### Listing all user roles
-
-### Listing all user types
-
-### Adding a role to a user
-
-### Removing a role from a user
-

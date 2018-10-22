@@ -17,7 +17,7 @@ Currently the following platforms are supported:
 - Ubuntu 14.04+
 - CentOS 6.7+
 
-In the following guides it is assumed that B2SHARE is installed on Ubuntu. Any Ubuntu-specific commands should be translatable to other platforms without any complications.
+In the following guides it is assumed that B2SHARE is installed on Ubuntu. Any Ubuntu-specific commands should be translatable to other platforms without any complications. Make sure you are familiar with the package management tools of your OS of choice.
 
 ## Prerequisites
 The following tools need to be installed:

@@ -1,8 +1,8 @@
 # Introduction
-Before B2SHARE is actually installed and deployed, make sure you are familiar with the package management tools of your OS of choice.
+Before B2SHARE is actually installed and deployed, it is important to learn how B2SHARE is structured.
 
 ### B2SHARE container services
-B2SHARE connects to several external services in order to run properly:
+B2SHARE connects to several internal services in order to run properly:
 - redis
 - elasticsearch
 - a database engine (postgresql or mysql)

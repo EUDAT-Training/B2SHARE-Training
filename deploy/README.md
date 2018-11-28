@@ -5,7 +5,7 @@
 
 Although this module is complete, it is subject to change due to possible future alterations of the B2SHARE deployment procedures. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [B2SHARE quick installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst).
 
-The information on this module is based on [B2SHARE version 2.1.0](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/v2.1.0).
+The information on this module is based on [B2SHARE version 2.1.2](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/v2.1.2). You can find the latest release [here](https://github.com/EUDAT-B2SHARE/b2share/releases/latest).
 
 ### Prerequisites
 This training modules assumes you have knowledge about using and configuring Linux environments, Docker image handling and command-line interfaces.

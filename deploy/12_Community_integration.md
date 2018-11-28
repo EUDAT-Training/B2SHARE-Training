@@ -15,7 +15,9 @@ Please make sure that you have following all previous submodules and that your B
 All commands below are using the [b2share tool](08_Configuration.md#using-the-b2share-tool) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the `dockerize_b2share_1` container.
 
 ### After care
-When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu)
+When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu).
+
+After your community is finalized, use the following command:
 
 ```sh
 $ b2share oai update_sets
@@ -38,7 +40,9 @@ A new community can be added by a single command:
 $ b2share communities create <community_name> "<description>" <logo>
 ```
 
-where `community_name` is the name of your community, `description` is the text describing your community and `logo` is the path to an image containing the logo of your community. This path needs to be relative to `$B2SHARE_UI_PATH/img/communities`. All fields are mandatory.
+where `community_name` is the name of your community, `description` is the text describing your community and `logo` is the path to an image containing the logo of your community. All fields are mandatory.
+
+The image path needs to be relative to `$B2SHARE_UI_PATH/img/communities`, so a single file name of an image that resides in the `/eudat/b2share/webui/app/img/communities` folder in your B2SHARE Docker container.
 
 If you don't have a logo image yet, set the `logo` argument to an existing one, e.g. `eudat.png`. To update your logo see the [Updating your community logo](#updating-your-community-logo) section below.
 

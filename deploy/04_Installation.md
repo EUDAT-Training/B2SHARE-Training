@@ -135,7 +135,7 @@ export B2ACCESS_SECRET_KEY='password'
 export B2SHARE_SECRET_KEY='some random key'
 ```
 
-- Set the host domain for the JSON schemas callback:
+- Set the host domain for the JSON schemas callback, this should not include the protocol (e.g. `https://`):
 
 ```sh
 export B2SHARE_JSONSCHEMAS_HOST='domain'

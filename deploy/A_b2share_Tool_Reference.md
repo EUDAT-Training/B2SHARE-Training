@@ -63,7 +63,7 @@ Options:
 ```
 
 ## Main commands and subcommands
-The following table lists the available commands in the `b2share` tool
+The following table lists the available commands in the `b2share` tool. Click on a link to see the options and/or subcommands for that command.
 
 | Command | Description |
 | ------- | ----------- |
@@ -272,7 +272,11 @@ Role commands.
 | remove | Remove user from role |
 
 #### run
-Runs a local development server for the Flask application. This local server is recommended for development purposes only but it can also be used for simple intranet deployments.  By default it will not support any sort of concurrency at all to simplify debugging.  This can be changed with the --with-threads option which will enable basic multithreading. The reloader and debugger are by default enabled if the debug flag of Flask is enabled and disabled otherwise.
+Runs a local development server for the Flask application. This local server is recommended for development purposes only but it can also be used for simple intranet deployments.
+
+By default it will not support any sort of concurrency at all to simplify debugging.  This can be changed with the `--with-threads` option which will enable basic multithreading.
+
+The reloader and debugger are by default enabled if the debug flag of Flask is enabled and disabled otherwise.
 
 | Option | Description |
 | ------ | ----------- |

@@ -22,20 +22,24 @@ if os.environ.get("USE_STAGING_B2ACCESS"):
 	B2ACCESS_BASE_URL = 'https://unity.eudat-aai.fz-juelich.de/'
 ```
 
-As only the current production and acceptance B2ACCESS services (see next section) are supported by B2SHARE, these values should be left intact.
+Using the `USE_STAGE_B2ACCESS` variable, you can quickly switch between production and other instances of B2ACCESS.
 
 ### Different B2ACCESS instances
-Currently there are two instances of B2ACCESS running:
+Currently there are three different instances of B2ACCESS running:
 
-- An [acceptance (testing) instance](https://unity.eudat-aai.fz-juelich.de:8443/home/home) run by [Jülich Forschungszentrum](http://www.fz-juelich.de)
+- A [development (testing) instance](https://unity.eudat-aai.fz-juelich.de:8443/home/home) run by [Jülich Forschungszentrum](http://www.fz-juelich.de)
 
-This instance can be used to test your instance. Any user registration request will be automatically granted and therefore can be immediately used.
+This instance can be used to test your instance while it is under development. Any user registration request will be automatically granted and therefore can be immediately used. Please note that this service may temporarily go offline unannounced.
+
+- An [acceptance (testing) instance](https://b2access-integration.fz-juelich.de/home/home), also run by [Jülich Forschungszentrum](http://www.fz-juelich.de)
+
+This instance can be used to test your instance after development has finished, but your service is not in production. It allows test scenarios with a large number of users. Any user registration needs approval by the maintainers of B2ACCESS.
 
 - The [production instance](https://b2access.eudat.eu/home/home) run by EUDAT
 
 The production instance of B2ACCESS can only be used for production instance of B2SHARE. You registration requests will only be granted if sufficient information is provided that you need an actual production registration.
 
-For the remaining part of this guides and all other guides, it is assumed that the B2ACCESS acceptance instance is used. For more information on B2ACCESS and its configuration, please refer to the EUDAT user documentation on [B2ACCESS service integration](https://eudat.eu/services/userdoc/b2access-service-integration).
+For the remaining part of this guides and all other guides, it is assumed that the B2ACCESS development instance is used. For more information on B2ACCESS and its configuration, please refer to the EUDAT user documentation on [B2ACCESS service integration](https://eudat.eu/services/userdoc/b2access-service-integration).
 
 ### Registering your B2ACCESS OAuth 2.0 client
 To let B2SHARE automatically communicate with B2ACCESS a OAuth 2.0 Client registration is required.

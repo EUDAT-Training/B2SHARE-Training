@@ -18,6 +18,26 @@ You can easily stop the B2SHARE service by entering:
 $ docker-compose down
 ```
 
+This will show something similar to this:
+
+```sh
+Stopping dockerize_nginx_1_74bd49abc586         ... done
+Stopping dockerize_b2share_1_86f511306d51       ... done
+Stopping dockerize_elasticsearch_1_5f03dfc7159a ... done
+Stopping dockerize_redis_1_e7d0b9f6afdf         ... done
+Stopping dockerize_postgres_1_c71f97f3be2d      ... done
+Stopping dockerize_mq_1_7eec59c0e21e            ... done
+Removing dockerize_nginx_1_74bd49abc586         ... done
+Removing dockerize_b2share_1_86f511306d51       ... done
+Removing dockerize_elasticsearch_1_5f03dfc7159a ... done
+Removing dockerize_redis_1_e7d0b9f6afdf         ... done
+Removing dockerize_postgres_1_c71f97f3be2d      ... done
+Removing dockerize_mq_1_7eec59c0e21e            ... done
+Removing network dockerize_default
+```
+
+If successful, the service is down and no longer accessible.
+
 To start the containers again, enter:
 
 ```sh
@@ -31,6 +51,11 @@ To get an overview of all containers currently running using Docker, run the fol
 
 ```sh
 $ docker-compose ps
+```
+
+It will provide an output similar to this:
+
+```sh
           Name                         Command               State                                              Ports
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 dockerize_b2share_1         /eudat/b2share.sh                Up      0.0.0.0:32795->5000/tcp
@@ -42,6 +67,14 @@ dockerize_redis_1           docker-entrypoint.sh redis ...   Up      0.0.0.0:327
 ```
 
 This command gives an overview of the currently running containers, run command, state and their location in the system.
+
+If any of the containers failed to start, the output for that container will be similar to the following:
+
+```sh
+dockerize_b2share_1_951516193d48         /eudat/b2share.sh                Exit 1
+```
+
+Check the logs to determine the cause of the early exit.
 
 ### Removing currently built containers
 If you encounter any problems or broken containers, it might be helpful to remove all containers and start over again:
@@ -59,7 +92,7 @@ If you need to configure anything within one of the Docker containers it is poss
 $ docker exec -it <container_name> /bin/bash
 ```
 
-where `container_name` is the name of the container you want to enter, e.g.: `dockerize_b2share_1`.
+where `container_name` is the name of the container you want to enter, e.g.: `dockerize_b2share_1`. You can use tab completion for the container name.
 
 You will automatically be located in the `/eudat/b2share` directory:
 
@@ -77,45 +110,7 @@ $ sudo docker-compose logs -f b2share
 
 Try if you can find any reported problems which might impact the performance of the system.
 
-## Using the b2share tool
-Once you have entered the B2SHARE container `dockerize_b2share_1`, you can use the `b2share` tool to directly interact with the Invenio back-end:
-
-```
-$ b2share
-/usr/lib/python3.4/site-packages/dojson/contrib/to_marc21/model.py:22: UserWarning: MARC21 undo feature is experimental
-  warnings.warn('MARC21 undo feature is experimental')
-Usage: b2share [OPTIONS] COMMAND [ARGS]...
-
-  Command Line Interface for Invenio.
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  access       Account commands.
-  alembic      Perform database migrations.
-  assets       Web assets commands.
-  b2records    B2SHARE Records commands.
-  collect      Collect static files.
-  communities  communities management commands.
-  db           Database commands.
-  demo         Demonstration commands.
-  deposit      Deposit management commands.
-  files        Files management commands.
-  index        Management command for search indicies.
-  instance     Instance commands.
-  migrate      Migration commands.
-  npm          Generate a package.json file.
-  oai          OAI commands.
-  pid          PID-Store management commands.
-  records      Record management commands.
-  roles        Role commands.
-  run          Runs a development server.
-  schemas      Schemas management commands.
-  shell        Runs a shell in the app context.
-  users        User commands.
-```
-
-As is visible, there is a Python warning for a experimental feature. This can be ignored.
+## The b2share tool
+Once you have entered the B2SHARE container `dockerize_b2share_1`, you can use the `b2share` tool to directly interact with the Invenio back-end.
 
 To see a complete overview of all commands in the b2share tool, see [Appendix A. The b2share tool reference](A_b2share_Tool_Reference.md)

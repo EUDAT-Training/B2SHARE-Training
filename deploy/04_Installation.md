@@ -31,7 +31,7 @@ The following tools need to be installed:
 Make sure your platform is fully up-to-date:
 
 ```sh
-$ sudo apt-get update
+$ sudo apt-get update && sudo apt-get upgrade
 ```
 
 ## Configuring B2ACCESS
@@ -67,8 +67,10 @@ $ sudo groupadd docker
 Add your user to the group:
 
 ```sh
-$ sudo usermod -aG docker $user
+$ sudo usermod -aG docker <user>
 ```
+
+where `user` is your current username.
 
 #### Configuring Docker
 Further configuration can be added to the Docker setup, for example to start the Docker daemon on boot. Please refer to the general [Linux post-installation guide](https://docs.docker.com/engine/installation/linux/linux-postinstall) for more information. It also contains [troubleshooting information](https://docs.docker.com/engine/installation/linux/linux-postinstall/#use-a-different-storage-engine) in case you need it.
@@ -76,10 +78,10 @@ Further configuration can be added to the Docker setup, for example to start the
 ### Install Docker Compose
 Docker Compose can be installed by following the [Install Docker Compose](https://docs.docker.com/compose/install/) guide on the Docker website. Please make sure to have Docker installed before installing this component.
 
-In short, to install Docker Compose, first download the latest version from GitHub:
+In short, to install Docker Compose, first download the [latest release](https://github.com/docker/compose/releases/latest) from GitHub:
 
 ```sh
-$ sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 ```
 
 Then, apply the executable permissions to the downloaded binary:
@@ -88,11 +90,11 @@ Then, apply the executable permissions to the downloaded binary:
 $ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-Test Docker compose by running the follwing command:
+Test Docker compose by running the following command:
 
 ```sh
 $ docker-compose --version
-docker-compose version 1.16.1, build 6d1ac21
+docker-compose version 1.23.1, build b02f1306
 ```
 
 The output should be similar as shown above.
@@ -153,7 +155,7 @@ export B2SHARE_POSTGRESQL_USER='user'
 export B2SHARE_DATADIR='/home/ubuntu/b2share-data'
 ```
 
-- Indicate the B2ACCESS environment to be used. To use the acceptance instance of B2ACCESS set this value to 1. For production installations, use the production instance of B2ACCESS and set this value to 0:
+- Indicate whether the B2ACCESS production or development instance should be used. To use the development instance of B2ACCESS set this value to 1. For production installations, use the production instance of B2ACCESS and set this value to 0:
 
 ```sh
 export USE_STAGING_B2ACCESS=1
@@ -187,7 +189,7 @@ Another option is to create a `.env` file in the `dockerize` folder. Each variab
 B2ACCESS_CONSUMER_KEY=username
 ```
 
-Make sure to remove all quotes and comments as these will be taken into the value for each variable as well.
+**Note:** Make sure to remove all quotes and comments as these will be taken into the value for each variable as well.
 
 A template `.env` file can be [downloaded](https://raw.githubusercontent.com/EUDAT-Training/B2SHARE-Training/master/deploy/.env) directly from this repository.
 
@@ -211,6 +213,8 @@ To run B2SHARE and start the web service run the following command:
 $ sudo docker-compose up -d
 ```
 
+where the `-d` option indicates to start the containers in the background.
+
 Now your own B2SHARE instance is available in your own domain! It might take a while before the service is fully running, so be patient and check back after a few minutes in your browser.
 
 In the meantime you can see the actual output of all the container logs using the following command:
@@ -218,6 +222,8 @@ In the meantime you can see the actual output of all the container logs using th
 ```sh
 sudo docker-compose logs -f
 ```
+
+where the `-f` option indicates to follow log output.
 
 ### Log into B2SHARE
 To test the successfull configuration of B2ACCESS within B2SHARE, try to log in with a user (not the OAuth client user). If there are no errors, your B2ACCESS configuration is correct.

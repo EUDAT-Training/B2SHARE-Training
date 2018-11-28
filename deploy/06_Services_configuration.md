@@ -33,7 +33,7 @@ This instance can be used to test your instance while it is under development. A
 
 - An [acceptance (testing) instance](https://b2access-integration.fz-juelich.de/home/home), also run by [Jülich Forschungszentrum](http://www.fz-juelich.de)
 
-This instance can be used to test your instance after development has finished, but your service is not in production. It allows test scenarios with a large number of users. Any user registration needs approval by the maintainers of B2ACCESS.
+This instance can be used to test your instance after development has finished, but your service is not in production. It allows test scenarios with a large number of users. Any user registration needs approval by the maintainers of B2ACCESS. Please note that this instance cannot be used for development or early testing purposes of your instance of B2SHARE.
 
 - The [production instance](https://b2access.eudat.eu/home/home) run by EUDAT
 

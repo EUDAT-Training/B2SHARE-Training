@@ -6,6 +6,7 @@ This guide covers:
 - Adding new communities
 - Configuring and updating communities
 - Setting the community metadata schema
+- Administering policies
 - Adding roles to specific users
 - Adding users to your community
 
@@ -113,6 +114,19 @@ $ echo $B2SHARE_UI_PATH
 ```
 
 Of course, you can fill in the variable directly.
+
+### Administering policies
+Note: it is currently not possible to add or change policies of a community. This will be added in future releases of B2SHARE and the information shown here should be considered as a reference for now.
+
+B2SHARE currently supports the following policies:
+- `publication_workflow`: define the publication workflow to follow
+    - Possible values:
+        - 'review_and_publish': review all records created under the community
+        - 'direct_publish': directly publish any records created under the community without review
+- `restricted_submission`: restrict the publication of datasets under the community to community members
+    - Possible values:
+        - true: publication is restricted to community members
+        - false: publication is open to all
 
 ## Adding roles to specific users
 Each B2SHARE record is published under a community. A community is administered by a user and therefore the community administrator has certain special rights, for example to edit a published record's metadata and to add members to the community. Community members have the privilege to publish record as part of the community.

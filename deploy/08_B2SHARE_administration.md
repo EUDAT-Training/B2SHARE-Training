@@ -94,7 +94,7 @@ $ docker exec -it <container_name> /bin/bash
 
 where `container_name` is the name of the container you want to enter, e.g.: `dockerize_b2share_1`. You can use tab completion for the container name.
 
-You will automatically be located in the `/eudat/b2share` directory:
+You will automatically enter the B2SHARE container in the `/eudat/b2share` directory:
 
 ```sh
 $ pwd
@@ -108,7 +108,7 @@ If B2SHARE is not building properly or the web service cannot be accessed, first
 $ sudo docker-compose logs -f b2share
 ```
 
-Try if you can find any reported problems which might impact the performance of the system.
+Try if you can find any reported problems which might impact the performance of the system or why the container didn't start (yet).
 
 ## The b2share tool
 Once you have entered the B2SHARE container `dockerize_b2share_1`, you can use the `b2share` tool to directly interact with the Invenio back-end.

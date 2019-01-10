@@ -1,5 +1,5 @@
 # Data structures
-In this guide, the various data structures used throughout the B2SHARE instance are explained and configured to your own requirements.
+This reference guide lists the various data structures used within the B2SHARE software package.
 
 This guide covers:
 - Record data structure definition
@@ -139,4 +139,4 @@ The `b2share` field provides information on the presentation of the schema on th
 }
 ```
 
-where the fields in the `major` structure are shown on top of the form and the `minor` fields are shown more below under the 'Show more details' toggle.
+where the fields in the `major` structure are shown on top of the form and the `minor` fields are shown more below under the 'Show more details' toggle. You can define any key name in the presentation object, though they will be added to the `major` key upon display of the schema.

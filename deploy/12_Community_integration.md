@@ -12,7 +12,7 @@ This guide covers:
 ### Prerequisites
 Please make sure that you have following all previous submodules and that your B2SHARE instance is correctly running.
 
-All commands below are using the [b2share tool](08_Configuration.md#using-the-b2share-tool) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the `dockerize_b2share_1` container.
+All commands below are using the [b2share tool](A_b2share_Tool_Reference.md#general-syntax) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the B2SHARE Docker container.
 
 ### After care
 When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu).
@@ -71,6 +71,7 @@ Define a metadata schema for your community by preparing a JSON file which descr
             "type": "string"
         }
     },
+    "required": ["study_id"],
     "additionalProperties": false
 }
 ```
@@ -82,6 +83,21 @@ $ b2share communities set_schema <community_name> <community_metadata_file>
 ```
 
 where `community_name` is the name of your community and `community_metadata_file` is the name of the JSON metadata schema file.
+
+If you do not want to add any communitiy-specific fields, you still need to create a block schema defining no fields:
+
+```json
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "My Community Metadata Schema",
+    "description": "This is the blueprint of the metadata block specific for My Community community",
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+}
+```
+
+Make sure to omit the `required` field in the data. Add the block schema as described above.
 
 ### Updating your community logo
 Upload a logo into your Docker container or download one directly from the web using `wget` or a similar tool.

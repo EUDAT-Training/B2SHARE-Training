@@ -2,7 +2,7 @@
 This reference guide lists all the possible commands and options for the b2share tool.
 
 ### Accessing the b2share tool
-The `b2share` tool is available in the B2SHARE Docker container. Read the dedicated [section](08_Configuration.md#entering-the-docker-container-environment) in the [Configuration](08_Configuration.md) guide to learn how to access it.
+The `b2share` tool is available in the B2SHARE Docker container. Read the dedicated [section](08_B2SHARE_administration.md#entering-the-docker-container-environment) in the [B2SHARE Administration](08_B2SHARE_administration.md) guide to learn how to access it.
 
 ### General syntax
 The general syntax for the `b2share` tool is:
@@ -22,6 +22,12 @@ $ b2share
 
 ```sh
 $ b2share --help
+```
+
+To increase the verbosity of the output of a command, some commands or subcommands support the use of the verbose option:
+
+```sh
+$ b2share <command> <subcommand>--verbose [args]
 ```
 
 ### Command-specific help

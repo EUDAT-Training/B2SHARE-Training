@@ -2,7 +2,7 @@
 When your dataset is ready for publication, it can be uploaded to the B2SHARE service by creating a draft record and adding files and metadata. This page will guide you through the creation process of a new draft records, preparing and finally publishing it as a record. It covers:
 
  - The creation of a new draft record,
- - The addition of files and metadata, and
+ - The addition and removal of files and metadata, and
  - Committing the draft record to publish it
 
 Please note that the B2SHARE service makes a distinction between the two terms `record` and `draft record` (or simply `draft`). A **record** is published and therefore unchangeable and has persistent identifiers (PID) assigned to it, as well as checksums. A user can create a record by **first creating a draft record**, which is modifiable. Files and metadata can be placed into a draft record, but not into an already published record.
@@ -24,7 +24,7 @@ The red boxes indicate an object state, where in this workflow only draft, submi
 ## Create a new draft record
 After loading your token a **POST** request will create a new draft record. Only some basic metadata is needed, like the title and community, which is sent along with the request as the data argument together with a header defining the content type. All metadata can be changed later during the deposit workflow.
 
-In this case, a new open access record is created for the EUDAT community with the title 'My test upload':
+In the following example, a new open access record is created for the EUDAT community with the title 'My test upload'. The community is identified using its unique identifier:
 
 ```python
 >>> header = {"Content-Type": "application/json"}
@@ -226,8 +226,8 @@ When all your files have been uploaded, you can check the draft record's current
 
 The links to the file bucket is displayed, as well as the 'contents' list of two files, including the files' sizes. You can do this with every file bucket, as long as you have the file bucket identifier.
 
-## Delete a file from a draft record
-In case you've uploaded the wrong file to a draft record, you can delete this file again. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
+#### Delete a file from a draft record
+In case you've uploaded the wrong file to a draft record, you can delete this file as long as the record is in draft state. B2SHARE supports deletion of files in draft records by the owner of that record or the site administrator.
 
 In order to delete a file from a draft record, a request header and your access token are required:
 

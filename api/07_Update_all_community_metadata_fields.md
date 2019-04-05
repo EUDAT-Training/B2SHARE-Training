@@ -7,11 +7,11 @@ This guide covers:
 - Creating a structure with metadata values from file
 - Two scenarios:
  - Using the structure to add metadata for new records
- - Creating a JSON patch that can modify the current record metadata
-- Submitting the metadata using the corresponding required request method
+ - Creating a JSON Patch that can modify metadata of a published record
+- Submitting the created metadata patch
 
 ### Community metadata schemas
-For a more elaborate description of metadata schema definitions in B2SHARE, refer to the [Data Structures](../deploy/10_Data_strucutres.md) guide in the deploy module of this repository. For a general introduction of JSON Schemas, check out their [online book](https://spacetelescope.github.io/understanding-json-schema) which gives a quick general introduction.
+For a more elaborate description of metadata schema definitions in B2SHARE, refer to the [Data Structures](../deploy/10_Data_structures.md) guide in the deploy module of this repository. For a general introduction of JSON Schemas, check out their [online book](https://spacetelescope.github.io/understanding-json-schema) which gives a quick general introduction.
 
 ## Getting the community metadata schema definition and structure
 To get the latest version of the metadata schema definition of for example the EUDAT community, do the following:
@@ -296,7 +296,7 @@ Using the code from the example [Python load module](metadata/load.py), the new 
 }
 ```
 
-### Updating an existing record
+### Updating a published record
 In this section, the metadata of the existing published record `b43a0e6914e34de8bd19613bcdc0d364` is updated with the metadata of the CSV file. This record has been published under the EUDAT community and can therefore be updated using the EUDAT metadata schema definition that has been loaded in the previous sections.
 
 #### Get the current metadata
@@ -481,22 +481,12 @@ After the request has been made, the new metadata can be shown:
 
 The metadata has been successfully updated, as can be seen on the actual [landing page of the record](https://trng-b2share.eudat.eu/records/b43a0e6914e34de8bd19613bcdc0d364).
 
-### Creating a new record
-When creating new records, the metadata values structure can be directly sent to the B2SHARE server without using a patch.
-
-Because a record needs to be deposited under a community, the EUDAT community identifier is added and the title is replaced by a list with a single new string:
-
-```python
->>> metadata_new['titles'] = [{'title': 'My second test upload'}]
->>> metadata_new['community'] = "e9b9792e-79fb-4b07-b6b4-b9c2bd06d095"
->>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token}, data=json.dumps(metadata_new), headers=header)
-```
-
-If the request was successfull and thus the new draft record was created, the response code is 201:
+### Troubleshooting
+If a metadata patch request was successful and thus the new draft record was updated, the response code is 200:
 
 ```python
 >>> print(r)
-<Response [201]>
+<Response [200]>
 ```
 
 If some error occurred, for example the structure contains errors, the response code will be 400 or higher:
@@ -506,4 +496,4 @@ If some error occurred, for example the structure contains errors, the response 
 {"message": "Validation error.", "status": 400}
 ```
 
-Adding files, additional metadata and finally published the record is shown in the [Create new record](05_Create_new_record.md) guide.
+Adding files, additional metadata and finally published the record is shown in the [Create new record](06_Update_record_metadata.md) guide.

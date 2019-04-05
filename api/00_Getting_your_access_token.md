@@ -29,6 +29,8 @@ Enter a name in the textfield below 'Create new token:' which easily identifies 
 
 **Note 2:** It is not possible to programmatically register new or administer existing tokens. This can only be done through the [B2SHARE website](https://trng-b2share.eudat.eu).
 
+**Note 3:** The generated token is unique for all instances and therefore can only be used for the instance you created it on. A token of the production instance of B2SHARE can therefore not be used on the training instance and vice-versa!
+
 #### Deleting a token
 You can delete a token by clicking on the 'Remove' button next to each token's title. Once a token has been removed it can no longer be used to authenticate a user while using the B2SHARE REST API.
 

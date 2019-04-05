@@ -3,6 +3,8 @@
 
 All submodules have been set up to use the [B2SHARE training instance](https://trng-b2share.eudat.eu), which you can freely try and experiment with.
 
+**Note:** Only use the training instance for your testing and scripts. If you are ready for actual publication, switch to the [production instance](https://b2share.eudat.eu) of B2SHARE.
+
 Please note that in order to use some functionality of the services you need to register your account and log in. Click [here](https://trng-b2share.eudat.eu) to do so.
 
 Although this module is complete, it is subject to change due to possible future alterations in the API specification. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [API implementation](https://b2share.eudat.eu/help/api) on the B2SHARE website.

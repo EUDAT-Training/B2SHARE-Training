@@ -61,7 +61,7 @@ https://my-domain.com/api/oauth/authorized/b2access/
 
 This value can always be changed later by logging in to B2ACCESS again with the newly created credentials.
 
-- Upon successfull registration, you will see the following overview:
+- Upon successful registration, you will see the following overview:
 
 <img width="75%" src="img/B2ACCESS-oauth-overview.png" alt="B2ACCESS OAuth 2.0 registration overview" text="B2ACCESS OAuth 2.0 registration overview">
 

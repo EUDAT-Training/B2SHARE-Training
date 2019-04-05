@@ -226,7 +226,7 @@ sudo docker-compose logs -f
 where the `-f` option indicates to follow log output.
 
 ### Log into B2SHARE
-To test the successfull configuration of B2ACCESS within B2SHARE, try to log in with a user (not the OAuth client user). If there are no errors, your B2ACCESS configuration is correct.
+To test the successful configuration of B2ACCESS within B2SHARE, try to log in with a user (not the OAuth client user). If there are no errors, your B2ACCESS configuration is correct.
 
 ## Troubleshooting
 As with any installation of software or services, problems might arise. Refer to the [general troubleshooting](./B_Troubleshooting_and_known_issues.md) appendix to see if your problem can be solved.

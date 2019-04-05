@@ -1,14 +1,20 @@
 # Record versioning
-In most cases it is not necessary to change, remove or add new files to a record. In fact, this is not possible without creating a new version of that record. In this guide, the files of an existing record are updated, thereby creating a new versioned draft record. A JSON patch is prepared that will publish this new draft record. The published record will have different EPIC PIDs and DOIs than the original record. In the metadata there will be a reference to the old version.
+In this guide the files of an existing published record are updated, thereby creating a new versioned draft record.
 
 As updates to metadata are exactly the same as for record or draft records, this is not discussed in this submodule. Please refer to the [Update record metadata](06_Update_record_metadata.md) and [Update all community metadata](07_Update_all_community_metadata.md) guides for information on how to do this.
 
 This guide covers:
-- The concept of record head identifiers
+- The concept of record versioning
+- Record head identifiers
 - Creating a new draft record from an existing published record
 - Altering the files attached to the record
 - Submitting a JSON patch to publish the new version
 - Investigating the links to other versions
+
+## Introduction
+In most cases it is not necessary to change, remove or add new files to a record. In fact, this is not possible without creating a new version of that record.
+
+Existing published records can be versioned by creating a derivative draft that initially is a clone of the original record. This draft record can be changed in metadata but also files. A link will be established to the original record so that anyone can find and compare the contents of the versioned and original record. There is no limit to the number of versions created per record. A new versioned record needs to be published before it becomes available to other users, for this a [JSON Patch](http://jsonpatch.com) request is required. It will get new EPIC and DOI identifiers for itself and all files attached.
 
 ## Record head identifiers
 Every record, whether it has been versioned or not, has a head identifier which is the same for all versions of that record. The head identifier has the same length as a record identifier. You can find this identifier in the metadata of each record in the `versions` field of the `links` field group.
@@ -21,7 +27,7 @@ In the images below this concept is explained. The figure on the left shows the 
 </div>
 
 ## Creating a new draft record from an existing published record
-If you intend to change the files of an existing published record, a new version needs to be created. In this section, the file of a record will be deleted and replaced by a new version. The file is published in a new record.
+If you intend to change the files of an existing published record, a new version needs to be created. In this section, the file of an existing published record will be deleted and replaced by another file. This file is published in the new versioned record.
 
 #### Requesting a new draft
 First, B2SHARE needs to be notified that a new draft record of an existing published record can be created. This can be done by issueing the following POST request through the API using the `version_of` parameter with the original record's identifier, your access token and a header specifying the media type:
@@ -91,10 +97,12 @@ As the message states, a new draft was already created from the original record.
 #### Deleting a draft record version
 You can delete a draft record version by using the DELETE method together with the record's URL. See the [Special requests](10_Special_requests.md#delete-a-draft-record) guide for more information.
 
+Once a draft record version has been published, you can no longer delete it.
+
 ## Altering the files attached to the record
 Once the new version of the original record has been created, existing attached files can be updated by deleting one or more of the actual files and replacing it by uploading new files. The new files can be completely different from the original ones and therefore can have different file names, mimetypes and sizes.
 
-Using the result from the previous request, first the current state of the files is retrieved with the file bucket id `c01247ac-b129-4764-8b91-ee9646f2794d`:
+Using the result from the previous request, first the current state of the files is retrieved with the file bucket identifier `c01247ac-b129-4764-8b91-ee9646f2794d`:
 
 ```python
 >>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=payload
@@ -287,9 +295,14 @@ If you now go the the [original record's landing page](https://trng-b2share.euda
 By going to the [head identifier landing page](https://trng-b2share.eudat.eu/records/7be05b53b34145b59c9ab1bca5b7aee2), the landing page of the latest version will be shown.
 
 ## Get all record versions
-You can get an overview of all versions of a specific version by using the `versions` endpoint after the record head identifier. This identifier can be extracted from the record's metadata under the `versions` field in the `links` field group.
+You can get an overview of all versions of a specific record by using the `versions` endpoint after the record head identifier. This identifier can be extracted from the record's metadata under the `versions` field in the `links` field group, i.e.:
 
-Using the result of the previous request:
+```python
+>>> print r.json()['links']['versions']
+https://trng-b2share.eudat.eu/api/records/7be05b53b34145b59c9ab1bca5b7aee2/versions
+```
+
+Thus, using the result of the previous request:
 
 ```python
 >>> v = requests.get(r.json()['links']['versions'])

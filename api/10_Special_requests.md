@@ -2,6 +2,7 @@
 In this guide more specific API calls are explained, like reporting abuse and getting access to restricted data. As the B2SHARE REST API continuously expands with new functionality, please check back later to find out new options.
 
 The guide currently covers:
+- Listing information about your user
 - Reporting a record as an abuse record
 - Sending a request to get access to restricted data in a record
 - Getting the statistics of a record
@@ -12,6 +13,46 @@ The guide currently covers:
 Please make sure your machine has been properly set up to use Python and required packages. Follow [this](A_Setup_and_install.md) guide in order to do so.
 
 This guide assumes you have successfully registered your account on the [B2SHARE website](https://trng-b2share.eudat.eu) using your institutional credentials or social ID through B2ACCESS. In addition, the loading of the token, importing Python packages and checking request responses will not be covered here.
+
+## Listing user information
+B2SHARE keeps track of your personal information, including your email address, name and local identifier. If you have been assigned specific roles in communities or somewhere else, this is stored in B2SHARE as well.
+
+To see your information and roles, use the following request with your access token:
+
+```python
+>>> payload = {"access_token": token}
+>>> r = requests.get("https://trng-b2share.eudat.eu/api/user", params=payload)
+```
+
+```python
+>>> print r.text
+{
+  "email": "<your email address>",
+  "id": 10,
+  "name": "<your name>",
+  "roles": [
+    {
+      "description": "Member role of the community \"Community 1\"",
+      "id": 2,
+      "name": "com:8fa83d0775212c4234f93da964d2fa2c:member"
+    },
+    {
+      "description": "Member role of the community \"Community 2\"",
+      "id": 36,
+      "name": "com:fba2881fb04d0a9bcf2e759f6e6fe48e:member"
+    },
+    {
+      "description": "Admin role of the community \"Community 2\"",
+      "id": 35,
+      "name": "com:fba2881fb04d0a9bcf2e759f6e6fe48e:admin"
+    }
+  ]
+}
+```
+
+In this response, the email address and name of your user are visible as well as three different roles. This user is a member of 'Community 1' and 'Community 2', as well as a community administrator for community 'Community 2'.
+
+If you are a community administrator, you can [list all submitted draft records](02_list_existing_records.md#list-all-submitted-draft-records-of-a-community) of your community that are ready for review.
 
 ## Report a record as an abuse record
 If you find anything wrong with an existing published record that is not your own, you can report the record using the API. When the request is successfully done, the administrator of the community will receive an automatic e-mail in which the abuse is reported.

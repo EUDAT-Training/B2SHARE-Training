@@ -112,14 +112,14 @@ Define the request URL by adding the file bucket identifier to the `files` end p
 
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/files/' + filebucketid
->>> payload = {'access_token': token}
+>>> params = {'access_token': token}
 >>> header = {"Accept": "application/json", "Content-Type": "application/octet-stream"}
 ```
 
 The complete put request looks as follows:
 
 ```python
->>> r = requests.put(url + '/sequence.txt', data=upload_file, params=payload, headers=header)
+>>> r = requests.put(url + '/sequence.txt', data=upload_file, params=params, headers=header)
 ```
 
 If the request is successful, the result can be checked:
@@ -171,7 +171,7 @@ Repeat the above steps to add other files.
 When all your files have been uploaded, you can check the draft record's current status regarding these files using the URL with a GET request:
 
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/files/' + filebucketid, params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/files/' + filebucketid, params=params)
 >>> result = json.loads(r.text)
 >>> print json.dumps(result, indent=4)
 {
@@ -233,14 +233,14 @@ In order to delete a file from a draft record, a request header and your access 
 
 ```python
 >>> header = {"Content-Type": 'application/json'}
->>> payload = {"access_token": token}
+>>> params = {"access_token": token}
 ```
 
 To make the request, the file bucket record identifier of the draft record and the file name under which you've stored the file are required. Along with the DELETE request operation with the `/api/files/<file_bucket_id>/<file_name>` endpoint in the URL, the request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/files/513527a8-d3ac-4bd8-a6b0-f8fec9a94cf8/TestFile.txt"
->>> r = requests.delete(url, params=payload, headers=header)
+>>> r = requests.delete(url, params=params, headers=header)
 ```
 
 On a successful request, the response code should be 204 while there is no response message:
@@ -273,7 +273,7 @@ The final commit request will return the updated object metadata in case the req
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.patch(url, data=commit, params=payload, headers=header)
+>>> r = requests.patch(url, data=commit, params=params, headers=header)
 >>> print r
 <Response [200]>
 >>> result = json.loads(r.text)

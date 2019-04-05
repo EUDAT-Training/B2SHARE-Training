@@ -105,7 +105,7 @@ Once the new version of the original record has been created, existing attached 
 Using the result from the previous request, first the current state of the files is retrieved with the file bucket identifier `c01247ac-b129-4764-8b91-ee9646f2794d`:
 
 ```python
->>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=payload
+>>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params
 ... )
 >>> print files.text
 {
@@ -146,7 +146,7 @@ Using the result from the previous request, first the current state of the files
 To remove a file from the draft record, use the DELETE method together with the file bucket identifier and file name:
 
 ```python
->>> d = requests.delete('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', params=payload)
+>>> d = requests.delete('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', params=params)
 >>> print d.text
 <Response [204]>
 ```
@@ -154,7 +154,7 @@ To remove a file from the draft record, use the DELETE method together with the 
 There is no response text. The files metadata now looks as follows:
 
 ```python
->>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=payload)
+>>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params)
 >>> print files.text
 {
   "created": "2018-01-12T14:01:09.249898+00:00",
@@ -195,7 +195,7 @@ Open the file to a handle and check whether this succeeded:
 The actual request is made using a PUT method and the file bucket identifier and file name in the URL:
 
 ```python
->>> r = requests.put('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', data=upload_file, params=payload, headers=header)
+>>> r = requests.put('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', data=upload_file, params=params, headers=header)
 >>> print r
 <Response [200]>
 ```
@@ -203,7 +203,7 @@ The actual request is made using a PUT method and the file bucket identifier and
 The status code of the request is 200 so the upload worked! Again check the files metadata of the versioned record to verify a successful upload:
 
 ```python
->>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=payload)
+>>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params)
 >>> print files.text
 {
   "created": "2018-01-12T14:01:09.249898+00:00",
@@ -247,7 +247,7 @@ Now that the new versioned draft record is complete, the draft state can be chan
 ```python
 >>> header = {'Content-Type': 'application/json-patch+json'}
 >>> patch = '[{"op": "add", "path":"/publication_state", "value": "submitted"}]'
->>> r = requests.patch('https://trng-b2share.eudat.eu/api/records/2ff3f5815db3494a840e6b3f1e6a6542/draft', data=patch, params=payload, headers=header)
+>>> r = requests.patch('https://trng-b2share.eudat.eu/api/records/2ff3f5815db3494a840e6b3f1e6a6542/draft', data=patch, params=params, headers=header)
 >>> print r.text
 {
   "created": "2018-01-12T14:01:09.181611+00:00",

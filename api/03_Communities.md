@@ -63,8 +63,8 @@ e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
 If you solely want the records of a given community, say EUDAT, the corresponding community identifier must be added to the records request as part of the query parameter `q`. Using the information found in the previous section:
 
 ```python
->>> payload = {'q': 'community:' + community_id}
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+>>> params = {'q': 'community:' + community_id}
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
 By repeating the processing with JSON, the number of results can be displayed:

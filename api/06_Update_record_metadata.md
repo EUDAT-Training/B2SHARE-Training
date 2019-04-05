@@ -28,7 +28,7 @@ Every record is published as part of a community. Each community has specific me
 Create a payload containig your token for authentication:
 
 ```python
->>> payload = {'access_token': token}
+>>> params = {'access_token': token}
 ```
 
 Lets determine the draft record's community identifier as stored in its metadata:
@@ -36,7 +36,7 @@ Lets determine the draft record's community identifier as stored in its metadata
 ```python
 >>> recordid = 'b43a0e6914e34de8bd19613bcdc0d364'
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.get(url, params=payload)
+>>> r = requests.get(url, params=params)
 >>> result = json.loads(r.text)
 >>> print result["metadata"]["community"]
 e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
@@ -70,7 +70,7 @@ In order to successfully update the metadata, a JSON patch is created using the 
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
->>> r = requests.get(url, params=payload)
+>>> r = requests.get(url, params=params)
 >>> result = json.loads(r.text)
 >>> metadata_old = result["metadata"]
 >>> print json.dumps(metadata_old, indent=4)
@@ -131,7 +131,7 @@ Now, the request response text shows the updated metadata:
 
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/records/' + recordid + "/draft"
->>> r = requests.patch(url, data=strpatch, params=payload, headers=header)
+>>> r = requests.patch(url, data=strpatch, params=params, headers=header)
 >>> print r
 <Response [200]>
 >>> result = json.loads(r.text)
@@ -183,7 +183,7 @@ In case the patch request did not succeed (status code 400), an error descriptio
 
 ```python
 >>> patch = '[{"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}]'
->>> r = requests.patch(url, data=patch, params=payload, headers=header)
+>>> r = requests.patch(url, data=patch, params=params, headers=header)
 >>> print r.status_code
 400
 >>> print r.text

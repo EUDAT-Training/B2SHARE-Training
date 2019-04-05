@@ -20,8 +20,8 @@ B2SHARE keeps track of your personal information, including your email address, 
 To see your information and roles, use the following request with your access token:
 
 ```python
->>> payload = {"access_token": token}
->>> r = requests.get("https://trng-b2share.eudat.eu/api/user", params=payload)
+>>> params = {"access_token": token}
+>>> r = requests.get("https://trng-b2share.eudat.eu/api/user", params=params)
 ```
 
 ```python
@@ -84,14 +84,14 @@ Furthermore, the reporter and an additional message are included in the API requ
             "zipcode": "12345",
             "phone": "07364017452"
            }
->>> payload = {"access_token": token}
+>>> params = {"access_token": token}
 ```
 
 The header is used to indicate that the payload is in JSON format. To make the request, the `abuse` indicator is added to the URL, and the data structure is provided as a serialized string. The POST request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/abuse"
->>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
+>>> r = requests.get(url, params=params, data=json.dumps(data), headers=header)
 ```
 
 If the request is successful, the response looks as follows:
@@ -131,14 +131,14 @@ In some cases the files in a dataset published in B2SHARE that you want to use f
             "zipcode": "12345",
             "phone": "7364017452"
            }
->>> payload = {"access_token": token}
+>>> params = {"access_token": token}
 ```
 
 The header is again included to indicate that the payload is in JSON format. Similarly to the request in the previous section, the `accessrequests` indicator is added to the URL, and the data structure is provided as a serialized string. The request is done through the POST method and looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/accessrequests"
->>> r = requests.get(url, params=payload, data=json.dumps(data), headers=header)
+>>> r = requests.get(url, params=params, data=json.dumps(data), headers=header)
 ```
 
 On a successful request, the response looks as follows:
@@ -156,7 +156,7 @@ On a successful request, the response looks as follows:
 To get an idea how many times the files in your record are downloaded, the special API endpoint `/api/stats` exists that provides this information. You need a POST method with the following structure provided as data, including the statistic and the file bucket identifier:
 
 ```python
->>> payload = {'fileDownloads': {'params': {'bucket_id': 'b0377611-d5a4-4683-9781-b83edcb86324'}, 'stat': 'bucket-file-download-total'}}
+>>> params = {'fileDownloads': {'params': {'bucket_id': 'b0377611-d5a4-4683-9781-b83edcb86324'}, 'stat': 'bucket-file-download-total'}}
 >>> print simplejson.dumps(payload, indent=4)
 {
     "fileDownloads": {
@@ -211,14 +211,14 @@ In order to delete a draft record, a header and your access token are required:
 
 ```python
 >>> header = {"Content-Type": 'application/json'}
->>> payload = {"access_token": token}
+>>> params = {"access_token": token}
 ```
 
 To make the request, the draft record identifier is required along with the DELETE request operation with the `/api/records/<record_id>/draft` endpoint in the URL. The request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364/draft"
->>> r = requests.delete(url, params=payload, headers=header)
+>>> r = requests.delete(url, params=params, headers=header)
 ```
 
 On a successful request, the response code should be 204 while there is no response message:
@@ -237,14 +237,14 @@ To delete a published record, again a header and your access token are required 
 
 ```python
 >>> header = {"Content-Type": 'application/json'}
->>> payload = {"access_token": token}
+>>> params = {"access_token": token}
 ```
 
 Again, the removal is accomplished using the DELETE request operation. With the record identifier the request then looks as follows:
 
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/b43a0e6914e34de8bd19613bcdc0d364"
->>> r = requests.delete(url, params=payload, headers=header)
+>>> r = requests.delete(url, params=params, headers=header)
 ```
 
 On a successful request, the response code should be 204 while there is no response message:

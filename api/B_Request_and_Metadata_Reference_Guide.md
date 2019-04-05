@@ -186,7 +186,7 @@ For example, when a non-existing API endpoint is used as the path in the request
 
 Or when a unknown identifier is used for a record:
 ```python
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=params)
 >>> print r.text
 {"message": "PID does not exist.", "status": 404}
 ```

@@ -305,8 +305,8 @@ As has been shown in the previous guides, the current record metadata is obtaine
 ```python
 >>> recordid = 'b43a0e6914e34de8bd19613bcdc0d364'
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid
->>> payload = {'access_token': token}
->>> r = requests.get(url, params=payload)
+>>> params = {'access_token': token}
+>>> r = requests.get(url, params=params)
 >>> result = json.loads(r.text)
 ```
 
@@ -377,13 +377,13 @@ First, the request headers and payload need to be prepared:
 
 ```python
 >>> header = {'Content-Type': 'application/json-patch+json'}
->>> payload = {'access_token': token}
+>>> params = {'access_token': token}
 ```
 
 After the request has been made, the new metadata can be shown:
 
 ```python
->>> r = requests.patch(url, data=json.dumps(patch_new), params=payload, headers=header)
+>>> r = requests.patch(url, data=json.dumps(patch_new), params=params, headers=header)
 >>> print r
 <Response [200]>
 >>> result = json.loads(r.text)

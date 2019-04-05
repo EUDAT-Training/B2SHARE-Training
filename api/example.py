@@ -18,7 +18,7 @@ def access_token_file():
 
 def read_deposit_id():
     ''' Read deposit from file '''
-    
+
     f = open('deposit_id', 'r')
     return f.read()
 
@@ -28,24 +28,24 @@ def list_records():
 
     token = access_token_file().rstrip()
     url = urljoin(B2SHARE_URL, 'api/records')
-    payload = {'access_token': token}
+    params = {'access_token': token}
 
-    r = requests.get(url, params=payload, verify=False)
+    r = requests.get(url, params=params, verify=False)
     print r
     print r.text
 
 
 def list_records_pagination(page_size, page_offset):
     ''' List all user records per page '''
-    
+
     token = access_token_file().rstrip()
     url = urljoin(B2SHARE_URL, 'api/records')
-    payload = {'page_size': page_size,
+    params = {'page_size': page_size,
                'page_offset': page_offset,
                'access_token': token
                }
 
-    r = requests.get(url, params=payload, verify=False)
+    r = requests.get(url, params=params, verify=False)
     print r
     print r.text
 
@@ -56,8 +56,8 @@ def list_specific_record(record_id):
     token = access_token_file().rstrip()
     exten = 'api/record/' + record_id
     url = urljoin(B2SHARE_URL, exten)
-    payload = {'access_token': token}
-    r = requests.get(url, params=payload, verify=False)
+    params = {'access_token': token}
+    r = requests.get(url, params=params, verify=False)
     print r
     r = json.loads(r.text)
     print json.dumps(r, indent=4, separators=(',', ': '))
@@ -68,8 +68,8 @@ def create_deposition():
 
     token = access_token_file().rstrip()
     url = urljoin(B2SHARE_URL, '/api/depositions')
-    payload = {'access_token': token}
-    r = requests.post(url, params=payload, verify=False)
+    params = {'access_token': token}
+    r = requests.post(url, params=params, verify=False)
     print r
     print r.text
     res = r.json()
@@ -87,8 +87,8 @@ def add_file(file_path):
     files = {'file': open(file_path, 'rb')}
     path = '/api/deposition/' + deposit_id + '/files'
     url = urljoin(B2SHARE_URL, path)
-    payload = {'access_token': token}
-    r = requests.post(url, files=files, params=payload, verify=False)
+    params = {'access_token': token}
+    r = requests.post(url, files=files, params=params, verify=False)
     print r
     print r.text
 
@@ -100,8 +100,8 @@ def list_files():
     deposit_id = read_deposit_id().rstrip()
     path = '/api/deposition/' + deposit_id + '/files'
     url = urljoin(B2SHARE_URL, path)
-    payload = {'access_token': token}
-    r = requests.get(url, params=payload, verify=False)
+    params = {'access_token': token}
+    r = requests.get(url, params=params, verify=False)
     print r.text
 
 
@@ -112,7 +112,7 @@ def commit_deposition():
     deposit_id = read_deposit_id().rstrip()
     path = '/api/deposition/' + deposit_id + '/commit'
     url = urljoin(B2SHARE_URL, path)
-    payload = {'access_token': token}
+    params = {'access_token': token}
     info = {"domain":           "generic",
             "title":            "Demo",
             "description":      "A little demo ...",
@@ -124,6 +124,6 @@ def commit_deposition():
             }
     headers = {'content-type': 'application/json'}
     r = requests.post(url, data=json.dumps(info),
-                      params=payload, verify=False, headers=headers)
+                      params=params, verify=False, headers=headers)
     print r
     print r.text

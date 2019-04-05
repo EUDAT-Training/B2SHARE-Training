@@ -30,10 +30,10 @@ B2SHARE also returns the total number of records in the service:
 To get all records, which potentially may take a long time, the request can be altered by adding pagination parameters. In the following request, the page size and offset parameters define which records are returned. Increasing the size to a larger number and setting the page offset gives different results:
 
 ```python
->>> payload = {'size': 10,
+>>> params = {'size': 10,
                'page': 1
                }
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
 To check whether any records are actually retrieved, again the JSON package can be used. Indeed, 112 records were found, but only records 101 to 200.
@@ -60,10 +60,10 @@ Note:
 The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records created by you will be listed when you enable the `drafts` in the request parameters. Note that you now need to include your access token in order to authenticate yourself.
 
 ```python
->>> payload = {'drafts': 1,
+>>> params = {'drafts': 1,
                'access_token': token
               }
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
 Again, the result is processed to ease interpretation:
@@ -104,11 +104,11 @@ As is visible, the first hit has its `publication_state` metadata field is set t
 Administrators of a community can list all draft records that have been submitted for review by any user that can publish under that same community. Similarly as to the previous section, the `drafts` flag need to be enabled and the community identifier (e.g. `f2e759f6-e6fe-48ef-ba28-81fb04d0a9bd`) needs to be added to the records listing request. Your access token is required as well so B2SHARE can identify you as a community administrator:
 
 ```python
->>> payload = {'drafts': 1,
+>>> params = {'drafts': 1,
                'community': 'f2e759f6-e6fe-48ef-ba28-81fb04d0a9bd',
                'access_token': token
               }
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
 The resulting response will contain all the submitted draft records waiting for approval. The data looks similar to the result in the previous section.
@@ -119,8 +119,8 @@ If you want a list of all published records containing specific keywords or valu
 The payload needs to be altered by specifying a value for the parameter `q`, in this case 'test'. Your access token is not required, since only public records will be searched.
 
 ```python
->>> payload = {'q': 'test'}
->>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+>>> params = {'q': 'test'}
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
 Checking the results reveals that over 30 records have been found and that the returned data is automatically paginated:

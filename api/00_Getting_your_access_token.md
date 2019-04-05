@@ -47,7 +47,7 @@ Assuming you have stored the access token in a file named `token.txt` and it is 
 Test your reading by displaying the value of your access token:
 
 ```python
->>> print token
+>>> print(token)
 ptw3shzEDb6gdoCyijs5tkd...
 ```
 
@@ -62,9 +62,9 @@ We can use the token to display some draft records from your account in the B2SH
 To check whether the request succeeded, the `r` variable contains the HTTP response code:
 
 ```python
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.status_code
+>>> print(r.status_code)
 200
 ```
 
@@ -73,7 +73,7 @@ The request was successful.
 If authentication failed and your token is probably invalid, the status code will be 401:
 
 ```python
->>> print r.json()
+>>> print(r.json())
 {u'status': 401, u'message': u'Only authenticated users can search for drafts.'}
 ```
 
@@ -89,9 +89,9 @@ The response variable also contains the actual result text of the request in JSO
 Although no maximum number of results is specified, B2SHARE will only return the first 10 results even though the total number of results is known:
 
 ```python
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 33
->>> print len(result["hits"]["hits"])
+>>> print(len(result["hits"]["hits"]))
 10
 ```
 
@@ -99,14 +99,14 @@ To display a single record:
 
 ```python
 >>> records = result["hits"]["hits"]
->>> print records[0]
+>>> print(records[0])
 {u'files': [{u'checksum': u'md5:c8afdb36c52cf4727836669019e69222', u'bucket': u'f1fa180a-4db8-439e-9ccd-89422e27708e', u'ePIC_PID': u'http://hdl.handle.net/11304/914f6b1e-1124-4828-ac24-9c24ab64a34a', u'version_id': u'a19f5b2c-d882-4b04-ab58-e0664a7ee756', u'key': u'myfile', u'size': 9}], u'updated': u'2016-12-21T08:57:42.570262+00:00', u'links': {u'files': u'https://trng-b2share.eudat.eu/api/files/f1fa180a-4db8-439e-9ccd-89422e27708e', u'self': u'https://trng-b2share.eudat.eu/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4'}, u'created': u'2016-12-21T08:57:42.570251+00:00', u'id': u'a1c2ef96a1e446fa9bd7a2a46d2242d4', u'metadata': {u'community_specific': {u'362e6f81-68fb-4d71-9496-34ca00e59769': {u'material_type': [u'Other'], u'study_design': [u'Other'], u'principal_investigator': u'Amilcar Flores', u'study_description': u'REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer', u'categories_of_data_collected': [u'Biological samples'], u'disease': u'C61', u'sex': [u'Male'], u'study_id': u'REST', u'study_name': u'REST'}}, u'publication_state': u'published', u'open_access': True, u'resource_types': [{u'resource_type_general': u'Text'}], u'ePIC_PID': u'http://hdl.handle.net/11304/d77fd388-7577-426b-9f47-cd11cce23df0', u'community': u'99916f6f-9a2c-4feb-a342-6552ac7f1529', u'titles': [{u'title': u'REST paper 2014'}], u'contact_email': u'x@example.com', u'descriptions': [{u'description': u'REST mediates androgen receptor actions on gene repression and predicts early recurrence of prostate cancer', u'description_type': u'Abstract'}], u'keywords': [u'prostate cancer', u'REST', u'TFBS', u'ChiP-seq'], u'owners': [1], u'$schema': u'https://trng-b2share.eudat.eu/api/communities/99916f6f-9a2c-4feb-a342-6552ac7f1529/schemas/0#/json_schema'}}
 ```
 
 Using the JSON package this record can be displayed properly:
 
 ```python
->>> print json.dumps(records[0], indent=4)
+>>> print(json.dumps(records[0], indent=4))
 {
     "files": [
         {

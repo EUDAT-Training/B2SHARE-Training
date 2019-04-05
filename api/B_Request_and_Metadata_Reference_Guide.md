@@ -61,7 +61,7 @@ The returned object contains a lot of information which can be extracted using t
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/a1c2ef96a1e446fa9bd7a2a46d2242d4', params={'access_token': token})
->>> print r.json()
+>>> print(r.json())
 ```
 
 The latter command displays the retrieved metadata parsed by a JSON interpreter as a dictionary.
@@ -164,7 +164,7 @@ Using the requests package of Python, all requests can be checked whether they s
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records')
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
@@ -177,7 +177,7 @@ For example, when a non-existing API endpoint is used as the path in the request
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/drafts')
->>> print r.text
+>>> print(r.text)
 {
   "message": "The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.",
   "status": 404
@@ -187,7 +187,7 @@ For example, when a non-existing API endpoint is used as the path in the request
 Or when a unknown identifier is used for a record:
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/test', params=params)
->>> print r.text
+>>> print(r.text)
 {"message": "PID does not exist.", "status": 404}
 ```
 

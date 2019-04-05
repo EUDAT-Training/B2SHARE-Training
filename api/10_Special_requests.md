@@ -25,7 +25,7 @@ To see your information and roles, use the following request with your access to
 ```
 
 ```python
->>> print r.text
+>>> print(r.text)
 {
   "email": "<your email address>",
   "id": 10,
@@ -97,9 +97,9 @@ The header is used to indicate that the payload is in JSON format. To make the r
 If the request is successful, the response looks as follows:
 
 ```python
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.text
+>>> print(r.text)
 {
   "message": "The record is reported."
 }
@@ -108,9 +108,9 @@ If the request is successful, the response looks as follows:
 Please note that in all cases you have to provide all abuse reasons at the same time, but only one can be set to `true`. If you have two or more set to `true` the following response will be returned:
 
 ```python
->>> print r
+>>> print(r)
 <Response [400]>
->>> print r.text
+>>> print(r.text)
 {
   "Error": "From 'noresearch', 'abusecontent', 'copyright', 'illegalcontent' (only) one should be True"
 }
@@ -144,9 +144,9 @@ The header is again included to indicate that the payload is in JSON format. Sim
 On a successful request, the response looks as follows:
 
 ```python
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.text
+>>> print(r.text)
 {
   "message": "An email was sent to the record owner."
 }
@@ -157,7 +157,7 @@ To get an idea how many times the files in your record are downloaded, the speci
 
 ```python
 >>> params = {'fileDownloads': {'params': {'bucket_id': 'b0377611-d5a4-4683-9781-b83edcb86324'}, 'stat': 'bucket-file-download-total'}}
->>> print simplejson.dumps(payload, indent=4)
+>>> print(simplejson.dumps(payload, indent=4))
 {
     "fileDownloads": {
         "stat": "bucket-file-download-total",
@@ -173,14 +173,14 @@ Please note the value for the `stat` field which indicates that a file download 
 ```python
 >>> headers = {'Content-Type': 'application/json'}
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/stats', data=simplejson.dumps(payload), headers=headers)
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
 The returned data looks as follows:
 
 ```python
->>> print simplejson.dumps(r.json(), indent=4)
+>>> print(simplejson.dumps(r.json(), indent=4))
 {
     "fileDownloads": {
         "key_type": "terms",
@@ -224,9 +224,9 @@ To make the request, the draft record identifier is required along with the DELE
 On a successful request, the response code should be 204 while there is no response message:
 
 ```python
->>> print r
+>>> print(r)
 <Response [204]>
->>> print r.text
+>>> print(r.text)
 
 ```
 
@@ -250,9 +250,9 @@ Again, the removal is accomplished using the DELETE request operation. With the 
 On a successful request, the response code should be 204 while there is no response message:
 
 ```python
->>> print r
+>>> print(r)
 <Response [204]>
->>> print r.text
+>>> print(r.text)
 
 ```
 

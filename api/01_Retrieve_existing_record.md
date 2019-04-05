@@ -29,9 +29,9 @@ Now that you have the token value, prepare your HTTP GET request with the `reque
 To verify whether the request succeeded and see the result, print the variable `r` and the response text:
 
 ```python
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.text
+>>> print(r.text)
 {
   "created": "2016-12-21T14:19:42.919114+00:00",
   "files": [
@@ -105,7 +105,7 @@ To improve the usability of the response text, use the JSON package to transform
 Now the metadata of the record can be directly printed using the `metadata` key for the dictionary `result`. Don't forget the `indent=4` argument and value as otherwise the output will be in serialized form:
 
 ```python
->>> print json.dumps(result["metadata"], indent=4)
+>>> print(json.dumps(result["metadata"], indent=4))
 {
     "community_specific": {
         "362e6f81-68fb-4d71-9496-34ca00e59769": {
@@ -153,14 +153,14 @@ Our request was successful and we now have all the information to process the re
 To display specific information from the metadata, simply add the field name as an index to the `result` variable. For example, to solely display the `id`, do the following:
 
 ```python
->>> print result["id"]
+>>> print(result["id"])
 41ccbfb505e641de8a75cc0b0f3818e2
 ```
 
 To list the available files in a record:
 
 ```python
->>> print json.dumps(result["files"], indent=4)
+>>> print(json.dumps(result["files"], indent=4))
 [
     {
         "checksum": "md5:d6eb32081c822ed572b70567826d9d9d",
@@ -178,7 +178,7 @@ The response contains the identifiers `ePIC_PID` and `version_id` which uniquely
 Similarly, the file name of the first file can be displayed using an additional numerical zero-based index on the `files` key followed by the `key` index:
 
 ```python
->>> print result["files"][0]["key"]
+>>> print(result["files"][0]["key"])
 test-file.txt
 ```
 
@@ -213,7 +213,7 @@ Using the information from the previous section, a simple `for` loop downloads a
 A single file was successfully downloaded:
 
 ```
->>> print rf
+>>> print(rf)
 <Response [200]>
 ```
 
@@ -227,9 +227,9 @@ In order to check that the contents of the file haven't changed, the checksum ca
 >>> import md5
 >>> fd = open('download/test-file.txt', 'r')
 >>> d = fd.read()
->>> print md5.md5(d).hexdigest()
+>>> print(md5.md5(d).hexdigest())
 d6eb32081c822ed572b70567826d9d9d
->>> print result["files"][0]["checksum"]
+>>> print(result["files"][0]["checksum"])
 md5:d6eb32081c822ed572b70567826d9d9d
 ```
 

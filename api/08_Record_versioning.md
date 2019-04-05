@@ -35,14 +35,14 @@ First, B2SHARE needs to be notified that a new draft record of an existing publi
 ```python
 >>> header = {'Content-type': 'application/json'}
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/', params={'access_token': token, 'version_of': 'a766efd2e5d543968fff9dd7bf3783c5'}, headers=header)
->>> print r
+>>> print(r)
 <Response 201>
 ```
 
 The response code indicates a new draft has been created. The returned information shows the metadata of the new draft:
 
 ```python
->>> print simplejson.dumps(r.json(), indent=4)
+>>> print(simplejson.dumps(r.json(), indent=4))
 {
     "updated": "2018-01-12T14:01:09.181620+00:00",
     "metadata": {
@@ -107,7 +107,7 @@ Using the result from the previous request, first the current state of the files
 ```python
 >>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params
 ... )
->>> print files.text
+>>> print(files.text)
 {
   "created": "2018-01-12T14:01:09.249898+00:00",
   "max_file_size": 10737418240,
@@ -147,7 +147,7 @@ To remove a file from the draft record, use the DELETE method together with the 
 
 ```python
 >>> d = requests.delete('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', params=params)
->>> print d.text
+>>> print(d.text)
 <Response [204]>
 ```
 
@@ -155,7 +155,7 @@ There is no response text. The files metadata now looks as follows:
 
 ```python
 >>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params)
->>> print files.text
+>>> print(files.text)
 {
   "created": "2018-01-12T14:01:09.249898+00:00",
   "max_file_size": 10737418240,
@@ -188,7 +188,7 @@ Open the file to a handle and check whether this succeeded:
 
 ```python
 >>> upload_file = open('ess2017/EUDAT-logo2011.jpg', 'rb')
->>> print upload_file
+>>> print(upload_file)
 <open file 'ess2017/EUDAT-logo2011.jpg', mode 'rb' at 0x104751660>
 ```
 
@@ -196,7 +196,7 @@ The actual request is made using a PUT method and the file bucket identifier and
 
 ```python
 >>> r = requests.put('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d/EUDAT-logo2011.jpg', data=upload_file, params=params, headers=header)
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
@@ -204,7 +204,7 @@ The status code of the request is 200 so the upload worked! Again check the file
 
 ```python
 >>> files = requests.get('https://trng-b2share.eudat.eu/api/files/c01247ac-b129-4764-8b91-ee9646f2794d', params=params)
->>> print files.text
+>>> print(files.text)
 {
   "created": "2018-01-12T14:01:09.249898+00:00",
   "max_file_size": 10737418240,
@@ -248,7 +248,7 @@ Now that the new versioned draft record is complete, the draft state can be chan
 >>> header = {'Content-Type': 'application/json-patch+json'}
 >>> patch = '[{"op": "add", "path":"/publication_state", "value": "submitted"}]'
 >>> r = requests.patch('https://trng-b2share.eudat.eu/api/records/2ff3f5815db3494a840e6b3f1e6a6542/draft', data=patch, params=params, headers=header)
->>> print r.text
+>>> print(r.text)
 {
   "created": "2018-01-12T14:01:09.181611+00:00",
   "id": "2ff3f5815db3494a840e6b3f1e6a6542",
@@ -298,7 +298,7 @@ By going to the [head identifier landing page](https://trng-b2share.eudat.eu/rec
 You can get an overview of all versions of a specific record by using the `versions` endpoint after the record head identifier. This identifier can be extracted from the record's metadata under the `versions` field in the `links` field group, i.e.:
 
 ```python
->>> print r.json()['links']['versions']
+>>> print(r.json()['links']['versions'])
 https://trng-b2share.eudat.eu/api/records/7be05b53b34145b59c9ab1bca5b7aee2/versions
 ```
 
@@ -306,7 +306,7 @@ Thus, using the result of the previous request:
 
 ```python
 >>> v = requests.get(r.json()['links']['versions'])
->>> print v.text
+>>> print(v.text)
 {
   "versions": [
     {

@@ -16,7 +16,7 @@ To assess which communities are defined in B2SHARE, use the communities API end-
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/communities')
 >>> result = json.loads(r.text)
->>> print json.dumps(result["hits"]["hits"][5], indent=4)
+>>> print(json.dumps(result["hits"]["hits"][5], indent=4))
 {
     "updated": "Wed, 21 Dec 2016 08:57:40 GMT",
     "name": "EUDAT",
@@ -47,7 +47,7 @@ To assess which communities are defined in B2SHARE, use the communities API end-
 The total number of defined communities is found in the `total` key:
 
 ```python
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 11
 ```
 
@@ -55,7 +55,7 @@ The community identifier can be found by:
 
 ```python
 >>> community_id = result["hits"]["hits"][5]["id"]
->>> print community_id
+>>> print(community_id)
 e9b9792e-79fb-4b07-b6b4-b9c2bd06d095
 ```
 
@@ -71,14 +71,14 @@ By repeating the processing with JSON, the number of results can be displayed:
 
 ```python
 >>> result = json.loads(r.text)
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 94
 ```
 
 The structure of the results is exactly the same as with other records-retrieving requests:
 
 ```python
->>> print json.dumps(result["hits"]["hits"][0], indent=4)
+>>> print(json.dumps(result["hits"]["hits"][0], indent=4))
 {
     "files": [
         {
@@ -132,7 +132,7 @@ To retrieve the community metadata schema, use the `/api/communities/<community_
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/communities/e9b9792e-79fb-4b07-b6b4-b9c2bd06d095/schemas/last')
 >>> result = json.loads(r.text)
->>> print json.dumps(result["json_schema"], indent=4)
+>>> print(json.dumps(result["json_schema"], indent=4))
 {
     "allOf": [
         {

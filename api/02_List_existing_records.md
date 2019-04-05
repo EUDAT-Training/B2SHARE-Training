@@ -23,7 +23,7 @@ B2SHARE also returns the total number of records in the service:
 
 ```python
 >>> result = json.loads(r.text)
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 112
 ```
 
@@ -40,16 +40,16 @@ To check whether any records are actually retrieved, again the JSON package can 
 
 ```python
 >>> result = json.loads(r.text)
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 112
->>> print len(result["hits"]["hits"])
+>>> print(len(result["hits"]["hits"]))
 10
 ```
 
 The actual response text is very long and therefore not very usable yet since it cannot be interpreted as a data structure:
 
 ```python
->>> print type(r.text), len(r.text)
+>>> print(type(r.text), len(r.text))
 <type 'unicode'> 15126
 ```
 
@@ -70,9 +70,9 @@ Again, the result is processed to ease interpretation:
 
 ```python
 >>> result = json.loads(r.text)
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 3
->>> print json.dumps(result["hits"]["hits"][0], indent=4)
+>>> print(json.dumps(result["hits"]["hits"][0], indent=4))
 {
     "updated": "2017-01-15T14:11:20.765092+00:00",
     "metadata": {
@@ -126,9 +126,9 @@ The payload needs to be altered by specifying a value for the parameter `q`, in 
 Checking the results reveals that over 30 records have been found and that the returned data is automatically paginated:
 
 ```python
->>> print result["hits"]["total"]
+>>> print(result["hits"]["total"])
 31
->>> print len(result["hits"]["hits"])
+>>> print(len(result["hits"]["hits"]))
 10
 ```
 

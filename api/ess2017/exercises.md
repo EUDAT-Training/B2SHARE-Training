@@ -33,18 +33,18 @@ After each request, check the status of your request by printing the request obj
 
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/communities')
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.status_code
+>>> print(r.status_code)
 200
 ```
 
 If the status code is in the range of 300 to 599, the request failed and needs to be investigated:
 
 ```python
->>> print r
+>>> print(r)
 <Response [404]>
->>> print r.reason
+>>> print(r.reason)
 NOT FOUND
 ```
 
@@ -62,7 +62,7 @@ or
 
 ```python
 >>> res = r.json()
->>> print res['hits']['total']
+>>> print(res['hits']['total'])
 12
 ```
 
@@ -80,7 +80,7 @@ Then load it in your Python session:
 ```python
 >>> f = open(‘token.txt’, ‘r’)
 >>> token = f.read().strip()
->>> print token
+>>> print(token)
 <token>
 ```
 
@@ -129,9 +129,9 @@ Tasks:
 
 ```python
 >>> r = requests.get(url)
->>> print r
+>>> print(r)
 <Response [200]>
->>> print r.text
+>>> print(r.text)
 {
 ...
 }
@@ -147,18 +147,18 @@ Tasks:
 
 ```python
 >>> res = r.json()
->>> print res['metadata']['ePIC_PID']
+>>> print(res['metadata']['ePIC_PID'])
 http://hdl.handle.net/11304/619eda56-100f-43f0-9e72-98a22792eb25
 ```
 
 - Display the value of the title, author and description metadata fields:
 
 ```python
->>> print res['metadata']['titles']
+>>> print(res['metadata']['titles'])
 [{u'title': u'RDA Foundation Governance Document'}]
->>> print res['metadata']['creators']
+>>> print(res['metadata']['creators'])
 [{u'creator_name': u'Research Data Alliance Council'}, {u'creator_name': u'RDA2'}]
->>> print res['metadata']['descriptions']
+>>> print(res['metadata']['descriptions'])
 [{u'description': u'A document describing the high-level structures of the Research Data Alliance Foundation. This document is separate from the regular governance document, which describes procedures and processes.', u'description_type': u'Abstract'}]
 ```
 
@@ -179,7 +179,7 @@ Tasks:
 - Determine the number of files stored in the record and store the file metadata in the variable `f`:
 
 ```python
->>> print len(res['files'])
+>>> print(len(res['files']))
 1
 >>> f = res['files'][0]
 ```
@@ -187,14 +187,14 @@ Tasks:
 - Locate the file bucket identifier for the file in the metadata and store it in the variable `bucket_id`:
 
 ```python
->>> print f['bucket']
+>>> print(f['bucket'])
 2686d997-87e2-457f-996e-436bb55a84af
 ```
 
 - Find the checksum of the file:
 
 ```python
->>> print f['checksum']
+>>> print(f['checksum'])
 md5:c8afdb36c52cf4727836669019e69222
 ```
 
@@ -212,14 +212,14 @@ md5:c8afdb36c52cf4727836669019e69222
 ```python
 >>> import md5
 >>> md5 = md5.md5(rf.content).hexdigest()
->>> print md5
+>>> print(md5)
 c8afdb36c52cf4727836669019e69222
 ```
 
 - Compare to the checksum provided:
 
 ```python
->>> print md5 == f['checksum'][4:]
+>>> print(md5 == f['checksum'][4:])
 True
 ```
 
@@ -240,7 +240,7 @@ Tasks:
 >>> url = 'https://trng-b2share.eudat.eu/api/communities'
 >>> r = requests.get(url)
 >>> res = r.json()
->>> print res['hits']['hits']
+>>> print(res['hits']['hits'])
 {
 ...
 }
@@ -249,7 +249,7 @@ Tasks:
 - Determine the number of existing communities
 
 ```python
->>> print res['hits']['total']
+>>> print(res['hits']['total'])
 12
 ```
 
@@ -276,7 +276,7 @@ Tasks:
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/records'
 >>> r = requests.get(url, params=params)
->>> print r
+>>> print(r)
 <Response [200]>
 >>> res = r.json()
 ```
@@ -284,14 +284,14 @@ Tasks:
 - Determine the number of records published under this community:
 
 ```python
->>> print res['hits']['total']
+>>> print(res['hits']['total'])
 689
 ```
 
 - Show the metadata of the first published record:
 
 ```python
->>> print res['hits']['hits'][0]
+>>> print(res['hits']['hits'][0])
 {
 ...
 }
@@ -310,7 +310,7 @@ Tasks:
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/communities/' + community_id + '/schemas/last'
 >>> r = requests.get(url)
->>> print r
+>>> print(r)
 <Response [200]>
 >>> res = r.json()
 ```
@@ -319,7 +319,7 @@ Tasks:
 
 ```python
 >>> schema = res['json_schema']['allOf'][0]
->>> print schema
+>>> print(schema)
 {
 ...
 }
@@ -328,7 +328,7 @@ Tasks:
 - Display the community-specific fields. These fields are stored in the second element of the 'allOf' field of the 'json_schema' dictionary. These fields won't be addressed in the remainder of the exercises, but are shown for clarity:
 
 ```python
->>> print res['json_schema']['allOf'][1]['properties']
+>>> print(res['json_schema']['allOf'][1]['properties'])
 {
 ...
 }
@@ -345,14 +345,14 @@ Tasks:
 - Determine the number of metadata schema fields defined:
 
 ```python
->>> print len(schema['properties'])
+>>> print(len(schema['properties']))
 24
 ```
 
 - Display all metadata fields defined in the schema:
 
 ```python
->>> print schema['properties'].keys()
+>>> print(schema['properties'].keys())
 [u'embargo_date', u'contributors', u'community', u'titles', u'descriptions', u'keywords', u'$schema', u'open_access', u'alternate_identifiers', u'_files', u'version', u'_deposit', u'disciplines', u'publisher', u'_oai', u'contact_email', u'publication_date', u'community_specific', u'publication_state', u'resource_types', u'language', u'license', u'_pid', u'creators']
 ```
 
@@ -361,14 +361,14 @@ Please note: the `$schema`, `_files`, `_deposit`, `_oai` and `_pid` are not to b
 - Determine the required metadata schema fields:
 
 ```python
->>> print schema['required']
+>>> print(schema['required'])
 [u'community', u'titles', u'open_access', u'publication_state', u'community_specific']
 ```
 
 - Determine the structure of the author, title and description field:
 
 ```python
->>> print simplejson.dumps(schema['properties']['titles'], indent=4)
+>>> print(simplejson.dumps(schema['properties']['titles'], indent=4))
 {
     "description": "The title(s) of the uploaded resource, or a name by which the resource is known.",
     "title": "Titles",
@@ -422,9 +422,9 @@ Tasks:
 ```python
 >>> r = requests.post('https://trng-b2share.eudat.eu/api/records/',
                     params=params, data=json.dumps(metadata), headers=header)
->>> print r
+>>> print(r)
 <Response [201]>
->>> print r.reason
+>>> print(r.reason)
 CREATED
 ```
 
@@ -435,14 +435,14 @@ Note the different response status code for the request.
 ```python
 >>> res = r.json()
 >>> record_id = res['id']
->>> print record_id
+>>> print(record_id)
 a766efd2e5d543968fff9dd7bf3783c5
 ```
 
 - Get the `publication_state` metadata value:
 
 ```python
->>> print res['metadata']['publication_state']
+>>> print(res['metadata']['publication_state'])
 draft
 ```
 
@@ -458,7 +458,7 @@ Tasks:
 
 ```python
 >>> filebucket_id = res['links']['files'].split('/')[-1]
->>> print filebucket_id
+>>> print(filebucket_id)
 f90aaf16-6bb0-44af-a345-aa492e10ca0e
 ```
 
@@ -485,7 +485,7 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 ```python
 >>> r = requests.put(res['links']['files'] + '/EUDAT-logo2011.jpg',
                     files=upload_file, params=params, headers=header)
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
@@ -493,7 +493,7 @@ f90aaf16-6bb0-44af-a345-aa492e10ca0e
 
 ```python
 >>> res = r.json()
->>> print json.dumps(res, indent=4)
+>>> print(json.dumps(res, indent=4))
 {
     "mimetype": "image/jpeg",
     "updated": "2017-07-04T20:39:12.524379+00:00",
@@ -538,7 +538,7 @@ Tasks:
 
 ```python
 >>> metadata_new['disciplines'] = ["1.4 → Humanities → Arts"]
->>> print json.dumps(metadata_new, indent=4)
+>>> print(json.dumps(metadata_new, indent=4))
 ...
 ```
 
@@ -547,7 +547,7 @@ Tasks:
 ```python
 >>> import jsonpatch
 >>> patch = jsonpatch.make_patch(metadata, metadata_new)
->>> print patch
+>>> print(patch)
 [{"path": "/descriptions", "value": [{"description": "Some description", "description_type": "Abstract"}], "op": "add"}, {"path": "/community_specific", "value": {}, "op": "add"}, {"path": "/disciplines", "value": ["1.4 → Humanities → Arts"], "op": "add"}]
 ```
 
@@ -564,7 +564,7 @@ Tasks:
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/records/' + record_id + "/draft"
 >>> r = requests.patch(url, data=patch.to_string(), params=params, headers=header)
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
@@ -593,7 +593,7 @@ Tasks:
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/records/' + record_id + "/draft"
 >>> r = requests.patch(url, data=commit, params=params, headers=header)
->>> print r
+>>> print(r)
 <Response [200]>
 ```
 
@@ -601,7 +601,7 @@ Tasks:
 
 ```python
 >>> res = r.json()
->>> print res['metadata']['publication_state']
+>>> print(res['metadata']['publication_state'])
 published
 ```
 
@@ -610,9 +610,9 @@ published
 - Check the DOI and ePIC PID:
 
 ```python
->>> print res['metadata']['ePIC_PID']
+>>> print(res['metadata']['ePIC_PID'])
 http://hdl.handle.net/0000/a766efd2e5d543968fff9dd7bf3783c5
->>> print res['metadata']['DOI']
+>>> print(res['metadata']['DOI'])
 http://doi.org/XXXX/b2share.a766efd2e5d543968fff9dd7bf3783c5
 ```
 

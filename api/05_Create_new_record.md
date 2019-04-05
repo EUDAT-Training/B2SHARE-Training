@@ -39,9 +39,9 @@ Please note the trailing slash (`/`) at the end of the URL. Without it, the requ
 On success, the response status code and text will be different this time:
 
 ```python
->>> print r
+>>> print(r)
 <Response [201]>
->>> print r.text
+>>> print(r.text)
 {
   "created": "2017-03-02T16:34:26.383505+00:00",
   "id": "b43a0e6914e34de8bd19613bcdc0d364",
@@ -74,14 +74,14 @@ Response code 201 indicates the draft record has been successfully created. The 
 ```python
 >>> result = json.loads(r.text)
 >>> recordid = result["id"]
->>> print recordid
+>>> print(recordid)
 b43a0e6914e34de8bd19613bcdc0d364
 ```
 
 The record is still in a draft state, as is indicated in the `publication_state` property:
 
 ```python
->>> print result["metadata"]["publication_state"]
+>>> print(result["metadata"]["publication_state"])
 draft
 ```
 
@@ -96,7 +96,7 @@ Files in records are placed in file buckets attached to a record with a specific
 
 ```python
 >>> filebucketid = result["links"]["files"].split('/')[-1]
->>> print filebucketid
+>>> print(filebucketid)
 0163d244-5845-40ca-899c-d1d0025f68aa
 ```
 
@@ -125,10 +125,10 @@ The complete put request looks as follows:
 If the request is successful, the result can be checked:
 
 ```python
->>> print r.status_code
+>>> print(r.status_code)
 200
 >>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
+>>> print(json.dumps(result, indent=4))
 {
     "mimetype": "text/plain",
     "updated": "2017-03-02T16:40:14.672198+00:00",
@@ -154,10 +154,10 @@ If the request fails, check the error by displaying the response text, for examp
 When the upload file is not accessible:
 
 ```python
->>> print r.status_code
+>>> print(r.status_code)
 400
 >>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
+>>> print(json.dumps(result, indent=4))
 {
     "status": 400,
     "message": "The browser (or proxy) sent a request that this server could not understand."
@@ -173,7 +173,7 @@ When all your files have been uploaded, you can check the draft record's current
 ```python
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/files/' + filebucketid, params=params)
 >>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
+>>> print(json.dumps(result, indent=4))
 {
     "max_file_size": 1048576000,
     "updated": "2017-03-02T16:42:48.980058+00:00",
@@ -246,9 +246,9 @@ To make the request, the file bucket record identifier of the draft record and t
 On a successful request, the response code should be 204 while there is no response message:
 
 ```python
->>> print r
+>>> print(r)
 <Response [204]>
->>> print r.text
+>>> print(r.text)
 
 ```
 
@@ -274,10 +274,10 @@ The final commit request will return the updated object metadata in case the req
 ```python
 >>> url = "https://trng-b2share.eudat.eu/api/records/" + recordid + "/draft"
 >>> r = requests.patch(url, data=commit, params=params, headers=header)
->>> print r
+>>> print(r)
 <Response [200]>
 >>> result = json.loads(r.text)
->>> print json.dumps(result, indent=4)
+>>> print(json.dumps(result, indent=4))
 {
     "updated": "2017-03-02T17:07:13.958052+00:00",
     "metadata": {
@@ -329,7 +329,7 @@ Please note that the file bucket identifier of the draft record differs from the
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records/' + recordid)
 >>> result = json.loads(r.text)
 >>> filebucket = result["links"]["files"]
->>> print filebucket
+>>> print(filebucket)
 https://trng-b2share.eudat.eu/api/files/c1422a22-b8d4-42d6-9e94-1e5590294cb4
 ```
 
@@ -338,7 +338,7 @@ Using this URL the state of the file bucket of the published record can be inves
 ```python
 >>> r = requests.get(filebucket)
 >>> result = json.loads(r.text)
->>> print result["locked"]
+>>> print(result["locked"])
 True
 ```
 

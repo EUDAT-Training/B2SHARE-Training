@@ -29,28 +29,25 @@ URL | Description
 
 Using Python, a user can request all kinds of different data. For a quick start, refer to the [Testing your token](00_Getting_your_access_token.md#testing-your-token) guide.
 
-Each allowed request is described below as follows:
-
-Parameter | Description
---------- | -----------
-Description | Description of the function of the request
-URL path | Grammar for the allowed paths used together with one of the base URLs above
-HTTP method | Either HTTP protocols GET, POST, PATCH or DELETE methods
-Example | Example of usage
-
-Variables in the descriptions:
+### Variables in the descriptions
+In the table below, the variables that can be used in the provided examples are listed.
 
 Variable | Description
 -------- | -----------
 `community_id` | Identifier of a community defined in B2SHARE
 `record_id` | Identifier for a specific record, which can be in draft or published state
+`record_head_id` | Identifier for a group of records that are versions of each other
+`schema_id` | Identifier for a metadata schema in B2SHARE
 `file_bucket_id` | Identifier for a set of files. Each record has its own file set
+`file_name` | Name of a file in a specific file bucket
+`field_name` | Name of a metadata field of a metadata schema
 
 Refer to the [Request and Metadata Reference Guide](B_Request_and_Metadata_Reference_Guide.md) appendix to see which requests are available and what metadata schemas and fields are supported.
 
 ### Request responses
 In general, the following holds for HTTP request responses:
-- All response bodies are JSON encoded (UTF-8 encoded).
+- All responses have a status code, for more information see [here](https://eudat.eu/services/userdoc/b2share-http-rest-api#status-codes).
+- All response bodies are in JSON format and UTF-8 encoded.
 - A record is represented as a JSON object: `{ "field1": value, … }`
 - A collection of records is represented as a JSON array of objects: `[{ "field1": value, ... }, … ]}`
 - Timestamps are in UTC and formatted according to ISO 8601: `YYYY-MM-DDTHH:MM:SS+00:00`
@@ -62,9 +59,24 @@ If your target service does not have a proper certificate installed, in many cas
   InsecureRequestWarning)
 ```
 
-You can ignore this. All requests not using your token for authentication don't need to have verification turned off.
+You can ignore this. If you want to get rid of it, use the following Python code to do so:
 
-If your request fails with an HTTP response code 401, you need to update your access token on the B2SHARE website.
+```python
+>>> import
+>>> requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
+```
+
+### Errors
+If your request fails with an HTTP response code 401, you need to update your access token on the B2SHARE website. If your request was not accepted an error response will be returned which looks similar to this:
+
+```python
+{
+  "message": "The requested URL was not found on the server.  If you entered the URL manually please check your spelling and try again.",
+  "status": 404
+}
+```
+
+In this case, the requested objet was not found and a `404` status code was returned.
 
 ## A publication workflow
 

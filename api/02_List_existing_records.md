@@ -4,6 +4,7 @@ In this guide the retrieval of a list of existing records, possibly in paginated
 This guide covers:
 - Retrieving published records, either all or in paginated form
 - Retrieving your draft records
+- Retrieving community submitted draft records
 - Searching for specific records
 
 ### Setup your connection
@@ -56,7 +57,7 @@ Note:
 - B2SHARE will only return the latest versions of each record. See [Record versioning](08_Record_versioning.md) for more information.
 
 ### Retrieve a list of your draft records
-The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records accessible by you will be available. Note that you now need to include your access token in order to authenticate yourself.
+The [Create a new record](05_Create_new_record.md) guide explains the creation of draft records. Here, the retrieval of all your draft records as a list is shown, which works similar to the retrieval of all published records (see last section). Only the draft records created by you will be listed when you enable the `drafts` in the request parameters. Note that you now need to include your access token in order to authenticate yourself.
 
 ```python
 >>> payload = {'drafts': 1,
@@ -98,6 +99,19 @@ Again, the result is processed to ease interpretation:
 ```
 
 As is visible, the first hit has its `publication_state` metadata field is set to `draft`.
+
+### List all submitted draft records of a community
+Administrators of a community can list all draft records that have been submitted for review by any user that can publish under that same community. Similarly as to the previous section, the `drafts` flag need to be enabled and the community identifier (e.g. `f2e759f6-e6fe-48ef-ba28-81fb04d0a9bd`) needs to be added to the records listing request. Your access token is required as well so B2SHARE can identify you as a community administrator:
+
+```python
+>>> payload = {'drafts': 1,
+               'community': 'f2e759f6-e6fe-48ef-ba28-81fb04d0a9bd',
+               'access_token': token
+              }
+>>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=payload)
+```
+
+The resulting response will contain all the submitted draft records waiting for approval. The data looks similar to the result in the previous section.
 
 ### Searching for specific records
 If you want a list of all published records containing specific keywords or values, the API can be used to handle a query string which will filter the results.

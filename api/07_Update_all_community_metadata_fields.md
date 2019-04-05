@@ -1,5 +1,5 @@
-# Update all community metadata fields
-In most cases all metadata fields of a community metadata schema need to be filled in upon submit. In this guide, the community metadata schema definition is processed to obtain all required and optional fields. A JSON patch is prepared that will update these fields based on input from a locally-stored metadata file.
+# Update all record metadata fields
+In most cases all metadata fields of a community metadata schema need to be filled in upon submitting updated metadata for a record. In this guide, the community metadata schema definition is processed to obtain all required and optional fields. A JSON patch is prepared that will update these fields in a record based on input from a locally-stored metadata file.
 
 This guide covers:
 - Getting and analysing the community metadata schema definition

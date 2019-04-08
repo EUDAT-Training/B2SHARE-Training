@@ -1,0 +1,29 @@
+title Deposit dataset sequence
+
+Client->B2SHARE: Create draft record request
+B2SHARE->B2SHARE: Check community policies
+B2SHARE->B2SHARE: Authorise user
+B2SHARE->B2SHARE: Validate metadata
+B2SHARE->B2SHARE: Register new record
+B2SHARE-->Client: Return metadata
+opt zero or more
+    Client->B2SHARE: Add/update metadata request
+    B2SHARE->B2SHARE: Authorise user
+    B2SHARE->B2SHARE: Validate metadata
+    B2SHARE-->Client: Return metadata
+end
+opt once or more
+    Client->B2SHARE: Add/remove file request
+    B2SHARE->B2SHARE: Authorise user
+    B2SHARE->B2SHARE: Validate file
+    B2SHARE-->Client: Return metadata
+end
+Client->B2SHARE: Publish draft record request
+B2SHARE->B2SHARE: Validate metadata
+B2SHARE->EPIC: Create handle request
+EPIC->B2SHARE: Return handle
+B2SHARE->DOI: Create DOI request
+DOI->B2SHARE: Return DOI
+B2SHARE->B2SHARE: Store handles
+B2SHARE->B2SHARE: Update indexes
+B2SHARE-->Client: Return metadata

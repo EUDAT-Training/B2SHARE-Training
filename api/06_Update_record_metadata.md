@@ -195,7 +195,7 @@ See the next section how to handle multivalue metadata fields.
 ## Advanced metadata updates
 In the previous section, the default metadata fields of a record were updated using simple examples. In case the values of a multivalue metadata field must be managed, and likewise for the fields of a community-specific metadata schema, some additional steps need to be taken.
 
-#### Administering community-specific fields
+### Updating community-specific fields
 Most communities have community-specific fields defined in a separate metadata schema. The values for these fields of a given record can be found in the metadata response when requesting it through the API.
 
 In order to add, change or remove the value(s) of a community-specific metadata field, the specific metadata schema identifier used by the community is required. This identifier can be found by checking out the (draft) record's metadata values for community-specific fields of the _specific version_ of the community metadata schema used by that record. Unfortunately, currently it is a little cumbersome to find the right schema identifier, but it is possible.
@@ -254,8 +254,8 @@ This patch will set the string '41 24.2028' as the value for the community-speci
 
 See the [Submitting the patch](#submitting-the-patch) section how to submit this patch.
 
-#### Administering specific items in multivalue fields
-Metadata fields can be defined to be 'multivalue' fields meaning that this field can have multiple values of the same type, for example, the `titles` field is defined to be an array of objects, where each object contains a `title` and a `title_type` field.
+### Updating multivalue fields
+Metadata fields can be defined to be 'multivalue' fields meaning that this field can have multiple values of the same type. For example, the `titles` field is defined to be an array of objects, where each object contains a `title` and a `title_type` field.
 
 To change the current title(s) of a given (draft) record to a different single value, use the following patch:
 
@@ -273,6 +273,12 @@ Now to replace the second title, use the following patch, again not using an arr
 
 ```python
 >>> patch = [{"path": "/titles/1", "value": {"title": "Some title last"}, "op": "replace"}]
+```
+
+To immediately set three different titles, use the patch below. Note that the items in the array need to be unique, otherwise it will not be accepted by B2SHARE:
+
+```python
+>>> patch = [{"path": "/titles", "value": [{"title": "Some title first"}, {"title": "Some title second"}, {"title": "Some title other"}], "op": "add"}]
 ```
 
 For a complete overview on JSON Patch operations and structure, see the [official documentation](http://jsonpatch.com/#operations).

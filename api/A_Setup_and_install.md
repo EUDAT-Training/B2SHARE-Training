@@ -2,7 +2,7 @@
 This guide describes the necessary steps to make your machine ready for using Python and connecting to the B2SHARE service.
 
 ## Prerequisites
-You need a machine equipped with an internet connection and a recent version of the Python software package (version >= 2.7) and the Package Installer for Python (pip) which is installed with the newest versions of Python.
+You need a machine equipped with an internet connection and a recent version of the Python software package (version >= 3.4) and the Package Installer for Python (pip) which is installed with the newest versions of Python. If not, see below.
 
 Please make sure your system is up-to-date and has installed the latest security updates.
 
@@ -34,7 +34,7 @@ brew install python
 ```
 
 #### Windows
-For Windows-enabled machines, go to the Python [download page](https://www.python.org/downloads/). Download either the 2.7 or 3.x version and install it.
+For Windows-enabled machines, go to the Python [download page](https://www.python.org/downloads/). Download the 3.x version and install it.
 
 ### The Pip Installs Packages (pip) package installer
 Python comes with a great bundle of functionality and can be extended by installing Python packages. You can install Python packages by using the Pip Installs Packages (pip) tool.
@@ -62,11 +62,12 @@ The following packages are required:
 ```sh
 jsonpatch
 requests
+simplejson
 ```
 
 Use pip to install it:
 ```sh
-pip install jsonpatch requests
+pip install jsonpatch requests simplejson
 ```
 
 ## Machine setup

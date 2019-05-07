@@ -1,4 +1,4 @@
-# Community integration
+# Community administration
 Now that your B2SHARE instance is ready for use, communities can be added in order to allow the upload of new records.
 
 This guide covers:
@@ -15,13 +15,19 @@ Please make sure that you have following all previous submodules and that your B
 
 All commands below are using the [b2share tool](A_b2share_Tool_Reference.md#general-syntax) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the B2SHARE Docker container.
 
-### After care
+### After-care
 When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu).
 
 After your community is finalized, use the following command:
 
 ```sh
 $ b2share oai update_sets
+```
+
+If you have added or changed any of the communities, a message will be displayed:
+
+```
+Update description for set b1505f98-be67-481b-9db9-eb617f016245
 ```
 
 ## Listing existing communities
@@ -51,10 +57,10 @@ If you don't have a logo image yet, set the `logo` argument to an existing one, 
 The name and description of an existing community can be edited by:
 
 ```sh
-$ b2share communities edit <community_name> <option> <value>
+$ b2share communities edit <community_id> <option> <value>
 ```
 
-where `community_name` is the name of your community, `option` is either '--name' or '--description' and `value` is the new value for the corresponding field.
+where `community_id` is the identifier of your community, `option` is either '--name', '--description', '--logo' and `value` is the new value for the corresponding field. You can add multiple option-value pairs at once. If you add the '--clear-fields' option, any not argumented option will be emptied.
 
 ### Setting the community metadata schema
 Define a metadata schema for your community by preparing a JSON file which describes the fields of the metadata schema. The installation of B2SHARE provides several existing community JSON files that can be used as a starting point for your own community. Copy an existing one from `/eudat/b2share/demo/b2share_demo/data/communities/block_schemas/`, or create a new one with the following contents (including one metadata schema field specified):

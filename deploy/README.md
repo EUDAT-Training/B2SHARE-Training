@@ -24,7 +24,7 @@ Submodule | Contents
 [B2SHARE Administration](08_B2SHARE_administration.md) | Administering and testing your B2SHARE instance
 [User management](09_User_management.md) | Management of users in B2SHARE
 [Data structures](10_Data_structures.md) | In-depth descriptions of all B2SHARE data structures
-[Community integration](12_Community_integration.md) | Setting up your community details and metadata schema
+[Community administration](12_Community_administration.md) | Setting up your community details and metadata schema
 [b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
 [Troubleshooting and Known Issues](B_Troubleshooting_and_known_issues.md) | General troubleshooting information and known issues
 

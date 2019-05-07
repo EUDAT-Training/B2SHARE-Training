@@ -210,7 +210,7 @@ To determine the identifier of this specific schema version, find the URL of the
 https://trng-b2share.eudat.eu/api/communities/0c97d6d2-88da-473a-8d30-2f4e730ed4a2/schemas/0#/draft_json_schema
 ```
 
-Using this URL, the version identifier can be found by downloading the schema and using the right metadata path:
+Using this URL, the version identifier can be found by retrieving the schema and using the right metadata path:
 
 ```python
 >>> s = requests.get(r.json()['metadata']['$schema'])
@@ -242,7 +242,21 @@ To initialise the metadata field named `lat_max`, first examine the required str
 {'description': 'Maximum latitude of the dataset', 'title': 'Latitude Max', 'type': 'string'}
 ```
 
-A string is expected, so use the following JSON Patch (the specific format is not specified and will be left to the reader):
+Latitudes can be formatted in many ways. In this metadata schema the specific format is not specified and is therefore left to the reader to choose a format.
+
+Now to set the value for this field, one of two possible patches must be used depending on whether any of the community-specific fields have already been set before in the record. If none of these fields are present in the current metadata of the record, use a patch in the first following section. If already one or more fields are set for the community-specific metadata schema, use the patch in the section thereafter.
+
+##### Without existing community-specific fields
+In this case, the container structure 'community_specific' does not exist yet and therefore it needs to be created with the patch. A string is expected, so use the following JSON Patch:
+
+```python
+>>> patch = [{"path": "/community_specific", "value": {schemaid: {"lat_max": "41 24.2028"}}, "op": "add"}]
+>>> print(patch)
+[{'path': '/community_specific', 'value': {'d562bab2-54b8-46f9-9ba8-f6e7f77ef5c5': {'lat_max': '41 24.2028'}}, 'op': 'add'}]
+```
+
+##### With existing community-specific fields
+A string is expected, so use the following JSON Patch:
 
 ```python
 >>> patch = [{"path": "/community_specific/" + schemaid + "/lat_max", "value": "41 24.2028", "op": "add"}]
@@ -250,8 +264,9 @@ A string is expected, so use the following JSON Patch (the specific format is no
 [{'path': '/community_specific/d562bab2-54b8-46f9-9ba8-f6e7f77ef5c5/lat_max', 'value': '41 24.2028', 'op': 'add'}]
 ```
 
-This patch will set the string '41 24.2028' as the value for the community-specific field `lat_max`. If the value has already been set, you must use 'replace' as the value for the operation in the `op` subfield of the patch.
+Both of these patches will set the string '41 24.2028' as the value for the community-specific field `lat_max`. If the value has already been set, you must use 'replace' as the value for the operation in the `op` subfield of the patch.
 
+##### Submitting the patch
 See the [Submitting the patch](#submitting-the-patch) section how to submit this patch.
 
 ### Updating multivalue fields

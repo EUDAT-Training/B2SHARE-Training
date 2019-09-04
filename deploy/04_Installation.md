@@ -141,7 +141,7 @@ export B2SHARE_SECRET_KEY='some random key'
 export B2SHARE_JSONSCHEMAS_HOST='domain'
 ```
 
-- Set up the PostgreSQL database database name and credentials. Note these are not the credentials you created for B2ACCESS access.
+- Set up the PostgreSQL database database name and credentials. Note these are not the credentials you created for B2ACCESS access. You can fill in your own values here.
 
 ```sh
 export B2SHARE_POSTGRESQL_DBNAME='dbname'
@@ -175,7 +175,7 @@ export LOAD_DEMO_COMMUNITIES_AND_RECORDS=0
 
 Please note that this will load several communities and records. If you need to have clean install, leave it to 0.
 
-- Set the RabbitMQ user name and password:
+- Set the RabbitMQ user name and password. You can fill in your own values here.
 
 ```sh
 export B2SHARE_RABBITMQ_USER='user'

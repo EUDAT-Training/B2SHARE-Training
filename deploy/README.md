@@ -25,6 +25,7 @@ Submodule | Contents
 [User management](09_User_management.md) | Management of users in B2SHARE
 [Data structures](10_Data_structures.md) | In-depth descriptions of all B2SHARE data structures
 [Community administration](12_Community_administration.md) | Setting up your community details and metadata schema
+[Themeing](12_Themeing.md) | Themeing your instance and understanding the single page approach
 [b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
 [Troubleshooting and Known Issues](B_Troubleshooting_and_known_issues.md) | General troubleshooting information and known issues
 

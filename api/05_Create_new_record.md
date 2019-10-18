@@ -257,7 +257,29 @@ Metadata is added to a draft record while creating the initial object. By issuin
 
 Since this procedure is quite extensive, refer to the [Update record metadata](06_Update_record_metadata.md) guide to update your draft record's current metadata. This module can also be used to update metadata of existing records.
 
-To see how you can fully employ the metadat schema of a community, refer to the [Updating all community metadata fields](06_Update_record_metadata.md#updating-all-community-metadata-fields) section of that same guide.
+To see how you can fully employ the metadata schema of a community, refer to the [Updating all community metadata fields](06_Update_record_metadata.md#updating-all-community-metadata-fields) section of that same guide.
+
+### Add references to external files to your draft record
+It is possible to add files to a record that are not stored in B2SHARE, but this is not recommended due to the fact that B2SHARE cannot guarantee the existence of the files at an external location. Although EPIC PIDs must be used to reference to these files, B2SHARE cannot manage or update these PIDs when necessary. The service will also not generate these PIDs as needed, this is left to the user.
+
+Externally referenced files are not added as files, but as separate metadata and therefore need to be provided as a JSON Patch.
+
+If you have a list of files that can be accessed using an EPIC PID, a JSON Patch must used to add these files to the file listing of the B2SHARE record. For example, if two files are added, the list must be defined as follows:
+
+```python
+>>> external_files = [{
+        "key": "Filename1.dat",
+        "ePIC_PID": "prefix/suffix-file-name-1"
+    },
+    {
+        "key": "Filename2",
+        "ePIC_PID": "prefix/suffix-file-name-2"
+    }]
+```
+
+The file names (`key`) of each file does not necessarily have to match the file name provided in the EPIC PIDs, but this is highly recommended in order to not confuse any other user downloading these files.
+
+Using this list, create a JSON Patch as described in [Create a JSON Patch](06_Update_record_metadata.md#create-a-json-patch) and submit it following the steps described in [Submitting the patch](06_Update_record_metadata.md#submitting-the-patch).
 
 ### Publishing your draft record
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!

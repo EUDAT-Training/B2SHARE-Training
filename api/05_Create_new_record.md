@@ -279,7 +279,7 @@ If you have a list of files that can be accessed using an EPIC PID, a JSON Patch
 
 The file names (`key`) of each file does not necessarily have to match the file name provided in the EPIC PIDs, but this is highly recommended in order to not confuse any other user downloading these files.
 
-Using this list, create a JSON Patch as described in [Create a JSON Patch](06_Update_record_metadata.md#create-a-json-patch) and submit it following the steps described in [Submitting the patch](06_Update_record_metadata.md#submitting-the-patch).
+Using this list, create a JSON Patch as described in [Create a JSON Patch](06_Update_record_metadata.md#creating-a-json-patch) and submit it following the steps described in [Submitting the patch](06_Update_record_metadata.md#submitting-the-patch).
 
 ### Publishing your draft record
 The final step will complete the draft record by altering it using a patch request. After this request, the files of the record are immutable and your record is published!

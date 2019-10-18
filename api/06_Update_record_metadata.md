@@ -124,14 +124,14 @@ The serialized JSON patch is sent to the service in order to update the metadata
 First, the request headers need to be defined:
 
 ```python
->>> header = {'Content-Type': 'application/json-patch+json'}
+>>> headers = {'Content-Type': 'application/json-patch+json'}
 ```
 
 Now, the request response text shows the updated metadata:
 
 ```python
 >>> url = 'https://trng-b2share.eudat.eu/api/records/' + recordid + "/draft"
->>> r = requests.patch(url, data=strpatch, params=params, headers=header)
+>>> r = requests.patch(url, data=strpatch, params=params, headers=headers)
 >>> print(r)
 <Response [200]>
 >>> result = json.loads(r.text)
@@ -183,7 +183,7 @@ In case the patch request did not succeed (status code 400), an error descriptio
 
 ```python
 >>> patch = '[{"path": "/creators", "value": "B2SHARE-Training author", "op": "add"}]'
->>> r = requests.patch(url, data=patch, params=params, headers=header)
+>>> r = requests.patch(url, data=patch, params=params, headers=headers)
 >>> print(r.status_code)
 400
 >>> print(r.text)

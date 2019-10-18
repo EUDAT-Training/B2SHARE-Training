@@ -15,21 +15,6 @@ Please make sure that you have following all previous submodules and that your B
 
 All commands below are using the [b2share tool](A_b2share_Tool_Reference.md#general-syntax) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the B2SHARE Docker container.
 
-### After-care
-When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu).
-
-After your community is finalized, use the following command:
-
-```sh
-$ b2share oai update_sets
-```
-
-If you have added or changed any of the communities, a message will be displayed:
-
-```
-Update description for set b1505f98-be67-481b-9db9-eb617f016245
-```
-
 ## Listing existing communities
 To see a list of the currently known communities run the following command:
 
@@ -52,6 +37,21 @@ where `community_name` is the name of your community, `description` is the text 
 The image path needs to be relative to `$B2SHARE_UI_PATH/img/communities`, so a single file name of an image that resides in the `/eudat/b2share/webui/app/img/communities` folder in your B2SHARE Docker container.
 
 If you don't have a logo image yet, set the `logo` argument to an existing one, e.g. `eudat.png`. To update your logo see the [Updating your community logo](#updating-your-community-logo) section below.
+
+#### After adding or updating communities
+When new communities are added or existing ones are updated regarding community name and description, it is necessary to synchronize the list of communities with the OAI-PMH declared sets used for metadata harvesting by external metadata services like [B2FIND](https://b2find.eudat.eu).
+
+After your community is finalized, use the following command:
+
+```sh
+$ b2share oai update_sets
+```
+
+If you have added or changed any of the communities, a message will be displayed:
+
+```
+Update description for set b1505f98-be67-481b-9db9-eb617f016245
+```
 
 ## Configure your community
 The name and description of an existing community can be edited by:

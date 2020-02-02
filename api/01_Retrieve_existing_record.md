@@ -193,7 +193,7 @@ To avoid overwriting any existing files, a specific download folder is created i
 >>> os.mkdir('download')
 ```
 
-Using the `urllib` package, files can be directly downloaded per file URL. Files are downloaded through the API using the following URL:
+Files are downloaded through the API using the following URL structure:
 
 ```
 https://trng-b2share.eudat.eu/api/files/<FILE_BUCKET_ID>/<FILE_KEY>
@@ -202,7 +202,6 @@ https://trng-b2share.eudat.eu/api/files/<FILE_BUCKET_ID>/<FILE_KEY>
 Using the information from the previous section, a simple `for` loop downloads all files from the record and stores them under their original name:
 
 ```python
->>> import urllib
 >>> for f in result["files"]:
 ...     with open("download/" + f["key"], 'wb') as fout:
 ...             rf = requests.get("https://trng-b2share.eudat.eu/api/files/%s/%s" % (f["bucket"], f["key"]))

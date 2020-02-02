@@ -140,7 +140,7 @@ Each B2SHARE record is published under a community. A community is administered 
 See for more general information on user role administration the [User management](09_User_management.md) guide.
 
 ### Adding a community administrator
-In order to set users that have administrator privileges, first the community identifier `COMMUNITY_ID` needs to be determined. You can do this by [listing the communities](https://YOUR_B2SHARE/api/communities) through the B2SHARE REST API, find the community ID and run the following command:
+In order to set users that have administrator privileges, first the community identifier `COMMUNITY_ID` needs to be determined. You can do this by [listing the communities](https://trng-b2share.eudat.eu/api/communities) through the B2SHARE REST API, find the community ID and run the following command:
 
 ```sh
 $ b2share roles add <email_address> <role_name>

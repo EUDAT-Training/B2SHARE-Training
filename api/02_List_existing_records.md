@@ -31,12 +31,12 @@ To get all records, which potentially may take a long time, the request can be a
 
 ```python
 >>> params = {'size': 10,
-               'page': 1
-               }
+              'page': 1
+             }
 >>> r = requests.get('https://trng-b2share.eudat.eu/api/records', params=params)
 ```
 
-To check whether any records are actually retrieved, again the JSON package can be used. Indeed, 112 records were found, but only records 101 to 200.
+To check whether any records are actually retrieved, again the JSON package can be used. Indeed, 112 records were found, but only records 1 to 10 are returned due to the page size and offset.
 
 ```python
 >>> result = json.loads(r.text)

@@ -5,7 +5,7 @@
 
 Although this module is complete, it is subject to change due to possible future alterations of the B2SHARE deployment procedures. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [B2SHARE quick installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst).
 
-The information on this module is based on [B2SHARE version 2.1.2](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/v2.1.2). You can find the latest release [here](https://github.com/EUDAT-B2SHARE/b2share/releases/latest).
+The information on this module is based on [B2SHARE version 2.1.4](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/2.1.4). You can find the latest release [here](https://github.com/EUDAT-B2SHARE/b2share/releases/latest).
 
 ### Prerequisites
 This training modules assumes you have knowledge about using and configuring Linux environments, Docker image handling and command-line interfaces.
@@ -24,8 +24,9 @@ Submodule | Contents
 [B2SHARE Administration](08_B2SHARE_administration.md) | Administering and testing your B2SHARE instance
 [User management](09_User_management.md) | Management of users in B2SHARE
 [Data structures](10_Data_structures.md) | In-depth descriptions of all B2SHARE data structures
+[Metadata schemas](11_Metadata_schemas.md) | In-depth look at metadata and corresponding schemas of all B2SHARE data structures
 [Community administration](12_Community_administration.md) | Setting up your community details and metadata schema
-[Themeing](12_Themeing.md) | Themeing your instance and understanding the single page approach
+[Themeing](14_Themeing.md) | Themeing your instance and understanding the single page approach
 [b2share Tool Reference](A_b2share_Tool_Reference.md) | Complete reference for the b2share tool
 [Troubleshooting and Known Issues](B_Troubleshooting_and_known_issues.md) | General troubleshooting information and known issues
 

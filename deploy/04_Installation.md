@@ -81,7 +81,7 @@ Docker Compose can be installed by following the [Install Docker Compose](https:
 In short, to install Docker Compose, first download the [latest release](https://github.com/docker/compose/releases/latest) from GitHub:
 
 ```sh
-$ sudo curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 ```
 
 Then, apply the executable permissions to the downloaded binary:
@@ -94,7 +94,7 @@ Test Docker compose by running the following command:
 
 ```sh
 $ docker-compose --version
-docker-compose version 1.23.1, build b02f1306
+docker-compose version 1.25.5, build 8a1c60f6
 ```
 
 The output should be similar as shown above.

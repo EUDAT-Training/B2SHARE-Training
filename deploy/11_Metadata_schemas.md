@@ -4,6 +4,7 @@ This guide explores the concept of metadata and metadata schemas in B2SHARE.
 It covers:
 - Metadata schema structure
 - Metadata schema management
+- Root schema management
 - Metadata schema versioning
 
 ### Prerequisites
@@ -12,7 +13,7 @@ Please make sure you have completed the previous submodules and your instance is
 All commands below are using the [b2share tool](A_b2share_Tool_Reference.md#general-syntax) after successfully [entering](08_Configuration.md#entering-the-docker-container-environment) the B2SHARE Docker container.
 
 ## Metadata schema structure
-In B2SHARE the concept of a metadata schema is the bundling of one or more metadata blocks that contain definitions for one or more metadata fields. Each metadata field can be used to annotate a given record and its data according to specific type and formatting rules.
+In B2SHARE the concept of a metadata schema is the bundling of one or more metadata block schemas that contain definitions for one or more metadata fields. Each metadata field can be used to annotate a given record and its data according to specific type and formatting rules.
 
 By default, a metadata schema contains the root schema block that defines the basic metadata fields based on the DataCite metadata schema definition. Every record in B2SHARE always adheres to this default schema, and optionally to the added block schemas specified by a community. The EUDAT community in B2SHARE only contains this default root schema block.
 
@@ -85,3 +86,42 @@ Block schema: 3a1f1dcf-d78a-4d56-a9e4-f5b00c1b93ae, version url: https://<FQDN>/
 ```
 
 The last line divulges the currently used version, in this case 5.
+
+## Root schema management
+By default, the code repository of B2SHARE provides a single root schema (version 0) that will be loaded after setting up the service using the provided scripts or by running the following command in the B2SHARE docker container:
+
+```
+$ b2share schemas init
+```
+
+If you have added newer versions next to the one provided, they will be loaded as well, provided that they are compatible with the previous versions of the root schema. See also the next section.
+
+### Adding a new root schema version
+To add a new version of your root schema, duplicate the latest version of all existing root schema files in the [root schemas folder](https://github.com/EUDAT-B2SHARE/b2share/tree/master/b2share/modules/schemas/root_schemas) in the B2SHARE code repository.
+
+All metadata fields of a newer version of the root schema must be compatible with the previous version, i.e. at least the type and internal field name must be the same for every field. Any other information (descriptions, enumerations, required fields and presentation) can be adapted as needed.
+
+Run the following command to add your new version:
+
+```
+$ b2share schemas init
+```
+
+**Further implications**
+
+Please be aware that any new root schema version will not be automatically used by existing communities and/or records. Therefore if you add a new root schema version, you need to update the exisitng communities. Existing records do not need to be changed, but they will use the root schema version at the time when they were created.
+
+#### Upgrading existing communities
+For communities, please update the used root schema version in the database. Log in to your database, connect to the `invenio` database and list the community table:
+
+```sql
+select * from b2share_community_schema_version;
+```
+
+The `root_schema` column indicates the used root schema version, which is `0` by default. To upgrade a community to a newer root schema version, simply change the value in this column, e.g. for root schema version `1` for community with identifier `4ba7c0fd-1435-4313-9c13-4d888d60321a`:
+
+```sql
+update b2share_community_schema_version set root_schema=1 where community='4ba7c0fd-1435-4313-9c13-4d888d60321a';
+```
+
+If you now load the landing page of that community, you will see the root schema fields have been updated. Any newly created record will be annotated using the new root schema version.

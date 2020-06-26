@@ -196,11 +196,19 @@ See the next section how to handle multivalue metadata fields.
 In the previous section, the default metadata fields of a record were updated using simple examples. In case the values of a multivalue metadata field must be managed, and likewise for the fields of a community-specific metadata schema, some additional steps need to be taken.
 
 ### Updating community-specific fields
-Most communities have community-specific fields defined in a separate metadata schema. The values for these fields of a given record can be found in the metadata response when requesting it through the API.
+Most communities have community-specific fields defined in a separate metadata schema block. The values for these fields of a given record can be found in the metadata response when requesting it through the API.
 
-In order to add, change or remove the value(s) of a community-specific metadata field, the specific metadata schema identifier used by the community is required. This identifier can be found by checking out the (draft) record's metadata values for community-specific fields of the _specific version_ of the community metadata schema used by that record. Unfortunately, currently it is a little cumbersome to find the right schema identifier, but it is possible.
+In order to add, change or remove the value(s) of a community-specific metadata field, the specific community metadata schema identifier used by the community is required. This identifier can be found by checking out the (draft) record's metadata values for community-specific fields of the _specific version_ of the community metadata schema used by that record.
 
-To determine the identifier of this specific schema version, find the URL of the metadata schema used in the record's metadata:
+**Important notes**
+- Do not confuse the community metadata schema identifier with the community identifier, it won't work with the procedures below
+- The community metadata schema identifier can be found by visiting the community landing page and scrolling to the last section where the identifier is displayed ('Block schema identifier')
+- The community metadata schema identifier might change when the corresponding schema is updated. Therefore:
+  - When creating new records _after_ the schema changes, make sure to use the latest identifier
+  - For records that were created _before_ the schema changed, make sure to use the identifier that is displayed in the record's metadata that corresponds to this old version of the schema
+
+#### Determining the community metadata schema identifier via the API
+To determine the identifier of this specific community schema version via the REST API, find the URL of the metadata schema used in the record's metadata:
 
 ```python
 >>> recordid = '9e2f1bfa34ca402c96ff37b201b1a3aa'
@@ -244,7 +252,10 @@ To initialise the metadata field named `lat_max`, first examine the required str
 
 Latitudes can be formatted in many ways. In this metadata schema the specific format is not specified and is therefore left to the reader to choose a format.
 
-Now to set the value for this field, one of two possible patches must be used depending on whether any of the community-specific fields have already been set before in the record. If none of these fields are present in the current metadata of the record, use a patch in the first following section. If already one or more fields are set for the community-specific metadata schema, use the patch in the section thereafter.
+#### Setting a value for a community metadata schema field
+Now to set the value for this field, one of two possible patches must be used depending on whether any of the community-specific fields have already been set before in the record.
+
+If none of these fields are present in the current metadata of the record, use a patch in the first following section. If already one or more fields are set for the community-specific metadata schema, use the patch in the section thereafter.
 
 ##### Without existing community-specific fields
 In this case, the container structure 'community_specific' does not exist yet and therefore it needs to be created with the patch. A string is expected, so use the following JSON Patch:

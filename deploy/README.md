@@ -1,11 +1,9 @@
 # B2SHARE Deployment Training Module
-** UNDER CONSTRUCTION **
-
 <img align="right" src="../img/B2SHARE-logo.png" alt="B2SHARE logo" text="B2SHARE logo"> This training module provides training material and in-depth information in deploying your own instance of the [EUDAT B2SHARE service](https://b2share.eudat.eu). It covers complete installation and configuration of the B2SHARE software stack and provides step-by-step examples.
 
 Although this module is complete, it is subject to change due to possible future alterations of the B2SHARE deployment procedures. As soon as there are updates, this training module will be updated as well. In the meantime, you can check out the currently up-to-date [B2SHARE quick installation guide](https://github.com/EUDAT-B2SHARE/b2share/blob/evolution/INSTALL.rst).
 
-The information on this module is based on [B2SHARE version 2.1.4](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/2.1.4). You can find the latest release [here](https://github.com/EUDAT-B2SHARE/b2share/releases/latest).
+The information on this module is based on [B2SHARE version 2.2.0](https://github.com/EUDAT-B2SHARE/b2share/releases/tag/v2.2.0). You can find the latest release [here](https://github.com/EUDAT-B2SHARE/b2share/releases).
 
 ### Prerequisites
 This training modules assumes you have knowledge about using and configuring Linux environments, Docker image handling and command-line interfaces.
